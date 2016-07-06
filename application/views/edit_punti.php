@@ -172,77 +172,52 @@ License: You must have a valid license purchased only from themeforest(the above
                     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
                     <script src="//code.jquery.com/ui/1.11.0/jquery-ui.js"></script>
 
-                    <form action="<?php echo base_url(); ?>punti/filtriavanzati" method="post" >
-                        <div class="row" >
-
-                            <div class="col-md-12" >
-                                <h2 style="color: #4B8DF8; font-weight: bold;" >Filtri avanzati:</h2>
-                            </div>
-
-                            <div class="col-md-2" >
-                                <div class="form-group">
-                                    <label>Categoria pazienti:</label>
-                                    <select name="categoria_pazienti" class="form-control">
-
-                                        <option value="0" <?php if (!isset($filtro_categoria_pazienti)) echo "selected"; ?> > Tutte</option>
-
-                                        <?php foreach ($all_categorie_pazienti->result() as $categoria): ?>
-                                            <option value="<?php echo $categoria->id_categoria; ?>" <?php if (isset($filtro_categoria_pazienti) && $filtro_categoria_pazienti == $categoria->id_categoria) echo "selected"; ?> ><?php echo $categoria->nome_categoria; ?></option>
-                                        <?php endforeach; ?>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-2" >
-                                <label>Nome paziente:</label>
-                                <input type="text" class="form-control" name="nome" <?php if (isset($filtro_nome)) echo "value=" . $filtro_nome . ""; ?> >
-                            </div>
-                            <div class="col-md-2" >
-                                <label>Cognome paziente:</label>
-                                <input type="text" class="form-control" name="cognome" <?php if (isset($filtro_cognome)) echo "value=" . $filtro_cognome . ""; ?> >
-                            </div>
-
-                        </div>
-
-                        <br>
-
-                        <div class="row" >
-                            <div class="col-md-12" >
-                                <button type="submit" name="submit_filter" value="submit_filter" class="btn blue">Applica Filtri</button>
-
-                                </form>
-                                <a href="<?php echo base_url(); ?>punti" class="btn red" >Annulla Filtri</a>
-                            </div>
-                        </div>
 
 
 
                         <br>
+                        <!-- Se viene settato il punto o vengono azzerati -->
+                          <?php if ($modifica_avvenuta):  ?>
+                          <div class="row" >
+                          	<div class="input-icon margin-top-10">
+                              <div class="note note-success">
+              				              <h4 class="block">Punti aggiornati!</h4>
+              				                  <p>
+              				                        Punti aggiornati correttamente.
+              				                  </p>
+              			          </div>
+                              </div>
+                          </div>
+                        <?php endif; ?>
+                      <?php if($errore) : ?>
+                            <div class="row" >
+                            	<div class="input-icon margin-top-10">
+                                <div class="note note-danger">
+                				              <h4 class="block">Errore!</h4>
+                				                  <p>
+                				                        Errore nell'aggiornamento dei punti.
+                				                  </p>
+                			          </div>
+                              </div>
+                            </div>
+
+                        <?php endif; ?>
 
 
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-users"></i>Tabella Pazienti
+                                    <i class="fa fa-users"></i>Cliente
                                 </div>
 
                             </div>
                             <div class="portlet-body flip-scroll">
 
-                                <?php if (isset($ricerca_search) && isset($pazienti) == false): ?>
-                                    <div class="row" style="text-align: center;" >
-                                        <img id="loading_gif" src="/assets/loading.gif" />
-                                        <h3 id="loading_text" style="color: #4B8DF8;" ><b>Caricamento in corso, attendere...</b></h3>
-                                    </div>
-                                    <br>
-                                <?php endif; ?>
+
 
                                 <table class="table table-bordered table-striped table-condensed flip-content">
                                     <thead class="flip-content">
                                         <tr>
-                                            <th>
-                                                Categoria
-                                            </th>
                                             <th>
                                                 Cognome
                                             </th>
@@ -257,29 +232,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </thead>
                                     <tbody id="table_body" >
 
-                                        <?php if (isset($pazienti)): ?>
-                                            <?php foreach ($pazienti as $row): ?>
+                                        <?php if (isset($paziente)): ?>
                                                 <tr>
                                                     <td>
-                                                        <?php if (isset($current_categorie_pazienti[$row->id])) echo $current_categorie_pazienti[$row->id]["nome_categoria"]; ?>
+                                                        <?php echo $paziente->cognome; ?>
                                                     </td>
                                                     <td>
-                                                        <?php echo $row->cognome; ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php echo $row->nome; ?>
+                                                        <?php echo $paziente->nome; ?>
                                                     </td>
 
                                                     <td>
-                                                      <?php echo array_pop($punti); ?>
-                                                    </td>
-                                                    <td class="numeric" style="text-align: center;" >
-                                                        <a href="<?php echo base_url(); ?><?php echo "punti/edit/" . $row->id; ?>" title="Modifica" class="btn red">
-                                                            <i class="fa fa-edit"></i>
-                                                        </a>
+                                                      <?php echo $punti; ?>
                                                     </td>
                                                 </tr>
-                                            <?php endforeach; ?>
                                         <?php endif; ?>
 
 
@@ -292,46 +257,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
 
-
-                        <?php if (!isset($ricerca_search)): ?>
-                            <div class="row">
-                                <div class="col-md-6 col-sm-12" >
-                                    <div class="dataTables_paginate paging_bootstrap_extended">
-                                        <div class="pagination-panel"> Pagina
-
-                                            <a href="<?php echo "/punti/view/" . ($pagina_attuale - 1); ?>" class="btn btn-sm default prev <?php if ($pagina_attuale == 1) echo "disabled"; ?>" title="Prev"><i class="fa fa-angle-left"></i></a>
-                                            <span><?php echo $pagina_attuale; ?></span>
-                                            <a href="<?php echo "/punti/view/" . ($pagina_attuale + 1); ?>" class="btn btn-sm default next <?php if ($pagina_attuale == $pagine_totali) echo "disabled"; ?>" title="Next"><i class="fa fa-angle-right"></i></a> di <span class="pagination-panel-total"><?php echo $pagine_totali; ?></span></div></div>
+                        <form class="" action="index.html" method="post">
 
 
-                                </div>
-
-                                <div class="col-md-3 col-sm-12" >
-                                    <form action="<?php echo base_url(); ?>punti/view" method="post" >
-                                        <input type="text" class="form-control" style="width: 70%; float: left;" name="numero_pagina" placeholder="inserisci numero pagina">
-                                        <button type="submit" class="btn green">Vai</button>
-                                    </form>
-                                </div>
-
-                            </div>
+                        <!-- Bottone per aggiungere un punto o azzerarli -->
+                        <?php if ($punti < 10): ?>
+                          <!-- <input type="number" name="punto" value="1" hidden="hidden"> -->
+                          <button  class="btn btn-default" formaction="/punti/edit/<?php echo $paziente->id; ?>" formmethod="post" type="submit" name="punto" value="1" >Aggiungi un punto</button>
+                        <?php else: ?>
+                          <button class="btn btn-default" formaction="/punti/edit/<?php echo $paziente->id; ?>" formmethod="post" type="submit" name="azzera" value="1">Azzera punti</button>
                         <?php endif; ?>
+                        </form>
 
-
-
-                        <div class="clearfix">
-                        </div>
-
-
-
-
-                        <div class="clearfix">
-                        </div>
-                        <!--steph: qui va eliminato -->
-                        <div class="clearfix">
-                        </div>
-
-                        <div class="clearfix">
-                        </div>
 
 
                 </div>
@@ -358,29 +295,6 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
         <!-- END FOOTER -->
 
-        <script>
-
-        //caricamento dei filtri
-        var filtro_categoria_pazienti = "<?php echo $filtro_categoria_pazienti; ?>";
-        var filtro_nome = "<?php echo $filtro_nome ?>";
-        var filtro_cognome = "<?php echo $filtro_cognome; ?>";
-        var filtro_luogo_nascita = "<?php echo $filtro_luogo_nascita; ?>";
-        var filtro_indirizzo = "<?php echo $filtro_indirizzo; ?>";
-        var filtro_codice_fiscale = "<?php echo $filtro_codice_fiscale; ?>";
-        var filtro_telefono = "<?php echo $filtro_telefono; ?>";
-        var filtro_email = "<?php echo $filtro_email; ?>";
-
-
-            $.post("<?php echo base_url(); ?>punti/esegui_query_pazienti", {filtro_categoria_pazienti: filtro_categoria_pazienti, filtro_nome: filtro_nome, filtro_cognome: filtro_cognome, filtro_luogo_nascita: filtro_luogo_nascita, filtro_indirizzo: filtro_indirizzo, filtro_codice_fiscale: filtro_codice_fiscale, filtro_telefono: filtro_telefono, filtro_email: filtro_email}, function (data) {
-                        $("#table_body").html(data);
-
-                        $("#loading_gif").css("display", "none");
-                        $("#loading_text").css("display", "none");
-                    });
-
-
-
-        </script>
 
 
                     <!-- END PAGE CONTENT-->

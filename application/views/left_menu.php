@@ -70,6 +70,13 @@
     </li>
 
     <li class="last ">
+        <a href="<?php echo base_url(); ?>punti">
+            <i class="icon-user"></i>
+            <span class="title">Punti</span>
+        </a>
+    </li>
+
+    <li class="last ">
         <a href="#">
             <i class="icon-folder"></i>
             <span class="title">Magazzino</span>
