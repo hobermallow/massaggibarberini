@@ -10,10 +10,26 @@ class acl_app extends CI_Model  {
     $this->load->helper('date');
   }
 
+  public function get_points_by_api_key($api_key) {
+    // ricavo l'id dell'utente a partire dall'api_key
+    $this->db->where(['api_key' => $api_key ]);
+    $query = $this->db->get('pazienti');
+    $query = $query->row();
+    $id = $query->id;
+    //seleziono l'id dell'utente
+    $this->db->where(['id_paziente' => $id ]);
+    //seleziono la somma del valore 'punti'
+    $this->db->select_sum('punti', 'punti_tot');
+    //eseguo la query
+    $query = $this->db->get('punti_fedelta');
+    $query = $query->row();
+    return $query->punti_tot != NULL ? $query->punti_tot : 0;
+
+  }
   public function primo_login_app($username, $password) {
 
       //Controllo se lo username sia gia esistente
-      $query = $this->db->query("SELECT * FROM users WHERE username = '$username'");
+      $query = $this->db->query("SELECT * FROM pazienti WHERE username = '$username'");
       if($query->num_rows() > 0) {
         //nome utente gia esistente
         $query = $query->row();
@@ -32,7 +48,7 @@ class acl_app extends CI_Model  {
             //inserisco api_key nel db
             $this->db->where('id', $id);
             //booleano che controlla il successo dell'operazione di inserimento nel db dell'api_key
-            $bool = $this->db->update('users', ['api_key' => $api_key]);
+            $bool = $this->db->update('pazienti', ['api_key' => $api_key]);
           }
           //altrimenti, se l'api_key e' gia settata
           else {

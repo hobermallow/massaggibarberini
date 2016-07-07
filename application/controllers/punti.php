@@ -32,7 +32,7 @@ class Punti extends CI_Controller {
     // per ogni paziente, ricavo i punti
     foreach ($view['pazienti'] as $paziente) {
       //ad ogni paziente aggiungo il punteggio accumulato
-      $punti[] = $this->punti_data->get_punti_user_by_id($paziente->id);
+      $punti[] = $this->punti_data->get_punti_paziente_by_id($paziente->id);
     }
     //inserisco i punti nei dati da passare alla view
     $view['punti'] = $punti;
@@ -115,7 +115,7 @@ class Punti extends CI_Controller {
       $punti = array();
       //per ogni paziente, calcolo il punteggio
       foreach ($view['pazienti'] as $paziente) {
-        $punti[] = $this->punti_data->get_punti_user_by_id($paziente->id);
+        $punti[] = $this->punti_data->get_punti_paziente_by_id($paziente->id);
       }
       $view["current_categorie_pazienti"] = $this->categorie_pazienti_data->get_categorie_by_query_pazienti_array($view["pazienti"]);
 
@@ -179,7 +179,7 @@ class Punti extends CI_Controller {
           $punti = array();
           //per ogni paziente, calcolo il punteggio
           foreach ($view['pazienti'] as $paziente) {
-            $punti[] = $this->punti_data->get_punti_user_by_id($paziente->id);
+            $punti[] = $this->punti_data->get_punti_paziente_by_id($paziente->id);
           }
           $view['punti'] = $punti;
           $view["pagina_attuale"] = $page;
@@ -204,7 +204,7 @@ class Punti extends CI_Controller {
                   // per ogni paziente, ricavo i punti
                   foreach ($view['pazienti'] as $paziente) {
                     //ad ogni paziente aggiungo il punteggio accumulato
-                    $punti[] = $this->punti_data->get_punti_user_by_id($paziente->id);
+                    $punti[] = $this->punti_data->get_punti_paziente_by_id($paziente->id);
                   }
                   //inserisco i punti nei dati da passare alla view
                   $view['punti'] = $punti;
@@ -253,9 +253,9 @@ class Punti extends CI_Controller {
         }
     }
     //ricavo i punti del paziente
-    $punti = $this->punti_data->get_punti_user_by_id((int)$id);
+    $punti = $this->punti_data->get_punti_paziente_by_id((int)$id);
     $view['punti'] = $punti;
-    
+
     $this->load->view('edit_punti', $view);
 
   }

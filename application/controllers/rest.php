@@ -34,4 +34,21 @@ class rest extends CI_Controller {
     }
 
   }
+
+  public function getpoints()  {
+    // $response = array();
+    // if($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //   $this->output->set_header('Content-Type: application/json');
+    //   $api_key = $this->input->post('api_key');
+    //
+    //   $response['points'] = $this->acl_app->get_points_by_api_key($api_key);
+    //
+    //   echo json_encode($response);
+    // }
+    //
+    // else {
+    //   $response['error'] = TRUE;
+    //    echo json_encode($response);
+    // }
+    echo "diopp";
 }

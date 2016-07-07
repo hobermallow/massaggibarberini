@@ -6,7 +6,7 @@
 class punti_data extends CI_Model  {
 
   /* funzione che ritorna il totale dei punti accumulati da un utente */
-  public function get_punti_user_by_id($id) {
+  public function get_punti_paziente_by_id($id) {
     //seleziono l'id dell'utente
     $this->db->where(['id_paziente' => $id]);
     //seleziono la somma del valore 'punti'
@@ -17,7 +17,7 @@ class punti_data extends CI_Model  {
     return $query->punti_tot != NULL ? $query->punti_tot : 0;
   }
 
-  public function insert_punti_user_by_id_and_punti($id, $punti)  {
+  public function insert_punti_paziente_by_id_and_punti($id, $punti)  {
     //TRUE se operazione andata a buon fine, altrimenti FALSE
     return $this->db->insert('punti_fedelta', ['id_paziente' => $id, 'punti' => $punti]);
   }
@@ -25,7 +25,7 @@ class punti_data extends CI_Model  {
   public function aggiorna_punti($id)  {
     $return = false;
     if($this->input->post("punto") != NULL) {
-      $return = $this->insert_punti_user_by_id_and_punti($id, 1);
+      $return = $this->insert_punti_paziente_by_id_and_punti($id, 1);
     }
     if($this->input->post('azzera') != NULL) {
       $this->db->where(['id_paziente' => $id]);
