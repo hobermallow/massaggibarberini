@@ -22,9 +22,10 @@ class categorie_pazienti_data extends CI_Model {
 				//ottengo la prima categorie del paziente
 				$categorie_del_paziente = $this->db->query("
 					SELECT * FROM associazioni_pazienti_categorie
-					LEFT JOIN categorie_pazienti
+				  JOIN categorie_pazienti
 					ON associazioni_pazienti_categorie.id_categoria=categorie_pazienti.id_categoria
-					WHERE associazioni_pazienti_categorie.id_paziente=".$paziente->id."
+          join relationship_categorie_studi on relationship_categorie_studi.id_categoria = categorie_pazienti.id
+					WHERE associazioni_pazienti_categorie.id_paziente= $paziente->id and relationship_categorie_studi.id_studio = $this->session->userdata('id_studio')
 					LIMIT 1
 				");
 
@@ -53,14 +54,16 @@ class categorie_pazienti_data extends CI_Model {
 
 		if( $query_pazienti->num_rows() > 0 )
 		{
+      $id_studio =$this->session->userdata('id_studio');
 			foreach( $query_pazienti->result() as $paziente )
 			{
 				//ottengo la prima categorie del paziente
 				$categorie_del_paziente = $this->db->query("
 					SELECT * FROM associazioni_pazienti_categorie
-					LEFT JOIN categorie_pazienti
+					JOIN categorie_pazienti
 					ON associazioni_pazienti_categorie.id_categoria=categorie_pazienti.id_categoria
-					WHERE associazioni_pazienti_categorie.id_paziente=".$paziente->id."
+          join relationship_categorie_studi on relationship_categorie_studi.id_categoria = categorie_pazienti.id_categoria
+					WHERE associazioni_pazienti_categorie.id_paziente= $paziente->id and relationship_categorie_studi.id_studio = $id_studio
 					LIMIT 1
 				");
 
@@ -86,8 +89,8 @@ class categorie_pazienti_data extends CI_Model {
 
 		//escaping
 		$id_paziente = (int)$id_paziente;
-
-		$categorie_paziente = $this->db->query("SELECT id_categoria FROM associazioni_pazienti_categorie WHERE id_paziente=".$id_paziente." ");
+    $id_studio = $this->session->userdata('id_studio');
+		$categorie_paziente = $this->db->query("SELECT associazioni_pazienti_categorie.id_categoria as id_categoria FROM associazioni_pazienti_categorie join relationship_categorie_studi on relationship_categorie_studi.id_categoria = associazioni_pazienti_categorie.id_categoria  WHERE id_paziente=".$id_paziente." and relationship_categorie_studi.id_studio = $id_studio ");
 
 		foreach( $categorie_paziente->result() as $categoria )  {
 			$array_categorie[] = (int)$categoria->id_categoria;
@@ -103,13 +106,13 @@ class categorie_pazienti_data extends CI_Model {
   */
 	function get_count_pazienti_per_categoria( $all_categorie_pazienti ) {
 		$array_counter = array();
-
+    $id_studio = $this->session->userdata('id_studio');
 		//elaboro ogni singola categoria pazienti...
 		foreach( $all_categorie_pazienti->result() as $categoria )
 		{
 			$id_categoria = $categoria->id_categoria;
 
-			$pazienti_in_categoria = $this->db->query("SELECT COUNT(*) FROM associazioni_pazienti_categorie WHERE id_categoria=".$id_categoria." ");
+			$pazienti_in_categoria = $this->db->query("SELECT COUNT(*) FROM associazioni_pazienti_categorie join relationship_pazienti_studi on relationship_pazienti_studi.id_persona = associazioni_pazienti_categorie.id_paziente WHERE associazioni_pazienti_categorie.id_categoria=".$id_categoria." AND relationship_pazienti_studi.id_studio = $id_studio");
 			$pazienti_in_categoria = $pazienti_in_categoria->result_array();
 			$pazienti_in_categoria = $pazienti_in_categoria[0]["COUNT(*)"];
 
@@ -145,8 +148,11 @@ class categorie_pazienti_data extends CI_Model {
   */
 	function delete_categoria_pazienti( $id_categoria )  {
 		$id_categoria = (int)$id_categoria;
+    $id_studio = $this->session->userdata('id_studio');
+    //elimino tutti valori in associazioni_pazienti_categorie con l'id della categoria
+    $this->db->delete('associazioni_pazienti_categorie', ['id_categoria' => $id_categoria]);
     //Elimina la riga corrispondente alla categoria nella tabella relationship_categorie_studi (per la quale e' una foreign key)
-    $this->db->delete('relationship_categorie_studi','relationship_categorie_studi.id_categoria = '.$id_categoria);
+    $this->db->delete('relationship_categorie_studi',['id_categoria' => $id_categoria, 'id_studio' => $id_studio ]);
 		return $this->db->query("DELETE FROM categorie_pazienti WHERE id_categoria=".$id_categoria." ");
 	}
 

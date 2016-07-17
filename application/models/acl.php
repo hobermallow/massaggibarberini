@@ -377,13 +377,17 @@ class Acl extends CI_Model {
 
 	function delete_utente($id)
 	{
+		//prima cancello la relationship fra utente
+		$this->db->delete('relationship_users_studi', ['id_persona' => $id, 'id_studio' => $this->session->userdata('id_studio')]);
 		return $this->db->query("DELETE FROM users WHERE id=".$id." ");
 	}
 
 
 	function get_all_users()
 	{
-		return $this->db->query("SELECT * FROM users ");
+		Domini::aggiungi_join_relationship_categoria_studi_where_id_studio('users', $this->session->userdata('id_studio'));
+		return $this->db->get('users');
+		// return $this->db->query("SELECT * FROM users ");
 	}
 
 	function add_user($username, $password_md5, $tipoacc)
@@ -391,8 +395,10 @@ class Acl extends CI_Model {
 		//escaping
 		$username = $this->db->escape($username);
 		$password_md5 = $this->db->escape($password_md5);
-
-		return $this->db->query("INSERT INTO users (username, password, tipoacc) VALUES (".$username.", ".$password_md5.", ".$tipoacc.") ");
+		$this->db->query("INSERT INTO users (username, password, tipoacc) VALUES (".$username.", ".$password_md5.", ".$tipoacc.") ");
+		$id = $this->db->insert_id();
+		//lego l'utente appena creato allo studio
+		return $this->db->insert('relationship_users_studi', ['id_persona' => $id, 'id_studio' => $this->session->userdata('id_studio')]);
 	}
 
 	function update_user($id, $username, $password_md5, $tipoacc)
