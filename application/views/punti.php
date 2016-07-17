@@ -249,9 +249,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                             <th class="numeric">
                                                 Nome
                                             </th>
-                                            <th class="numeric">
-                                                Punti
-                                            </th>
+
+                                            <?php foreach ($categorie_punti as $row): ?>
+                                              <th>
+                                                <?php echo $row->categoria; ?>
+                                              </th>
+                                            <?php endforeach; ?>
 
                                         </tr>
                                     </thead>
@@ -269,10 +272,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <td>
                                                         <?php echo $row->nome; ?>
                                                     </td>
-
-                                                    <td>
-                                                      <?php echo array_pop($punti); ?>
-                                                    </td>
+                                                    <?php foreach (array_pop($punti) as $value): ?>
+                                                      <td>
+                                                        <?php echo $value; ?>
+                                                      </td>
+                                                    <?php endforeach; ?>
                                                     <td class="numeric" style="text-align: center;" >
                                                         <a href="<?php echo base_url(); ?><?php echo "punti/edit/" . $row->id; ?>" title="Modifica" class="btn red">
                                                             <i class="fa fa-edit"></i>

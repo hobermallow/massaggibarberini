@@ -1,4 +1,4 @@
-<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+﻿<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 /*
 | -------------------------------------------------------------------
 | DATABASE CONNECTIVITY SETTINGS
@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'web_app';
-$db['default']['password'] = 'web_app';
+$db['default']['password'] = 'l4o2K?3f';
 $db['default']['database'] = 'web_app';
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

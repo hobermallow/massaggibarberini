@@ -203,7 +203,15 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <?php endif; ?>
 
-
+                        <!-- Inizio select delle categorie -->
+                        <div class="form-group">
+                        <select class="form-control" name="categoria" form="aggiorna_punti">
+                          <option value="" selected >Seleziona categoria</option>
+                          <?php foreach ($categorie_punti as $row): ?>
+                            <option value="<?php echo $row->id; ?>" valo="<?php echo array_shift($punti); ?>" max-val="<?php echo $row->max_punti; ?>"><?php echo $row->categoria; ?></option>
+                          <?php endforeach; ?>
+                        </select>
+                        </div>
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
@@ -241,8 +249,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <?php echo $paziente->nome; ?>
                                                     </td>
 
-                                                    <td>
-                                                      <?php echo $punti; ?>
+                                                    <td id="punti">
                                                     </td>
                                                 </tr>
                                         <?php endif; ?>
@@ -257,19 +264,17 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
 
-                        <form class="" action="index.html" method="post">
+                        <form class="" action="index.html" method="post" id="aggiorna_punti">
 
-
+                          <input type="hidden" name="id_paziente" value="<?php echo $paziente->id; ?>">
                         <!-- Bottone per aggiungere un punto o azzerarli -->
-                        <?php if ($punti < 10): ?>
-                          <!-- <input type="number" name="punto" value="1" hidden="hidden"> -->
                           <button  class="btn btn-default" formaction="/punti/edit/<?php echo $paziente->id; ?>" formmethod="post" type="submit" name="punto" value="1" >Aggiungi un punto</button>
-                        <?php else: ?>
-                          <button class="btn btn-default" formaction="/punti/edit/<?php echo $paziente->id; ?>" formmethod="post" type="submit" name="azzera" value="1">Azzera punti</button>
-                        <?php endif; ?>
+                          <button  class="btn btn-default" formaction="/punti/edit/<?php echo $paziente->id; ?>" formmethod="post" type="submit" name="azzera" value="1" >Azzera</button>
+                          <script type="text/javascript">
+                            $("[name='punto']").hide();
+                            $("[name='azzera']").hide();
+                          </script>
                         </form>
-
-
 
                 </div>
             </div>
@@ -281,6 +286,38 @@ License: You must have a valid license purchased only from themeforest(the above
         </div>
         <!-- END CONTAINER -->
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+        <script type="text/javascript">
+          jQuery(document).ready(function($){
+            // $('#button').show();
+            //esempi di funzioni
+            //impostazione di un attributo
+            // $('.classe').attr('title','ciao');
+            //salvo i valori dei punteggi
+            //update di un elemento
+            $('select[name=categoria]').change(function(e){
+              //valore del select:
+            // var valore = $(this).val();
+            //selettore per l'opzione selezionata nel select
+            var opzione = $(this).find('option:selected');
+            if(opzione.attr('value') == "") {
+              $('[name="punto"]').hide();
+              $('[name="azzera"]').hide();
+              $('#punti').text("0");
+            }
+            else if(parseInt(opzione.attr('valo')) < parseInt(opzione.attr('max-val'))) {
+              $('[name="punto"]').show();
+              $('[name="azzera"]').hide();
+              $('#punti').text(parseInt(opzione.attr('valo')));
+            }
+            else {
+              $('[name="azzera"]').show();
+              $('[name="punto"]').hide();
+              $('#punti').text(parseInt(opzione.attr('valo')));
+            }
+          });
+        });
+        </script>
 
         <!-- BEGIN FOOTER -->
         <div class="page-footer">

@@ -6,7 +6,7 @@
   </head>
   <body>
     <?php foreach ($pazienti as $paziente): ?>
-      <?php echo $paziente->nome." ".array_pop($punti)."<br\>" ?>
+      <?php echo $paziente->nome." ".$paziente->punti."<br\>" ?>
     <?php endforeach; ?>
   </body>
 </html>

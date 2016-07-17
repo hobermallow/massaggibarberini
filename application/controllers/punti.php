@@ -34,6 +34,8 @@ class Punti extends CI_Controller {
       //ad ogni paziente aggiungo il punteggio accumulato
       $punti[] = $this->punti_data->get_punti_paziente_by_id($paziente->id);
     }
+    //aggiungo le categorie dei pazienti
+    $view['categorie_punti'] = $this->punti_data->get_categorie_punti();
     //inserisco i punti nei dati da passare alla view
     $view['punti'] = $punti;
     //Azzero i filtri di ricerca
@@ -134,9 +136,11 @@ class Punti extends CI_Controller {
           echo $row->nome;
           echo '</td>';
 
-          echo '<td>';
-          echo array_pop($punti);
-          echo '</td>';
+          foreach (array_pop($punti) as $value) {
+            echo '<td>';
+            echo $value;
+            echo '</td>';
+          }
 
           echo '<td class="numeric" style="text-align: center;" >';
 
@@ -239,7 +243,9 @@ class Punti extends CI_Controller {
 
     //Se post -> aggiornamento punti
     if ($this->input->server('REQUEST_METHOD') == 'POST') {
-        $boolean = $this->punti_data->aggiorna_punti($id);
+        $id_paziente = $this->input->post('id_paziente');
+        $id_categoria = $this->input->post('categoria');
+        $boolean = $this->punti_data->aggiorna_punti($id_paziente, $id_categoria);
         if(!is_bool($boolean)) {
           $view["modifica_avvenuta"] = true;
         }
@@ -255,7 +261,7 @@ class Punti extends CI_Controller {
     //ricavo i punti del paziente
     $punti = $this->punti_data->get_punti_paziente_by_id((int)$id);
     $view['punti'] = $punti;
-
+    $view['categorie_punti'] = $this->punti_data->get_categorie_punti();
     $this->load->view('edit_punti', $view);
 
   }
