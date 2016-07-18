@@ -276,8 +276,9 @@ class Pazienti extends CI_Model {
         $infertilita = 0;
 
         $this->db->query("INSERT INTO pazienti (nome, cognome, email, telefono, indirizzo, cap, codice_fiscale, data_nascita, luogo_nascita, dettaglio_paziente) VALUES ( " . $nome . ", " . $cognome . ", " . $email . ", " . $telefono . ", " . $indirizzo . ", " . $cap . ", " . $codice_fiscale . ", " . $data_nascita . ", " . $luogo_nascita . ", " . $dettaglio_paziente . " )  ");
-
-        return $this->db->insert_id();
+        $id_paziente = $this->db->insert_id();
+        $this->db->insert('relationship_pazienti_studi', ['id_persona' => $id_paziente, 'id_studio' => $this->session->userdata('id_studio')]);
+        return $id_paziente;
     }
 
     //aggiunge un paziente al database, nome, cognome e codice fiscale sono campi obbligatori e ne ritorna l'id
@@ -382,7 +383,7 @@ class Pazienti extends CI_Model {
     function get_pages_pazienti($pazienti_per_pagina) {
         $totale_pagine = -1;
 
-        $query = $this->db->query("SELECT id FROM pazienti ");
+        $query = $this->db->query("SELECT id FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE id_studio = ".$this->session->userdata('id_studio'));
 
 
         $totale_rows = $query->num_rows();
@@ -397,7 +398,7 @@ class Pazienti extends CI_Model {
     function get_pages_pazienti_gestanti($pazienti_per_pagina) {
         $totale_pagine = -1;
 
-        $query = $this->db->query("SELECT id FROM pazienti WHERE gestante=1 ");
+        $query = $this->db->query("SELECT id FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE gestante=1 ");
 
 
         $totale_rows = $query->num_rows();
@@ -597,7 +598,7 @@ class Pazienti extends CI_Model {
         if ($search == false || $search == "")
             return false;
 
-        $result = $this->db->query("SELECT * FROM pazienti WHERE nome LIKE '%" . $search . "%' OR cognome LIKE '%" . $search . "%' OR email LIKE '%" . $search . "%' OR telefono LIKE '%" . $search . "%' OR indirizzo LIKE '%" . $search . "%' OR data_nascita LIKE '%" . $search . "%' ");
+        $result = $this->db->query("SELECT * FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE nome LIKE '%" . $search . "%' OR cognome LIKE '%" . $search . "%' OR email LIKE '%" . $search . "%' OR telefono LIKE '%" . $search . "%' OR indirizzo LIKE '%" . $search . "%' OR data_nascita LIKE '%" . $search . "%' ");
 
         return $result;
     }
@@ -630,7 +631,7 @@ class Pazienti extends CI_Model {
     }
 
     function get_tutti_pazienti_full() {
-        return $this->db->query("SELECT * FROM pazienti ");
+        return $this->db->query("SELECT * FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE id_studio = ".$this->session->userdata('id_studio'));
     }
 
     function get_all_pazienti() {

@@ -13,12 +13,15 @@ class dottori extends CI_Model {
     }
 
     function get_fatture_dottore($id_dottore) {
-        return $this->db->query("SELECT *,DATE_FORMAT(data, '%d-%m-%Y') as data from fatture where id_dottore = $id_dottore ");
+        return $this->db->query("SELECT f.id_fattura as id_fattura, f.filename as filename, f.id_dottore as id_dottore, f.totale as totale, f.data as data, DATE_FORMAT(data, '%d-%m-%Y') as data from fatture as f join relationship_fatture_studi on relationship_fatture_studi.id_fattura = f.id_fattura where id_dottore = $id_dottore and id_studio = ".$this->session->userdata('id_studio')."");
     }
 
     function carica_fattura($filename, $data) {
         $date = new DateTime();
         $this->db->query("INSERT into fatture (id_dottore, filename, totale, data) VALUES (" . $data['id_dottore'] . ", '$filename', '" . $data['totale'] . "', '" . $date->format("Y-m-d") . "')");
+        // lego la fattura allo studio
+        $id_fattura = $this->db->inser_id();
+        $this->db->insert('relationship_fatture_studi', ['id_fattura' => $id_fattura, 'id_studio' => $this->session->userdata('id_studio')]);
     }
 
     //ritorna un array che ha come indici gli id dei dottori relativi ed il contenuto di ogni elemento è un array associativo con tutte le info della visita
@@ -34,7 +37,8 @@ class dottori extends CI_Model {
             $query_visite_odierne = $this->db->query("
 				SELECT *
 				FROM visite
-				WHERE id_dottore=" . $id_dottore . " AND data_visita=" . $data_odierna_escaped . "
+        JOIN relationship_visite_studi ON relationship_visite_studi.id_persona = visite.id
+				WHERE id_dottore=" . $id_dottore . " AND data_visita=" . $data_odierna_escaped . " AND id_studio = ".$this->session->userdata('id_studio')."
 				ORDER BY orario_visita ASC
 			");
 
@@ -69,6 +73,12 @@ class dottori extends CI_Model {
         return $this->db->get('prestazioni');
     }
 
+    function get_prestazioni_by_id_dottore($id_dottore) {
+      $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = relationship_prestazioni_dottori.id_prestazione');
+      $this->db->where(['id_dottore' => $id_dottore, 'id_studio' => $this->session->userdata('id_studio')]);
+      return $this->db->get('relationship_prestazioni_dottori');
+    }
+
     function get_prestazione_by_id($id_prestazione) {
         return $this->db->query("SELECT * FROM prestazioni WHERE id=" . $id_prestazione . " ");
     }
@@ -97,6 +107,7 @@ class dottori extends CI_Model {
         $telefono = $this->db->escape($telefono);
         $email = $this->db->escape($email);
         $orari_settimanali = $this->db->escape($orari_settimanali);
+
 
         return $this->db->query("UPDATE dottori SET nome=" . $nome . ", dettagli=" . $dettagli . ", telefono=" . $telefono . ", email=" . $email . ", orari_settimanali=" . $orari_settimanali . " WHERE id=" . $id . " ");
     }

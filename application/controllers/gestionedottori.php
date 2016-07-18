@@ -161,7 +161,7 @@ class gestionedottori extends CI_Controller {
         $query_user = $this->dottori->get_dottore_by_id($id_edit);
         $view['fatture'] = $this->dottori->get_fatture_dottore($id_edit)->result();
         $view["dottore_edit"] = $query_user->result();
-        
+
         //se è stato inviato il form di editing delle info del paziente...
         if ($this->input->post("submit") != false) {
             //ottengo tutti i valori dal post
@@ -170,6 +170,7 @@ class gestionedottori extends CI_Controller {
             $telefono = $this->input->post("telefono");
             $email = $this->input->post("email");
             $orari_settimanali = $this->input->post("orari_settimanali");
+
 
             if ($this->dottori->modifica_dottore($id_edit, $nome, $dettagli, $telefono, $email, $orari_settimanali) == false)
                 $view["errore"] = true;
@@ -180,7 +181,7 @@ class gestionedottori extends CI_Controller {
         }
         $this->load->view("editdottore", $view);
     }
-    
+
     public function caricaFattura(){
         $this->load->model("acl");
         $session_rserial = $this->session->userdata('rserial');
@@ -190,7 +191,7 @@ class gestionedottori extends CI_Controller {
             $login_url = base_url();
             redirect($login_url . "login/info?c=error");
         }
-        
+
         $this->load->model("dottori");
         if($this->input->post() && $_FILES['filename']){
             var_dump("ok");
@@ -205,7 +206,7 @@ class gestionedottori extends CI_Controller {
                 return $this->dottori->carica_fattura($_FILES["filename"]["name"], $data);
             }
         }
-        
+
         redirect($_SERVER['HTTP_REFERER']);
     }
 

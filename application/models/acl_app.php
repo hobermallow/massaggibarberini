@@ -11,6 +11,26 @@ class acl_app extends CI_Model  {
     $this->load->helper('domini');
   }
 
+  public function get_visite_by_api_key($api_key) {
+    //ricavo l'id dello studio
+    $id_studio = Domini::get_id_studio();
+    //ricavo l'id del paziente
+    $id_paziente = $this->get_id_paziente_by_api_key($api_key);
+    //ricavo le visite del paziente
+    //lego la visita al dottore
+    $this->db->join('dottori as d', 'd.id = v.id_dottore');
+    //lego la visita alla prestazione
+    $this->db->join('prestazioni as p', 'p.id = v.id_prestazione');
+    //lego la visita allo studio
+    $this->db->join('relationship_visite_studi', 'relationship_visite_studi.id_persona = v.id');
+    $this->db->where(['id_studio' => $id_studio]);
+    //seleziono i campi
+    $this->db->select('d.nome as dottore, p.descrizione as descrizione, v.orario_visita as ora, v.data_visita as data');
+    //eseguo la query
+    $result = $this->db->get('visite as v');
+    return $result;
+  }
+
   public function get_prestazioni_studio()  {
     //ricavo l'id dello studio
     $id_studio = Domini::get_id_studio();
@@ -31,7 +51,11 @@ class acl_app extends CI_Model  {
     $id_prestazione = $query->row()->id;
     //aggiungo la visita
     $boolean = $this->db->insert('visite', ['id_paziente' => $id_paziente, 'id_dottore' => $id_dottore, 'data_visita' => $data, 'orario_visita' => $ora, 'id_prestazione' => $id_prestazione]);
-    return $boolean;
+    //ricavo l'id della visita appena inserita
+    $id_visita = $this->db->insert_id();
+    //inserisco la visita nella relationship_visite_studi
+    $boolean2 = $this->db->insert('relationship_visite_studi', ['id_persona' => $id_visita, 'id_studio' => $id_studio]);
+    return $boolean && $boolean2;
   }
 
   public function get_visite_del_giorno_by_dottore($id_dottore, $day) {
@@ -80,8 +104,13 @@ class acl_app extends CI_Model  {
     return $query->row();
 
   }
-  // controlla se l'api_keu esiste o no
+  // controlla se l'api_key esiste o no
   public function control_api_key($api_key) {
+      $id_studio = Domini::get_id_studio();
+    //join con relationship_pazienti_studi
+    $this->db->join('relationship_pazienti_studi', 'relationship_pazienti_studi.id_persona = pazienti.id');
+    //WHERE
+    $this->db->where(['id_studio' => $id_studio]);
     //controllo l'api_key
     $this->db->where(['api_key' => $api_key]);
     $query = $this->db->get('pazienti');

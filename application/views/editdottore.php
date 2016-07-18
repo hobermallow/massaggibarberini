@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
 Version: 3.1
 Author: KeenThemes
@@ -196,6 +196,20 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <textarea name="dettagli" class="form-control" rows="4" ><?php echo $dottore_edit[0]->dettagli; ?></textarea>
                                 </div>
                             </div>
+                            <!-- Checkbox delle possibili prestazioni del dottore -->
+                            <div class="col-lg-6">
+                                <div class="input-icon margin-top-10">
+                                    <label>Prestazioni:</label>
+                                    <?php foreach ($prestazioni->result() as $prestazione): ?>
+                                      <input type="checkbox" name="prestazioni[]" value="<?php echo $prestazione->id; ?>" <?php foreach ($prestazioni_eseguite->result() as $row) {
+                                        if ($prestazione->id == $row->id_prestazione) {
+                                          echo "checked";
+                                        }
+                                      } ?>><?php echo $prestazione->descrizione; ?>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+
                         </div>
                         <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
                     </form>
@@ -274,7 +288,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <!--<h2 class="page-title" style="margin-bottom: 10px; margin-top: 10px; font-size: 18px;">Nuova prestazione</h2>
                     <form action="<?php //echo base_url();     ?><?php //echo "gestionedottori/editprestazione/"     ?>" method="POST" style="margin-bottom: 10px;">
-                        <div class="row"> 
+                        <div class="row">
                             <input type="hidden" name="id_dottore" value="<?php echo $dottore_edit[0]->id ?>"/>
                             <div class="col-sm-4">
                                 <input maxlength="100" required name="descrizione" placeholder="Descrizione" class="form-control"/>
@@ -362,7 +376,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CORE PLUGINS -->
         <!--[if lt IE 9]>
         <script src="/assets/global/plugins/respond.min.js"></script>
-        <script src="/assets/global/plugins/excanvas.min.js"></script> 
+        <script src="/assets/global/plugins/excanvas.min.js"></script>
         <![endif]-->
         <script src="/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
