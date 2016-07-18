@@ -46,6 +46,8 @@ class acl_app extends CI_Model  {
   }
 
   public function inserisci_visita_by_giorno_ora_prestazione($id_dottore, $id_paziente, $data, $ora, $prestazione)  {
+    //ricavo l'id dello studio
+    $id_studio = Domini::get_id_studio();
     // in primis, ricavo l'id della prestazione
     $query = $this->db->get_where('prestazioni', ['descrizione' => $prestazione]);
     $id_prestazione = $query->row()->id;
@@ -59,7 +61,10 @@ class acl_app extends CI_Model  {
   }
 
   public function get_visite_del_giorno_by_dottore($id_dottore, $day) {
+    $id_studio = Domini::get_id_studio();
     $this->db->join('prestazioni', 'prestazioni.id = visite.id_prestazione');
+    $this->db->join('relationship_visite_studi', 'relationship_visite_studi.id_persona = visite.id');
+    $this->db->where(['id_studio' => $id_studio]);
     $query = $this->db->get_where('visite', ['id_dottore' => $id_dottore, 'data_visita' => $day]);
     return $query->result();
   }
@@ -87,9 +92,11 @@ class acl_app extends CI_Model  {
 
 
   public function get_prestazioni_dottore($id_dottore)  {
-    Domini::aggiungi_join_relationship_categoria_studi_where_id_studio('dottori', Domini::get_id_studio());
+    $id_studio = Domini::get_id_studio();
     $this->db->join('relationship_prestazioni_dottori', 'relationship_prestazioni_dottori.id_dottore = dottori.id');
     $this->db->join('prestazioni', 'prestazioni.id = relationship_prestazioni_dottori.id_prestazione');
+    $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = prestazioni.id');
+    $this->db->where(['dottori.id' => $id_dottore, 'relationship_prestazioni_studi.id_studio' => $id_studio]);
     $query = $this->db->get('dottori');
     $prestazioni = array();
     foreach ($query->result() as $row) {
@@ -99,8 +106,10 @@ class acl_app extends CI_Model  {
   }
 
   public function get_orario_dottore_by_day($id_dottore, $day) {
+    //ricavo l'id dello studio
+    $id_studio = Domini::get_id_studio();
     //ricevo in input l'intero corrispondente al giorno...
-    $query = $this->db->get_where('orari_dottori', ['id_dottore' => $id_dottore, 'giorno' => strval($day)]);
+    $query = $this->db->get_where('orari_dottori', ['id_dottore' => $id_dottore, 'giorno' => strval($day), 'id_studio' => $id_studio]);
     return $query->row();
 
   }
@@ -163,9 +172,10 @@ class acl_app extends CI_Model  {
 
   }
   public function primo_login_app($username, $password) {
-
+      //id dello studio
+      $id_studio = Domini::get_id_studio();
       //Controllo se lo username sia gia esistente
-      $query = $this->db->query("SELECT * FROM pazienti WHERE username = '$username'");
+      $query = $this->db->query("SELECT * FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE username = '$username' AND id_studio = '$id_studio'");
       if($query->num_rows() > 0) {
         //nome utente gia esistente
         $query = $query->row();

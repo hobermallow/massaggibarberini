@@ -196,20 +196,6 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <textarea name="dettagli" class="form-control" rows="4" ><?php echo $dottore_edit[0]->dettagli; ?></textarea>
                                 </div>
                             </div>
-                            <!-- Checkbox delle possibili prestazioni del dottore -->
-                            <div class="col-lg-6">
-                                <div class="input-icon margin-top-10">
-                                    <label>Prestazioni:</label>
-                                    <?php foreach ($prestazioni->result() as $prestazione): ?>
-                                      <input type="checkbox" name="prestazioni[]" value="<?php echo $prestazione->id; ?>" <?php foreach ($prestazioni_eseguite->result() as $row) {
-                                        if ($prestazione->id == $row->id_prestazione) {
-                                          echo "checked";
-                                        }
-                                      } ?>><?php echo $prestazione->descrizione; ?>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-
                         </div>
                         <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
                     </form>
@@ -275,6 +261,73 @@ License: You must have a valid license purchased only from themeforest(the above
                                             </td>
                                             <td class="numeric" style="text-align: center;" >
                                                 <a href="<?php echo base_url(); ?><?php echo "gestionedottori/deleteFattura/" . $fattura->id_fattura; ?>" onclick="return confirm('Sei sicuro di voler eliminare questa fattura?')" title="Elimina" class="btn purple">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                    endforeach;
+                                    ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <br>
+                    <!-- Inizio tabella prestazioni dottore -->
+                    <h3 class="page-title">
+                        Prestazioni
+                    </h3>
+                    <!-- aggiunta prestazione -->
+                    <form class="" action="/gestionedottori/addprestazionedottore/<?php echo $dottore_edit[0]->id; ?>" method="post">
+                      <select class="" name="prestazione">
+                        <option value="" checked>Seleziona prestazione</option>
+                        <?php foreach ($prestazioni_totali->result() as $prestazione): ?>
+                          <option value="<?php echo $prestazione->id; ?>"><?php echo $prestazione->descrizione; ?></option>
+                        <?php endforeach; ?>
+                      </select>
+                      <input type="submit" name="Aggiungi" value="Aggiungi">
+                    </form>
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-heart"></i>Tabella prestazioni
+                            </div>
+                        </div>
+                        <div class="portlet-body flip-scroll">
+                            <table class="table table-bordered table-striped table-condensed flip-content">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th>
+                                            Prestazione
+                                        </th>
+                                        <th>
+                                            Costo
+                                        </th>
+                                        <th>
+                                            Durata
+                                        </th>
+                                        <th class="numeric">
+                                            Azioni
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $precId = 0;
+                                    foreach ($prestazioni->result() as $prestazione):
+                                        ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $prestazione->descrizione; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $prestazione->costo_prestazione; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $prestazione->durata_prestazione; ?>
+                                            </td>
+                                            <td class="numeric" style="text-align: center;" >
+                                                <a href="<?php echo base_url(); ?><?php echo "gestionedottori/deleteprestazionedottore/" . $prestazione->id_prestazione."/".$prestazione->id_dottore; ?>" onclick="return confirm('Sei sicuro di voler eliminare questa prestazione?')" title="Elimina" class="btn purple">
                                                     <i class="fa fa-times"></i>
                                                 </a>
                                             </td>

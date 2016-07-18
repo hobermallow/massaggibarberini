@@ -44,6 +44,9 @@
 // }
 //
 // else {
+$route['deleteprestazionedottore/(:num)/(:num)'] = 'gestionedottori/deleteprestazionedottore/$1/$2';
+$route['addprestazionedottore/(:num)'] = 'gestionedottori/addprestazionedottore/$1';
+
 $route['rest'] = 'rest';
 $route['default_controller'] = "login";
 $route['404_override'] = '';

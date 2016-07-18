@@ -74,9 +74,15 @@ class dottori extends CI_Model {
     }
 
     function get_prestazioni_by_id_dottore($id_dottore) {
-      $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = relationship_prestazioni_dottori.id_prestazione');
-      $this->db->where(['id_dottore' => $id_dottore, 'id_studio' => $this->session->userdata('id_studio')]);
-      return $this->db->get('relationship_prestazioni_dottori');
+      $id_studio = Domini::get_id_studio();
+      $this->db->join('relationship_prestazioni_dottori', 'relationship_prestazioni_dottori.id_dottore = dottori.id');
+      $this->db->join('prestazioni', 'prestazioni.id = relationship_prestazioni_dottori.id_prestazione');
+      $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = prestazioni.id');
+      $this->db->where(['dottori.id' => $id_dottore, 'relationship_prestazioni_studi.id_studio' => $id_studio]);
+      //seleziono i campi di interesse
+      $this->db->select('dottori.id as id_dottore, prestazioni.id as id_prestazione, prestazioni.durata_prestazione as durata_prestazione, prestazioni.costo_prestazione as costo_prestazione, prestazioni.descrizione as descrizione');
+      $query = $this->db->get('dottori');
+      return $query;
     }
 
     function get_prestazione_by_id($id_prestazione) {
@@ -130,6 +136,23 @@ class dottori extends CI_Model {
     function delete_prestazione($id_prestazione) {
         $this->db->delete('relationship_prestazioni_studi', ['id_persona' => $id_prestazione, 'id_studio' => $this->session->userdata('id_studio')]);
         return $this->db->query("DELETE FROM prestazioni WHERE id=" . $id_prestazione . " ");
+    }
+
+    function delete_prestazione_dottore($id_prestazione, $id_dottore) {
+        return $this->db->delete('relationship_prestazioni_dottori', ['id_prestazione' => $id_prestazione, 'id_dottore' => $id_dottore]);
+    }
+
+    function add_prestazione_dottore($id_prestazione, $id_dottore)  {
+      if($id_prestazione == "") {
+        return TRUE;
+      }
+      $id_prestazione = intval($id_prestazione);
+      $this->db->where(['id_prestazione' => $id_prestazione, 'id_dottore' => $id_dottore]);
+      $query = $this->db->get('relationship_prestazioni_dottori');
+      if($query->num_rows() > 0) {
+        return TRUE;
+      }
+      return !($this->db->insert('relationship_prestazioni_dottori', ['id_prestazione' => $id_prestazione, 'id_dottore' => $id_dottore]));
     }
 
 }

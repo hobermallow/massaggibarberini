@@ -157,7 +157,8 @@ class gestionedottori extends CI_Controller {
         $view["modifica_avvenuta"] = false;
 
         $view["dottori"] = $this->dottori->get_all_dottori();
-
+        $view["prestazioni"] =$this->dottori->get_prestazioni_by_id_dottore($id);
+        $view["prestazioni_totali"]= $this->dottori->get_prestazioni();
         $query_user = $this->dottori->get_dottore_by_id($id_edit);
         $view['fatture'] = $this->dottori->get_fatture_dottore($id_edit)->result();
         $view["dottore_edit"] = $query_user->result();
@@ -271,6 +272,39 @@ class gestionedottori extends CI_Controller {
             $this->dottori->delete_prestazione($id);
         }
         redirect($_SERVER['HTTP_REFERER']);
+    }
+
+    public function deleteprestazionedottore($id_prestazione, $id_dottore)  {
+      //verifica della sessione
+      $this->load->model("acl");
+      $session_rserial = $this->session->userdata('rserial');
+      $view["username"] = $this->session->userdata("username");
+      if ($this->acl->VerificaSessione($session_rserial) == false) {
+          $this->load->helper('url');
+          $login_url = base_url();
+          redirect($login_url . "login/info?c=error");
+      }
+      $this->load->model("dottori");
+      $view["dottori"] = $this->dottori->get_all_dottori();
+      $view['errore'] = $this->dottori->delete_prestazione_dottore($id_prestazione, $id_dottore);
+      $this->load->view('delete_prestazione_dottore', $view);
+    }
+
+    public function addprestazionedottore($id_dottore)  {
+      $this->load->model("acl");
+      $session_rserial = $this->session->userdata('rserial');
+      $view["username"] = $this->session->userdata("username");
+      if ($this->acl->VerificaSessione($session_rserial) == false) {
+          $this->load->helper('url');
+          $login_url = base_url();
+          redirect($login_url . "login/info?c=error");
+      }
+      $this->load->model("dottori");
+      $view["dottori"] = $this->dottori->get_all_dottori();
+      $id_prestazione = $this->input->post('prestazione');
+      // echo var_dump($this->input->post('prestazione'));
+      $view['errore'] = $this->dottori->add_prestazione_dottore($id_prestazione, $id_dottore);
+      $this->load->view('add_prestazione_dottore', $view);
     }
 
     public function getprestazioni() {
