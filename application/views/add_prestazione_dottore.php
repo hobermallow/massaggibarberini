@@ -181,9 +181,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <div class="row" >
                           	<div class="input-icon margin-top-10">
                               <div class="note note-success">
-              				              <h4 class="block">Prestazione aggiunta correttamente!</h4>
+              				              <h4 class="block">Orari aggiornati!</h4>
               				                  <p>
-              				                        Prestazioni del dottore aggiornate correttamente.
+              				                        Orari del dottore aggiornati correttamente.
               				                  </p>
               			          </div>
                               </div>
@@ -195,7 +195,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-danger">
                 				              <h4 class="block">Errore!</h4>
                 				                  <p>
-                				                        Errore nell'aggiornamento delle prestazioni.
+                				                        Errore nell'aggiornamento degli orari.
                 				                  </p>
                 			          </div>
                               </div>

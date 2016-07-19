@@ -180,6 +180,8 @@ class gestionedottori extends CI_Controller {
                 redirect(base_url() . "gestionedottori");
             }
         }
+        //aggiungo gli orari del dottore
+        $view["orari"] = $this->dottori->get_orari_dottore($id);
         $this->load->view("editdottore", $view);
     }
 
@@ -316,6 +318,23 @@ class gestionedottori extends CI_Controller {
         }
         $this->load->model("dottori");
         echo json_encode($this->dottori->get_prestazioni()->result());
+    }
+
+    public function aggiornaorario($id_dottore) {
+      $this->load->model("acl");
+      $session_rserial = $this->session->userdata('rserial');
+      $view["username"] = $this->session->userdata("username");
+      if ($this->acl->VerificaSessione($session_rserial) == false) {
+          $this->load->helper('url');
+          $login_url = base_url();
+          redirect($login_url . "login/info?c=error");
+      }
+      $this->load->model("dottori");
+      $view["dottori"] = $this->dottori->get_all_dottori();
+      //array dei giorni da aggiornare
+      $view['errore'] = !($this->dottori->aggiorna_orario($id_dottore, $this->input->post()));
+      $this->load->view('add_prestazione_dottore', $view);
+
     }
 
 }

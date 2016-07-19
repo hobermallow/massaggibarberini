@@ -155,4 +155,34 @@ class dottori extends CI_Model {
       return !($this->db->insert('relationship_prestazioni_dottori', ['id_prestazione' => $id_prestazione, 'id_dottore' => $id_dottore]));
     }
 
+    public function aggiorna_orario($id_dottore, $post) {
+      $bool = TRUE;
+      //giorni da aggiornare
+      $giorni = $post['giorno'];
+      foreach ($giorni as $giorno) {
+        $inizio = $giorno."-inizio";
+        $fine = $giorno."-fine";
+        //vedo se il dottore ha gia un'orario per quel giorno
+        $this->db->where(['id_dottore' => $id_dottore, 'giorno' => $giorno, 'id_studio' => $this->session->userdata('id_studio')]);
+        $query = $this->db->get('orari_dottori');
+        if($query->num_rows() > 0) {
+          $this->db->where(['id_dottore' => $id_dottore, 'giorno' => $giorno, 'id_studio' => $this->session->userdata('id_studio')]);
+          $bool = $bool && $this->db->update('orari_dottori', ['orario_inizio' => $post[$inizio], 'orario_fine' => $post[$fine]]);
+        }
+        else {
+          $bool = $bool && $this->db->insert('orari_dottori', ['orario_inizio' => $post[$inizio], 'orario_fine' => $post[$fine], 'id_dottore' => $id_dottore, 'giorno' => $giorno, 'id_studio' => $this->session->userdata('id_studio')]);
+        }
+      }
+      return $bool;
+    }
+
+    public function get_orari_dottore($id_dottore)  {
+      $orari = [];
+      for ($i=0; $i < 8; $i++) {
+        $this->db->where(['id_dottore' => $id_dottore, 'giorno' => $i, 'id_studio' => $this->session->userdata('id_studio')]);
+        $orari[] = $this->db->get('orari_dottori')->row();
+      }
+      return $orari;
+    }
+
 }
