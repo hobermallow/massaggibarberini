@@ -771,6 +771,8 @@ class Pazienti extends CI_Model {
     }
 
     function delete_visita_by_id($id_visita) {
+        //prima cancello la relationship_visite_studi
+        $this->db->delete('relationship_visite_studi', ['id_persona' => $id_visita]);
         $this->db->query("DELETE FROM visite WHERE id=" . $id_visita . " ");
 
         return true;

@@ -69,7 +69,8 @@ class Punti extends CI_Controller {
 
       $view["dottori"] = $this->dottori->get_all_dottori();
       $view["all_categorie_pazienti"] = $this->categorie_pazienti_data->get_all_categorie_pazienti();
-
+      //aggiungo le categorie dei pazienti
+      $view['categorie_punti'] = $this->punti_data->get_categorie_punti();
       $view["ricerca_search"] = true; //indica alla view che è in corso una ricerca con chiave
 
       if ($this->input->post() == false) {
@@ -264,6 +265,38 @@ class Punti extends CI_Controller {
     $view['categorie_punti'] = $this->punti_data->get_categorie_punti();
     $this->load->view('edit_punti', $view);
 
+  }
+
+  public function esegui_query_api_key()  {
+    //verifica della sessione
+    $this->load->model("acl");
+    $session_rserial = $this->session->userdata('rserial');
+    $view["username"] = $this->session->userdata("username");
+    if ($this->acl->VerificaSessione($session_rserial) == false) {
+        return -1;
+    }
+
+    if ($this->input->post() == false) {
+        //se non è arrivato nnt dal post questa pagina non deve essere possibile
+        return -1;
+    }
+    //recupero l'api_key
+    $api_key = $this->input->post('api_key');
+    //eseguo query
+    $this->db->where(['api_key' => $api_key]);
+    //join
+    $this->db->join('relationship_pazienti_studi', 'relationship_pazienti_studi.id_persona = pazienti.id');
+    $query = $this->db->get('pazienti');
+    $response = array();
+    // $response['id'] = 1;
+    if($query->num_rows() >= 1) {
+      $response['id'] = $query->row()->id;
+    }
+    else {
+      $response['id'] = 0;
+    }
+
+    echo json_encode($response);
   }
 }
 

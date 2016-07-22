@@ -43,7 +43,7 @@ class visite extends CI_Controller {
         }
         redirect(base_url() . "carichi");
     }
-    
+
     public function sospese() {
         $session_rserial = $this->session->userdata('rserial');
         $view["username"] = $this->session->userdata("username");
@@ -60,9 +60,30 @@ class visite extends CI_Controller {
         $view["insert_completed"] = false;
 
         $view["dottori"] = $this->dottori->get_all_dottori();
-        $view["visite"] = $this->visite_data->get_visite_sospese()->result();
+        $view["visite"] = $this->visite_data->get_visite_sospese_mio()->result();
 
         $this->load->view("visitesospese", $view);
+    }
+
+    public function confermavisita($id_visita)  {
+      $session_rserial = $this->session->userdata('rserial');
+      $view["username"] = $this->session->userdata("username");
+      if ($this->acl->VerificaSessione($session_rserial) == false) {
+          $this->load->helper('url');
+          $login_url = base_url();
+          redirect($login_url . "login/info?c=error");
+      }
+
+      $this->load->model("visite_data");
+      $this->load->model("dottori");
+
+
+
+
+      $view["dottori"] = $this->dottori->get_all_dottori();
+      $view["error"] = $this->visite_data->conferma_visita($id_visita);
+
+      $this->load->view("add_prestazione_dottore", $view);
     }
 
 }

@@ -216,7 +216,22 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
 
 
-
+                        <br>
+                        <!-- QR code reader -->
+                        <a href="#" class="btn btn-info btn-lg" id="show_qr" onclick="$('#reader').toggle();">
+                          <span class="glyphicon glyphicon-qrcode"></span> Qrcode
+                        </a>
+                        <div id="reader" style="width:300px;height:250px">
+                        </div>
+                        <script type="text/javascript">
+                          $('#reader').hide();
+                        </script>
+                        <p id="errore_lettura" hidden="hidden">
+                          Errore nella lettura del codice!
+                        </p>
+                        <!-- <script type="text/javascript">
+                          document.getElementById('errore_lettura').hide();
+                        </script> -->
                         <br>
 
 
@@ -426,6 +441,38 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="/assets/global/plugins/jquery.cokie.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+        <!-- JS QRCODE -->
+        <script type="text/javascript" src="/assets/javascript_library/html5qrcode.js"></script>
+        <script type="text/javascript" src="/assets/javascript_library/jsqrcode-combined.min.js"></script>
+        <script type="text/javascript">
+        $('#reader').html5_qrcode(function(data){
+          if($('#reader').is(":visible")) {
+          var base_url = "<?php echo base_url(); ?>";
+          // alert(base_url.concat("punti/esegui_query_api_key"));
+          jQuery.post(base_url.concat("punti/esegui_query_api_key"), { api_key : data }, function (data) {
+            //ritorna l'id del cliente
+            var location = "punti/edit/";
+            // alert("letto");
+            if(data.id == 0) {
+              alert("Nessun paziente corrispondente al QR Code!");
+              // $('#errore_lettura').show();
+            }
+            else {
+              location = location.concat(data.id);
+              // alert(location);
+              window.location.href = base_url.concat(location);
+            }
+          }, "json");
+
+        } },
+        function(error){
+          document.getElementById('errore_lettura').innerHTML = error;
+        }, function(videoError){
+        //the video stream could be opened
+        }
+        );
+
+        </script>
         <!-- END CORE PLUGINS -->
         <!-- BEGIN PAGE LEVEL PLUGINS -->
         <!-- IMPORTANT! fullcalendar depends on jquery-ui-1.10.3.custom.min.js for drag & drop support -->

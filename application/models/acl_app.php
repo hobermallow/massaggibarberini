@@ -52,7 +52,7 @@ class acl_app extends CI_Model  {
     $query = $this->db->get_where('prestazioni', ['descrizione' => $prestazione]);
     $id_prestazione = $query->row()->id;
     //aggiungo la visita
-    $boolean = $this->db->insert('visite', ['id_paziente' => $id_paziente, 'id_dottore' => $id_dottore, 'data_visita' => $data, 'orario_visita' => $ora, 'id_prestazione' => $id_prestazione]);
+    $boolean = $this->db->insert('visite', ['id_paziente' => $id_paziente, 'id_dottore' => $id_dottore, 'data_visita' => "'$data'", 'orario_visita' => "$ora", 'id_prestazione' => $id_prestazione, 'visita_confermata' => '0']);
     //ricavo l'id della visita appena inserita
     $id_visita = $this->db->insert_id();
     //inserisco la visita nella relationship_visite_studi
@@ -62,10 +62,11 @@ class acl_app extends CI_Model  {
 
   public function get_visite_del_giorno_by_dottore($id_dottore, $day) {
     $id_studio = Domini::get_id_studio();
+    $id_dottore = intval($id_dottore);
     $this->db->join('prestazioni', 'prestazioni.id = visite.id_prestazione');
     $this->db->join('relationship_visite_studi', 'relationship_visite_studi.id_persona = visite.id');
     $this->db->where(['id_studio' => $id_studio]);
-    $query = $this->db->get_where('visite', ['id_dottore' => $id_dottore, 'data_visita' => $day]);
+    $query = $this->db->get_where('visite', ['visite.id_dottore' => $id_dottore, 'data_visita' => $day, 'visita_confermata' => 1]);
     return $query->result();
   }
 
@@ -80,12 +81,16 @@ class acl_app extends CI_Model  {
       //ricavo l'id della prestazione
       $query = $this->db->get_where('prestazioni', ['descrizione' => $prestazione]);
       $id_prestazione = $query->row()->id;
+      //id dello studio
+      $id_studio = Domini::get_id_studio();
       //relationship con lo studio
-      Domini::aggiungi_join_relationship_categoria_studi_where_id_studio('dottori', Domini::get_id_studio());
+      // $this->db->join('relationship_dottori_studi', 'relationship_dottori_studi.id_persona = dottori.id');
       //join con relationship_prestazioni_dottori
       $this->db->join('relationship_prestazioni_dottori', 'relationship_prestazioni_dottori.id_dottore = dottori.id');
+      //lego la prestzione allo studio
+      $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = relationship_prestazioni_dottori.id_prestazione');
       //seleziono l'id della prestazione
-      $this->db->where(['id_prestazione' => $id_prestazione]);
+      $this->db->where(['relationship_prestazioni_dottori.id_prestazione' => $id_prestazione, 'relationship_prestazioni_studi.id_studio' => $id_studio]);
       // return $this->db->query("SELECT * FROM dottori ORDER BY data ");
       return $this->db->get('dottori');
   }

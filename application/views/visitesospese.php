@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
 Version: 3.1
 Author: KeenThemes
@@ -174,13 +174,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                             Dottore
                                         </th>
                                         <th>
-                                            Tipo prestazione
-                                        </th>
-                                        <th class="numeric">
-                                            Descrizione visita
+                                            Nome Paziente
                                         </th>
                                         <th>
-                                            Dettaglio visita
+                                            Cognome Paziente
+                                        </th>
+                                        <th>
+                                            Tipo prestazione
                                         </th>
                                         <th>
                                             Data visita
@@ -200,13 +200,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <?php echo $row->nome_dottore; ?>
                                             </td>
                                             <td>
+                                                <?php echo $row->nome_paziente; ?>
+                                            </td>
+                                            <td>
+                                                <?php echo $row->cognome_paziente; ?>
+                                            </td>
+                                            <td>
                                                 <?php echo $row->nome_prestazione; ?>
-                                            </td>
-                                            <td>
-                                                <?php echo nl2br($row->descrizione); ?>
-                                            </td>
-                                            <td>
-                                                <?php echo nl2br($row->dettaglio); ?>
                                             </td>
                                             <td>
                                                 <?php
@@ -227,10 +227,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 ?>
                                             </td>
                                             <td class="numeric" style="text-align: center;" >
-                                                <a href="<?php echo base_url(); ?><?php echo "listapazienti/editvisita/" . $row->id; ?>" title="Modifica" class="btn red">
+                                                <a href="<?php echo base_url(); ?><?php echo "visite/confermavisita/" . $row->id_visita; ?>" title="Modifica" class="btn red">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="<?php echo base_url(); ?><?php echo "deletevisita/delete/" . $row->id; ?>" title="Elimina" class="btn purple">
+                                                <a href="<?php echo base_url(); ?><?php echo "deletevisita/delete/" . $row->id_visita; ?>" title="Elimina" class="btn purple">
                                                     <i class="fa fa-times"></i>
                                                 </a>
                                             </td>
@@ -270,7 +270,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CORE PLUGINS -->
         <!--[if lt IE 9]>
         <script src="/assets/global/plugins/respond.min.js"></script>
-        <script src="/assets/global/plugins/excanvas.min.js"></script> 
+        <script src="/assets/global/plugins/excanvas.min.js"></script>
         <![endif]-->
         <script src="/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>
