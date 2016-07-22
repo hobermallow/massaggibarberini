@@ -99,12 +99,22 @@ class dottori extends CI_Model {
         $query = $this->db->query("INSERT INTO dottori (nome, dettagli, telefono, email, orari_settimanali) VALUES ( " . $nome . ", " . $dettagli . ", " . $telefono . ", " . $email . ", " . $orari_settimanali . " ) ");
         // id dell'ultima riga inserita
         $id_dottore = $this->db->insert_id();
-        return $query && $this->db->insert('relationship_dottori_studi', ['id_persona' => $id_dottore, 'id_studio' => $this->session->userdata('id_studio')]);
+        $this->db->insert('relationship_dottori_studi', ['id_persona' => $id_dottore, 'id_studio' => $this->session->userdata('id_studio')]);
+        return $id_dottore;
     }
 
     function delete_dottore($id_dottore) {
-        $this->db->delete('relationship_dottori_studi', ['id_studio' => $this->session->userdata('id_studio'), 'id_persona' => $id_dottore]);
-        return $this->db->query("DELETE FROM dottori WHERE id=" . $id_dottore . " ");
+        //in primis elimino gli orari del dottore per quello studio
+        $bool1 = $this->db->delete('orari_dottori', ['id_dottore' => $id_dottore, 'id_studio' => $this->session->userdata('id_studio')]);
+        //di seguito, elimino la relazione fra il medico e lo studio
+        $bool2 = $this->db->delete('relationship_dottori_studi', ['id_studio' => $this->session->userdata('id_studio'), 'id_persona' => $id_dottore]);
+        // controllo se il medico sia legato ad altri studi
+        $bool3 = true;
+        $query = $this->db->get_where('relationship_dottori_studi', ['id_persona' => $id_dottore]);
+        if($query->num_rows() < 1) {
+          $bool3 = $this->db->delete('dottori', ['id' => $id_dottore]);
+        }
+        return $bool1 && $bool2 && $bool3;
     }
 
     function modifica_dottore($id, $nome, $dettagli, $telefono, $email, $orari_settimanali) {

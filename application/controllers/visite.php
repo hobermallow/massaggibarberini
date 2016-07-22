@@ -81,9 +81,9 @@ class visite extends CI_Controller {
 
 
       $view["dottori"] = $this->dottori->get_all_dottori();
-      $view["error"] = $this->visite_data->conferma_visita($id_visita);
+      $view["errore"] = !($this->visite_data->conferma_visita($id_visita));
 
-      $this->load->view("add_prestazione_dottore", $view);
+      $this->load->view("visita_confermata", $view);
     }
 
 }

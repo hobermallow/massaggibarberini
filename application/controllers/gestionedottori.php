@@ -34,7 +34,9 @@ class gestionedottori extends CI_Controller {
             $orari_settimanali = $this->input->post("orari_settimanali");
 
             if ($nome != "") {
-                $this->dottori->add_dottore($nome, $dettagli, $telefono, $email, $orari_settimanali);
+                // echo var_dump($this->input->post());
+                $id_dottore = $this->dottori->add_dottore($nome, $dettagli, $telefono, $email, $orari_settimanali);
+                $bool = $this->dottori->aggiorna_orario($id_dottore, $this->input->post());
                 $view["registrazione_avvenuta"] = true;
             } else {
                 $view["error"] = true;

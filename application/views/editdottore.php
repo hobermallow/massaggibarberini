@@ -200,6 +200,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
                     </form>
+
+                    <!-- INIZIO GESTIONE ORARI -->
+                    <div class="row">
+                      <div class="col-lg-8">
                     <div class="input-icon margin-top-10">
                       <label>Orari settimanali per il dottore:</label>
                       <br>
@@ -258,8 +262,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="1-fine">
                         <label>Fine:</label>
+                        <select name="1-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -364,8 +368,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="2-fine">
                         <label>Fine:</label>
+                        <select name="2-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -469,8 +473,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="3-fine">
                         <label>Fine:</label>
+                        <select name="3-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -574,8 +578,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="4-fine">
                         <label>Fine:</label>
+                        <select name="4-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -679,8 +683,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="5-fine">
                         <label>Fine:</label>
+                        <select name="5-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -784,8 +788,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="6-fine">
                         <label>Fine:</label>
+                        <select name="6-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -889,8 +893,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:30:00">23:30</option>
                         </select>
                         <!--rest of options omitted for brevity-->
-                        <select name="0-fine">
                         <label>Fine:</label>
+                        <select name="0-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
                         <option value="01:00:00">01:00</option>
@@ -941,8 +945,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:30:00">23:30</option>
                         </select>
                         <br>
-                        <input type="submit" name="name" value="Aggiorna Orari" >
+                        <input type="submit" name="name" value="Aggiorna Orari" class="btn green" >
                       </form>
+                    </div>
+                  </div>
                     </div>
                     <br/>
 

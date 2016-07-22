@@ -52,11 +52,16 @@ class acl_app extends CI_Model  {
     $query = $this->db->get_where('prestazioni', ['descrizione' => $prestazione]);
     $id_prestazione = $query->row()->id;
     //prestazione inesistente nello studio
+    $descrizione = $query->row()->descrizione;
     if(!isset($id_prestazione)) {
       return FALSE;
     }
+    //prendo nome e cognome del paziente
+    $query = $this->db->get_where('pazienti', ['id' => $id_paziente]);
+    $nome_paziente = $query->row()->nome;
+    $cognome_paziente = $query->row()->cognome;
     //aggiungo la visita
-    $boolean = $this->db->insert('visite', ['id_paziente' => $id_paziente, 'id_dottore' => $id_dottore, 'data_visita' => $data, 'orario_visita' => $ora, 'id_prestazione' => $id_prestazione, 'visita_confermata' => '0']);
+    $boolean = $this->db->insert('visite', ['nome_paziente' => $nome_paziente." ".$cognome_paziente, 'id_paziente' => $id_paziente, 'id_dottore' => $id_dottore, 'data_visita' => $data, 'orario_visita' => $ora, 'id_prestazione' => $id_prestazione, 'visita_confermata' => '0', 'descrizione' => $descrizione]);
     //ricavo l'id della visita appena inserita
     $id_visita = $this->db->insert_id();
     //inserisco la visita nella relationship_visite_studi

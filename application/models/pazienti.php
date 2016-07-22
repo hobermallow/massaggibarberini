@@ -676,7 +676,7 @@ class Pazienti extends CI_Model {
     }
 
     //scrive una visita a db
-    function registra_visita($id_paziente, $id_dottore, $data_visita, $orario_visita, $descrizione) {
+    function registra_visita($id_paziente, $id_dottore, $data_visita, $orario_visita, $descrizione, $id_prestazione) {
         //calcolo il nome del paziente
         $nome_paziente = $this->get_nome_cognome_paziente_by_id($id_paziente);
 
@@ -689,7 +689,7 @@ class Pazienti extends CI_Model {
         $descrizione = $this->db->escape($descrizione);
 
 
-        $this->db->query("INSERT INTO visite (id_paziente, id_dottore, nome_paziente, data_visita, orario_visita, descrizione) VALUES ( " . $id_paziente . ", " . $id_dottore . ", " . $nome_paziente . ", '" . $data_visita . "', '" . $orario_visita . "', " . $descrizione . " ) ");
+        $this->db->query("INSERT INTO visite (id_paziente, id_dottore, nome_paziente, data_visita, orario_visita, descrizione, id_prestazione) VALUES ( " . $id_paziente . ", " . $id_dottore . ", " . $nome_paziente . ", '" . $data_visita . "', '" . $orario_visita . "', " . $descrizione . ", ".$id_prestazione." ) ");
         $id = $this->db->insert_id();
         $this->db->insert('relationship_visite_studi', ['id_persona' => $id, 'id_studio' => $this->session->userdata('id_studio')]);
         return $id;
@@ -706,8 +706,7 @@ class Pazienti extends CI_Model {
         return $this->db->query("
 			SELECT * FROM visite
 			LEFT JOIN dottori ON visite.id_dottore=dottori.id
-			LEFT JOIN patologie ON visite.id_patologia=patologie.id_patologia
-			LEFT JOIN farmaci ON visite.id_farmaco=farmaci.id_farmaco
+
 			WHERE visite.id=" . $id_visita . "
 		");
     }
@@ -715,7 +714,7 @@ class Pazienti extends CI_Model {
     function get_visite_of_day($data, $id_dottore) {
         $data = $this->db->escape($data);
 
-        return $this->db->query("SELECT * FROM visite WHERE data_visita=" . $data . " AND id_dottore=" . $id_dottore . " ORDER BY orario_visita ASC ");
+        return $this->db->query("SELECT * FROM visite JOIN relationship_visite_studi ON relationship_visite_studi.id_persona = visite.id WHERE data_visita=" . $data . " AND id_dottore=" . $id_dottore . " AND id_studio = ".$this->session->userdata('id_studio')." ORDER BY orario_visita ASC ");
     }
 
     function get_paziente_by_visita_id($id_visita) {

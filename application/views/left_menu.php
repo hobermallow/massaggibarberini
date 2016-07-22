@@ -166,12 +166,12 @@
         </a>
     </li>-->
 
-    <!-- <li class="last ">
+    <li class="last ">
         <a href="<?php echo base_url(); ?>registravisita">
             <i class="icon-cloud-upload"></i>
             <span class="title">Registra Visita</span>
         </a>
-    </li> -->
+    </li>
 
     <li class="last ">
         <a href="<?php echo base_url(); ?>userdrive">
