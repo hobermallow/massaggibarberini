@@ -204,7 +204,7 @@ class acl_app extends CI_Model  {
         //ricavo il timestamp
         $timestamp = $query->data;
         //se  timestamp+password corrisponde
-        if($hasher->CheckPassword($password, $query->password)) {
+        if($hasher->CheckPassword($timestamp.$password, $query->password)) {
           //ritorno l'api_key
             $api_key = $query->api_key;
             //l'operazione e' andata a buon fine
