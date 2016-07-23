@@ -232,6 +232,11 @@ class acl_app extends CI_Model  {
     			return false;
     		}
     	}
+    	//controllo che lo username non sia gia in uso
+    	$query = $this->db->get_where('pazienti', ['username' => $data['username']]);
+    	if ($query->num_rows() > 0) {
+    		return false;
+    	}
     	//email uguale a username
     	$data['email'] = $data['username'];
     	//creo l'hasher per criptare la password
