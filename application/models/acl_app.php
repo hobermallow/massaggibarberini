@@ -191,7 +191,7 @@ class acl_app extends CI_Model  {
     return $punteggi;
 
   }
-  public function primo_login_app($username, $password) {
+  public function login_app($username, $password) {
       //id dello studio
       $id_studio = Domini::get_id_studio();
       //Controllo se lo username sia gia esistente
@@ -204,36 +204,58 @@ class acl_app extends CI_Model  {
         //ricavo il timestamp
         $timestamp = $query->data;
         //se  timestamp+password corrisponde
-        if($hasher->CheckPassword($password, $query->password)) {
-          //se l'api_key non esiste la creo
-          if(!isset($query->api_key)) {
-            //Prendo l'id dell'utente di cui devo creare l'hash
-            $id = $query->id;
-            //genero l'api key
-            $api_key = $hasher->HashPassword($timestamp.$password);
-            //inserisco api_key nel db
-            $this->db->where('id', $id);
-            //booleano che controlla il successo dell'operazione di inserimento nel db dell'api_key
-            $bool = $this->db->update('pazienti', ['api_key' => $api_key]);
-          }
-          //altrimenti, se l'api_key e' gia settata
-          else {
+        if($hasher->CheckPassword($timestamp.$password, $query->password)) {
+          //ritorno l'api_key
             $api_key = $query->api_key;
             //l'operazione e' andata a buon fine
-            $bool = TRUE;
-          }
-          // se le operazioni del db sono andate a buon fine, ritorno l'api_key
-          if($bool) {
             return $api_key;
-          }
-          // altrimenti, -1
-          else {
-            return -1;
-          }
         }
+        
         //altrimenti, se la password e' errata
         return -2;
       }
+    }
+    
+    public function registrazione($post) {
+    	$data = array();
+    	$data['username'] = $post['email'];
+    	$password = $post['password'];
+    	$data['nome'] = $post['nome'];
+    	$data['cognome'] = $post['cognome'];
+    	$data['cap'] = $post['cap'];
+    	$data['telefono'] = $post['telefono'];
+    	$data['indirizzo'] = $post['indirizzo'];
+    	$data['data_nascita'] = $post['data_nascita'];
+    	foreach ($data as $item) {
+    		//se uno degli elementi e' NULL
+    		if (!isset($item)) {
+    			return false;
+    		}
+    	}
+    	//email uguale a username
+    	$data['email'] = $data['username'];
+    	//creo l'hasher per criptare la password
+    	$hasher = new PasswordHash(PHPASS_HASH_STRENGTH, PHPASS_HASH_PORTABLE);
+    	//inserisco dati nel db
+    	$bool1 = $this->db->insert('pazienti', $data);
+   		//recupero l'id del paziene appena inserito
+   		$id_paziente = $this->db->insert_id();
+    	//id dello studio
+    	$id_studio = Domini::get_id_studio();
+    	//inserisco la relazione fra paziente e studio
+    	$bool2 = $this->db->insert('relationship_pazienti_studi', ['id_persona' => $id_paziente, 'id_studio' => $id_studio]);
+    	//eseguo query per ricavare il timestamp
+    	$query = $this->db->query("SELECT * FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE username = '$username' AND id_studio = '$id_studio'");
+    	//ricavo il timestamp
+    	$timestamp = $query->row()->data;
+    	//genero la password
+    	$password = $hasher->HashPassword($timestamp.$password);
+    	//genero l'api_key
+    	$api_key = $hasher->HashPassword($timestamp.$password);
+    	//inserisco api_key e password nel db
+    	$this->db->where(['id' => $id_paziente]);
+    	$bool3 = $this->db->update('pazienti', ['password' => $password, 'api_key' => $api_key]);
+    	return $bool1 && $bool2 && $bool3;
     }
   }
  ?>

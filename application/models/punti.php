@@ -5,7 +5,7 @@
  */
 class punti extends CI_Model  {
 
-  function __construct(argument)  {
+  function __construct()  {
     parent::__construct();
   }
   /* funzione che ritorna il totale dei punti accumulati da un utente */

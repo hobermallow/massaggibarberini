@@ -6,6 +6,28 @@ class rest extends CI_Controller {
     parent::__construct();
     $this->load->model('acl_app');
   }
+  
+  public function registrazione() {
+  	$response = array();
+  	$this->output->set_header('Content-Type: application/json');
+  	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  		$bool = $this->acl_app->registrazione($this->input->post());
+  		//se la registrazione e' andata a buon fine
+  		if($bool) {
+  			$api_key = $this->acl_app->login_app($this->input->post('email'), $this->input->post('password'));
+  			$response['api_key'] = $api_key;
+  			$response['error'] = false;
+  			echo json_encode($response);
+  		}
+  		else {
+  			$response['error'] = true;
+  			echo json_encode($response);
+  		}
+  	}
+  	else {
+  		$response['error'] = TRUE;
+  	}
+  }
   public function index() {
     $response = array();
     // il client cerca di settare un nuovo utente
@@ -13,7 +35,7 @@ class rest extends CI_Controller {
       $this->output->set_header('Content-Type: application/json');
       $username = $this->input->post('username');
       $password = $this->input->post('password');
-      $api_key = $this->acl_app->primo_login_app($username, $password);
+      $api_key = $this->acl_app->login_app($username, $password);
       // l'api_key e' stata settata correttamente
 
       if(is_string($api_key)) {
