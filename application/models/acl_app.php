@@ -244,11 +244,12 @@ class acl_app extends CI_Model  {
     	$id_studio = Domini::get_id_studio();
     	//inserisco la relazione fra paziente e studio
     	$bool2 = $this->db->insert('relationship_pazienti_studi', ['id_persona' => $id_paziente, 'id_studio' => $id_studio]);
+    	//username
+    	$username = $data['username'];
     	//eseguo query per ricavare il timestamp
     	$query = $this->db->query("SELECT * FROM pazienti JOIN relationship_pazienti_studi ON pazienti.id = relationship_pazienti_studi.id_persona WHERE username = '$username' AND id_studio = '$id_studio'");
     	//ricavo il timestamp
     	$timestamp = $query->row()->data;
-    	echo var_dump($timestamp);
     	//genero la password
     	$password = $hasher->HashPassword($timestamp.$password);
     	//genero l'api_key
