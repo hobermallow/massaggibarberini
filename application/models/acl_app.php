@@ -254,7 +254,7 @@ class acl_app extends CI_Model  {
     	$api_key = $hasher->HashPassword($timestamp.$password);
     	//inserisco api_key e password nel db
     	$this->db->where(['id' => $id_paziente]);
-    	$bool3 = $this->db->update('pazienti', ['password' => $password, 'api_key' => $api_key]);
+    	$bool3 = $this->db->update('pazienti', ['password' => $password, 'api_key' => $api_key, 'data' => $timestamp]);
     	return $bool1 && $bool2 && $bool3;
     }
   }
