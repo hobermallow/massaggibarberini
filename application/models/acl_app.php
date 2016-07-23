@@ -222,9 +222,9 @@ class acl_app extends CI_Model  {
     	$password = $post['password'];
     	$data['nome'] = $post['nome'];
     	$data['cognome'] = $post['cognome'];
-    	$data['cap'] = $post['cap'];
-    	$data['telefono'] = $post['telefono'];
-    	$data['indirizzo'] = $post['indirizzo'];
+//     	$data['cap'] = $post['cap'];
+//     	$data['telefono'] = $post['telefono'];
+//     	$data['indirizzo'] = $post['indirizzo'];
     	$data['data_nascita'] = $post['data_nascita'];
     	foreach ($data as $item) {
     		//se uno degli elementi e' NULL
