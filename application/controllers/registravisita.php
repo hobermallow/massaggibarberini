@@ -151,7 +151,7 @@ class registravisita extends CI_Controller {
 
 		$view["dottori"] = $this->dottori->get_all_dottori();
 
-		if( $this->input->post("paziente") && $this->input->post("data_visita") && $this->input->post("ora_visita") && $this->input->post("dottore") )
+		if( $this->input->post("paziente") && $this->input->post("data_visita") && $this->input->post("ora_visita") && $this->input->post("dottore") && $this->input->post("prestazione") )
 		{
 			//allora il form è stato inviato...
 			$id_paziente = (int)$this->get_id_paziente_by_string( $this->input->post("paziente") );
@@ -176,9 +176,9 @@ class registravisita extends CI_Controller {
 
 			$ora_visita = $this->input->post("ora_visita");
 			$descrizione_visita = $this->input->post("descrizione_visita");
-			$id_dottore = (int)$this->input->post("dottore");
-
-			if( $id_paziente == "" || $ora_visita == "" || $ora_visita == false || $id_dottore == 0 )
+			$id_dottore = intval($this->input->post("dottore"));
+			$id_prestazione = intval($this->input->post("prestazione"));
+			if( $id_paziente == "" || $ora_visita == "" || $ora_visita == false || $id_dottore == 0 || $id_prestazione == 0 )
 			{
 				//form con completato correttamente...
 				$view["error"] = true;
@@ -189,7 +189,7 @@ class registravisita extends CI_Controller {
 				//tutto è corretto
 				//ottengo l'id del paziente relativo in base al suo codice fiscale
 
-				$id_visita = $this->pazienti->registra_visita( $id_paziente, $id_dottore, $data_visita, $ora_visita, $descrizione_visita );
+				$id_visita = $this->pazienti->registra_visita( $id_paziente, $id_dottore, $data_visita, $ora_visita, $descrizione_visita, $id_prestazione );
 
 				$view["visita_salvata"] = true;
 

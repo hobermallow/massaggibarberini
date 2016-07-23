@@ -252,6 +252,21 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="fa icon-clock"></i>
                                     <input id="input_ora_visita" name="ora_visita" type="text" class="form-control timepicker timepicker-24">
                                 </div>
+                                <div class="input-icon margin-top-10">
+                                <label>Data visita:</label>
+                                    <i class="fa fa-calendar"></i>
+
+                                <input id="data_visita" type="text" class="form-control form-control-inline input-medium date-picker" name="data_visita" value="" />
+                              </div>
+                              <div class="input-icon margin-top-10">
+                                <label>Seleziona la prestazione: </label>
+                                <select name="prestazione" class="form-control">
+                                	<option value="0" >Seleziona prestazione</option>
+                                <?php foreach( $prestazioni->result() as $prestazione ): ?>
+                                    <option value="<?php echo $prestazione->id_prestazione; ?>" ><?php echo $prestazione->descrizione; ?></option>
+                                <?php endforeach; ?>
+                				</select>
+                                </div>
 
                                 <div class="col-lg-10">
                                     <label>Descrizione visita:</label>
@@ -261,8 +276,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                             </div>
-                            <input id="data_visita" type="hidden" name="data_visita" value="" />
-                            <input id="dottore" type="hidden" name="dottore" value="" />
+
+                            <input id="dottore" type="hidden" name="dottore" value="<?php echo $dottore_curr[0]->id; ?>" />
                             <br>
                             <button type="submit" class="btn green">Registra visita</button>
                             <br>

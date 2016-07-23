@@ -59,7 +59,7 @@ class calendario extends CI_Controller {
 
 		$this->load->model("pazienti");
 		$this->load->model("dottori");
-
+		$view["prestazioni"] = $this->dottori->get_prestazioni_by_id_dottore($id_dottore);
 		$view["dottori"] = $this->dottori->get_all_dottori();
 
 		$view["dottore_corrente"] = $this->dottori->get_dottore_by_id( $id_dottore );

@@ -44,8 +44,8 @@ class Pazienti extends CI_Model {
         $post["data_visita"] = date('Y-m-d', strtotime($post["data_visita"]));
         $post["data_visita"] = $this->db->escape($post["data_visita"]);
 
-
-        $query_visite = $this->db->query("SELECT id FROM visite WHERE id_dottore=" . $post["id_dottore"] . " AND data_visita=" . $post["data_visita"] . " AND orario_visita=" . $post["ora_visita"] . " LIMIT 200 ");
+        $id_studio = $this->session->userdata('id_studio');
+        $query_visite = $this->db->query("SELECT id FROM visite JOIN relationship_visite_studi ON visite.id = relationship_visite_studi.id_persona WHERE id_studio=".$id_studio." AND id_dottore=" . $post["id_dottore"] . " AND data_visita=" . $post["data_visita"] . " AND orario_visita=" . $post["ora_visita"] . " LIMIT 200 ");
 
         if ($query_visite->num_rows() > 0)
             return false;

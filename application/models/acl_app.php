@@ -66,6 +66,12 @@ class acl_app extends CI_Model  {
     $id_visita = $this->db->insert_id();
     //inserisco la visita nella relationship_visite_studi
     $boolean2 = $this->db->insert('relationship_visite_studi', ['id_persona' => $id_visita, 'id_studio' => $id_studio]);
+    //mail
+    $id_studio = Domini::get_id_studio();
+    $this->db->where(['id_studio' => $id_studio]);
+    $query = $this->db->get('associazioni_studi_domini');
+    $mail_prenotazioni = $query->row()->mail_prenotazioni;
+    mail($mail_prenotazioni, "Nuova Prenotazione", "Nuova prenotazione a nome di: ".$nome_paziente." ".$cognome_paziente." ");
     return $boolean && $boolean2;
   }
 

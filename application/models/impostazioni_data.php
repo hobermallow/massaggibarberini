@@ -12,13 +12,28 @@ class impostazioni_data extends CI_Model {
         $this->load->database('default');
     }
 
+    public function get_mail_prenotazioni() {
+      $id_studio = $this->session->userdata('id_studio');
+      $this->db->where(['id_studio' => $id_studio]);
+      $query = $this->db->get('associazioni_studi_domini');
+      return $query->row()->mail_prenotazioni;
+    }
+
+    public function update_mail_prenotazioni($mail_prenotazioni)  {
+      $data = ['mail_prenotazioni' => $mail_prenotazioni];
+      $id_studio = $this->session->userdata('id_studio');
+      $this->db->where(['id_studio' => $id_studio]);
+      $bool = $this->db->update('associazioni_studi_domini', $data);
+      return $bool;
+    }
+
     function save_last_esecuzione_alerthandler($tot_email, $tot_sms) {
         $tot_email = (int) $tot_email;
         $tot_sms = (int) $tot_sms;
 
         return $this->db->query("
-			INSERT INTO esecuzioni_alerthandler 
-			( tot_email_inviate, tot_sms_inviati ) 
+			INSERT INTO esecuzioni_alerthandler
+			( tot_email_inviate, tot_sms_inviati )
 			VALUES ( " . $tot_email . ", " . $tot_sms . " )
 		");
     }
@@ -54,7 +69,7 @@ class impostazioni_data extends CI_Model {
         }
         return $id;
     }
-    
+
     function get_dati_fatturazione() {
          return $this->db->query("SELECT * FROM dati_fatturazione");
     }

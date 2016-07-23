@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.1.1
 Version: 3.1
 Author: KeenThemes
@@ -208,14 +208,24 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
 
 
-                    <br>
-
                     <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
 
-                    </form>
 
                     <br><br>
-                    
+
+
+                    <h2 class="page-title">Email di avviso prenotazione</h2>
+                    <div class="row">
+                      <div class="col-md-6">
+                        Email di avviso prenotazione pendente: <input class="form-control" name="mail_prenotazioni" type="email" value="<?php echo $mail_prenotazioni; ?>" >
+                      </div>
+                    </div>
+                    <button type="submit" name="modifica_mail" value="modifica_mail" class="btn green">Modifica</button>
+                    </form>
+                    <br>
+
+                    <br><br>
+
                     <form action="<?php echo base_url(); ?>impostazioni/updateimpostazioni" method="post" >
                         <div class="row" >
 
@@ -267,7 +277,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <i class="fa fa-user"></i>
                                     <input type="text" class="form-control" name="piva" value="<?php echo $impostazioniFatturazione ? $impostazioniFatturazione[0]->piva : "" ?>" required placeholder="Partita IVA">
                                 </div>
-                            </div> <!--colonna1-->  
+                            </div> <!--colonna1-->
                         </div>
                         <br>
                         <div class="row" >
@@ -277,7 +287,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
 
                     </form>
-                    
+
                     <form action="<?php echo base_url(); ?>impostazioni/updateimpostazioni" method="post" >
 
                         <div class="row" >
@@ -313,7 +323,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </select>
                                 </div>
 
-                            </div> <!--colonna1-->  
+                            </div> <!--colonna1-->
 
                         </div>
 
@@ -424,7 +434,7 @@ License: You must have a valid license purchased only from themeforest(the above
         <!-- BEGIN CORE PLUGINS -->
         <!--[if lt IE 9]>
         <script src="/assets/global/plugins/respond.min.js"></script>
-        <script src="/assets/global/plugins/excanvas.min.js"></script> 
+        <script src="/assets/global/plugins/excanvas.min.js"></script>
         <![endif]-->
         <script src="/assets/global/plugins/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="/assets/global/plugins/jquery-migrate-1.2.1.min.js" type="text/javascript"></script>

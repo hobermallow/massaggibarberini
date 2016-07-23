@@ -26,7 +26,7 @@ class impostazioni extends CI_Controller {
         if ($modifica_effettuata == 1)
             $view["update_riuscito"] = true;
 
-
+        $view["mail_prenotazioni"] = $this->impostazioni_data->get_mail_prenotazioni();
         $view["impostazioni"] = $this->impostazioni_data->get_all_impostazioni();
         $view["impostazioniFatturazione"] = $this->impostazioni_data->get_dati_fatturazione()->result();
 
@@ -117,10 +117,18 @@ class impostazioni extends CI_Controller {
                 $view["error"] = true;
             }
         }
+        else if ($this->input->post("modifica_mail")) {
+            //prendo la nuova mail
+            $mail_prenotazioni = $this->input->post('mail_prenotazioni');
+            $bool = $this->impostazioni_data->update_mail_prenotazioni($mail_prenotazioni);
+            $view["update_riuscito"] = $bool;
+            $view["error"] = !($bool);
+
+        }
 
         $view["impostazioni"] = $this->impostazioni_data->get_all_impostazioni();
         $view["impostazioniFatturazione"] = $this->impostazioni_data->get_dati_fatturazione()->result();
-        
+        $view["mail_prenotazioni"] = $this->impostazioni_data->get_mail_prenotazioni();
 
         $view["accounts"] = $this->acl->get_all_users();
 
