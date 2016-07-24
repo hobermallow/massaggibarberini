@@ -48,6 +48,25 @@ License: You must have a valid license purchased only from themeforest(the above
 <link href="/assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="favicon.ico"/>
+<style type="text/css">
+	#gallery, #upload {
+		border: 1px solid #ccc; margin: 10px auto; width: 570px; padding: 10px;
+	}
+	
+	#blank_gallery {
+		font-family: Arial; font-size: 18px; font-weight: bold;
+		text-align: center;
+	}
+	.thumb {
+		float: left; width: 125px; height: 85px; padding: 10px; margin: 10px; background-color: #ddd;
+	}
+	.thumb:HOVER {
+		outline: 1px solid #999;
+	}
+	img {
+		border: 0;
+	}
+</style>
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -152,6 +171,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
+			<div class="row">
 			<div id="gallery" >
 			
 			<?php if(isset($immagini) && count($immagini)) :?>
@@ -160,16 +180,26 @@ License: You must have a valid license purchased only from themeforest(the above
 				<a href="<?php echo $image["image_url"]?>">
 				<img  src="<?php echo $image["image_thumb"]?>">
 				</a>
+				<input form="upload" type="checkbox" name="images[]" value="<?php echo $image['image_name']?>">
 			</div>
 			<?php endforeach;?>
+			<?php else:?>
+			<div id="blank_gallery">Carica un immagine</div>
 			<?php endif;?>
 			</div>
+			</div>
+			<div class="row">
 			<?php
-				echo form_open_multipart('gallery', ['class' => 'form']);
-				echo form_upload('userfile');
+				echo form_open_multipart('gallery', ['class' => 'form', 'id' => 'upload']);
+				echo '<fieldset class="form-group" >';
+				echo form_upload(['name' => 'userfile']);
 				echo form_submit(['name' => 'upload'], "Upload");
+				echo form_submit(['name' => 'delete'], "Cancella");
+				echo '</fieldset>';
 				echo form_close();
 			?>
+			</div>
+			
 
 			<!-- END PAGE HEADER-->
 		 	<!-- END ACCORDION PORTLET-->

@@ -25,6 +25,10 @@ class gallery extends CI_Controller {
 		if ($this->input->post("upload")) {
 			//richiamo l'upload dal modello
 			$this->gallery_data->do_upload();
+		
+		}
+		else if ($this->input->post("delete")) {
+			$this->gallery_data->delete($this->input->post("images"));
 		}
 		
 		$view["immagini"] = $this->gallery_data->get_images();
