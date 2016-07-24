@@ -38,7 +38,13 @@
             <span class="selected"></span>
         </a>
     </li>
-
+	<li class="start ">
+        <a href="<?php echo base_url(); ?>gallery">
+            <i class="icon-graduation"></i>
+            <span class="title">Gallery</span>
+            <span class="selected"></span>
+        </a>
+    </li>
     <li class="last ">
         <a href="<?php echo base_url(); ?>categoriepazienti">
             <i class="icon-paper-clip"></i>
