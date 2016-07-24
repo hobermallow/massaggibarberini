@@ -27,9 +27,10 @@ class gallery extends CI_Controller {
 			$this->gallery_data->do_upload();
 		}
 		
-		$view["immagini"] = $this->gallery_data->get_images();
-		
-		$this->load->view('gallery', $view);
+// 		$view["immagini"] = $this->gallery_data->get_images();
+		echo APPPATH;
+		exit;
+// 		$this->load->view('gallery', $view);
 	}
 
 
