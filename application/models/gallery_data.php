@@ -12,6 +12,23 @@ class gallery_data extends CI_Model {
 		$this->gallery_path  = realpath(APPPATH.'images');
 		$this->gallery_path_url = base_url('images');
 	}
+	
+	public function get_images() {
+		//recupero i file nella cartella delle immagini
+		$files = scandir($this->gallery_path);
+		//elimino gli elementi che non sono immagini
+		$files = array_diff($files, ['thumbs', '.', '..']);
+		//per ogni immagine, passo url dell'immagine e del thumb
+		$images = array();
+		foreach ($files as $file) {
+			$images[] = [
+					'image_url' => $this->gallery_path_url . DIRECTORY_SEPARATOR . $file,
+					'image_thumb' => $this->gallery_path_url . DIRECTORY_SEPARATOR . "/thumbs/" . $file
+			];
+		}
+		return $images;
+		
+	}
 
 	public function do_upload() {
 		// echo $this->gallery_path;

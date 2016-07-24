@@ -152,6 +152,18 @@ License: You must have a valid license purchased only from themeforest(the above
 
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
+			<div id="gallery" >
+			
+			<?php if(isset($immagini) && count($immagini)) :?>
+			<?php foreach ($immagini as $image):?>
+			<div class="thumb">
+				<a href="<?php echo $image["image_url"]?>">
+				<img  src="<?php echo $image["image_thumb"]?>">
+				</a>
+			</div>
+			<?php endforeach;?>
+			<?php endif;?>
+			</div>
 			<?php
 				echo form_open_multipart('gallery', ['class' => 'form']);
 				echo form_upload('userfile');
