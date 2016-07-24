@@ -152,12 +152,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
-			<?php 
+			<?php
 				echo form_open_multipart('gallery', ['class' => 'form']);
-				echo form_upload(['name' => 'userfile']);
-				echo form_submit(['name' => 'submit'], "Submit");
-			?>	
-		
+				echo form_upload('userfile');
+				echo form_submit(['name' => 'upload'], "Upload");
+				echo form_close();
+			?>
+
 			<!-- END PAGE HEADER-->
 		 	<!-- END ACCORDION PORTLET-->
 
