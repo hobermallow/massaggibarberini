@@ -104,6 +104,9 @@ class rest extends CI_Controller {
           $index++;
         }
       }
+      else {
+      	$response['error'] = TRUE;
+      }
       echo json_encode($response);
     }
 
@@ -240,5 +243,32 @@ class rest extends CI_Controller {
       $response['error'] = TRUE;
        echo json_encode($response);
     }
+  }
+  
+  public function gallery() {
+  	$response = array();
+  	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  		$this->output->set_header('Content-Type: application/json');
+  		//controllo l'api_key
+  		$api_key = $this->input->post('api_key');
+  		//se l'api_key esiste
+  		if($this->acl_app->control_api_key($api_key) && $api_key != NULL) {
+  			$files = $this->acl_app->get_gallery();
+  			foreach ($files as $file) {
+  				$response[] = $file;
+  			}
+  			echo json_encode($response);
+  		}
+  		//se l'api_key non esiste
+  		else {
+  			$response['error'] = TRUE;
+  			echo json_encode($response);
+  		}
+  	}
+  	//se la chimata e' in GET
+  	else {
+  		$response['error'] = TRUE;
+  		echo json_encode($response);
+  	}
   }
 }

@@ -23,14 +23,13 @@ class gallery extends CI_Controller {
 		$view["dottori"] = $this->dottori->get_all_dottori();
 		
 		if ($this->input->post("upload")) {
-			//richiamo l'upload dal modello
 			$this->gallery_data->do_upload();
-		
 		}
 		else if ($this->input->post("delete")) {
-			$this->gallery_data->delete($this->input->post("images"));
+			if(null != $this->input->post("images") && count($this->input->post("images"))) {
+				$this->gallery_data->delete($this->input->post("images"));
+			}
 		}
-		
 		$view["immagini"] = $this->gallery_data->get_images();
 		$this->load->view('gallery', $view);
 	}

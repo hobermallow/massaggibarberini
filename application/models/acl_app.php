@@ -4,11 +4,18 @@
  *
  */
 class acl_app extends CI_Model  {
+	
+	var $gallery_path;
+	var $gallery_path_url;
+	var $array_image_mime;
 
   function __construct()  {
     $this->load->helper('phpass');
     $this->load->helper('date');
     $this->load->helper('domini');
+    $this->gallery_path  = APPPATH."/../".'images';
+    $this->gallery_path_url = base_url('images');
+    $this->array_image_mime = ['image/gif', 'image/jpeg', 'image/png'];
   }
 
   public function get_visite_by_api_key($api_key) {
@@ -263,6 +270,52 @@ class acl_app extends CI_Model  {
     	$this->db->where(['id' => $id_paziente]);
     	$bool3 = $this->db->update('pazienti', ['password' => $password, 'api_key' => $api_key, 'data' => $timestamp]);
     	return $bool1 && $bool2 && $bool3;
+    }
+    
+    public function get_gallery() {
+    	$id_studio = Domini::get_id_studio();
+		//creo il path
+		$gallery_path = realpath($this->gallery_path.$id_studio);
+		//recupero i file nella cartella delle immagini
+		$files = scandir($gallery_path);
+    	//elimino gli elementi che non sono immagini
+    	$files = array_diff($files, ['thumbs', '.', '..']);
+    	//per ogni immagine, passo url dell'immagine e del thumb
+    	$images = array();
+    	foreach ($files as $file) {
+    		//se il file e' un immagine
+    		if(in_array($this->getMimeType($gallery_path.DIRECTORY_SEPARATOR.$file), $this->array_image_mime))	{
+    			$thumb = $this->gallery_path_url . $id_studio. DIRECTORY_SEPARATOR . "/thumbs/" . $file;
+    		}
+    		//altrimenti
+    		else {
+    			$thumb =explode('.', $file);
+    			$thumb = $thumb[0];
+    			$thumb = $thumb.".jpg";
+    			$thumb = $this->gallery_path_url .$id_studio. DIRECTORY_SEPARATOR . "/thumbs/" . $thumb;
+    		}
+    		$images[] = [
+    				'file_url' => $this->gallery_path_url . $id_studio. DIRECTORY_SEPARATOR . $file,
+    				'file_thumb' => $thumb,
+    				'file_name' => $file
+    		];
+    	}
+    	return $images;
+    
+    
+    }
+    
+    private function getMimeType($filename)	{
+    	$mimetype = false;
+    	if(function_exists('finfo_fopen')) {
+    		$f_info = finfo_open(FILEINFO_MIME_TYPE);
+    		$mimetype = finfo_file($f_info, $filename);
+    	}
+    
+    	else if(function_exists('mime_content_type')) {
+    		$mimetype = mime_content_type($filename);
+    	}
+    	return $mimetype;
     }
   }
  ?>
