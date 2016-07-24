@@ -9,7 +9,7 @@ class gallery_data extends CI_Model {
 	function __construct() {
 		parent::__construct();
 		$this->load->helper('url');
-		$this->gallery_path  = realpath(APPPATH.'images');
+		$this->gallery_path  = realpath(APPPATH."/../".'images');
 		$this->gallery_path_url = base_url('images');
 	}
 	
