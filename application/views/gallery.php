@@ -205,7 +205,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<div class="row">
 			<div class="col-md-12">
-			<img id='loading' src='/loading.jpg' style='visibility: hidden;'>
+			<img id='loading' src='/loading.gif' style='visibility: hidden;'>
 			</div>
 			</div>
 			<script>
