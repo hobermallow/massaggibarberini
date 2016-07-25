@@ -286,6 +286,7 @@ class acl_app extends CI_Model  {
     		//se il file e' un immagine
     		if(in_array($this->getMimeType($gallery_path.DIRECTORY_SEPARATOR.$file), $this->array_image_mime))	{
     			$thumb = $this->gallery_path_url . $id_studio. DIRECTORY_SEPARATOR . "/thumbs/" . $file;
+    			$is_image = true;
     		}
     		//altrimenti
     		else {
@@ -293,11 +294,13 @@ class acl_app extends CI_Model  {
     			$thumb = $thumb[0];
     			$thumb = $thumb.".jpg";
     			$thumb = $this->gallery_path_url .$id_studio. DIRECTORY_SEPARATOR . "/thumbs/" . $thumb;
+    			$is_image = false;
     		}
     		$images[] = [
     				'file_url' => $this->gallery_path_url . $id_studio. DIRECTORY_SEPARATOR . $file,
     				'file_thumb' => $thumb,
-    				'file_name' => $file
+    				'file_name' => $file,
+    				'is_image' => $is_image
     		];
     	}
     	return $images;
