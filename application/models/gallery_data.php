@@ -106,6 +106,8 @@ class gallery_data extends CI_Model {
 			exec("ffmpegthumbnailer   -i" .$image_data['full_path'] . " -f -s 100 -o ".$gallery_path.DIRECTORY_SEPARATOR."thumbs".DIRECTORY_SEPARATOR.$file_name );
 				
 		}
+		
+		return true;
 		// echo var_dump($img_config);
 		// exit;
 	}
@@ -115,25 +117,27 @@ class gallery_data extends CI_Model {
 		//creo il path
 		$gallery_path = realpath($this->gallery_path.$id_studio);
 		//$files e' array dei nomi dei file da cancellare
+		$bool = true;
 		foreach ($files as $file) {
 			
 			//cancello il thumb
 			//se e' un immagine stesso nome
 			if(in_array($this->getMimeType($gallery_path.DIRECTORY_SEPARATOR.$file), $this->array_image_mime))	{
-				unlink($gallery_path. DIRECTORY_SEPARATOR . "thumbs" .DIRECTORY_SEPARATOR . $file);
+				$bool = $bool && unlink($gallery_path. DIRECTORY_SEPARATOR . "thumbs" .DIRECTORY_SEPARATOR . $file);
 			}
 			//altrimenti
 			else {
 				$file_thumb =explode('.', $file);
 				$file_thumb = $file_thumb[0];
 				$file_thumb = $file_thumb.".jpg";
-				$file_thumb = $this->gallery_path_url .$id_studio.DIRECTORY_SEPARATOR . "/thumbs/" . $file_thumb;
-				unlink($file_thumb);
+				$file_thumb = $gallery_path.DIRECTORY_SEPARATOR . "/thumbs/" . $file_thumb;
+				$bool = $bool && unlink($file_thumb);
 			}
 			//cancello il file originale
-			unlink($gallery_path . DIRECTORY_SEPARATOR . $file);
+			$bool = $bool && unlink($gallery_path . DIRECTORY_SEPARATOR . $file);
 			
 		}
+		return $bool;
 	}
 	
 	private function getMimeType($filename)	{

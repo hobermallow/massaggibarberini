@@ -66,6 +66,10 @@ License: You must have a valid license purchased only from themeforest(the above
 	img {
 		border: 0;
 	}
+	
+	#loading {
+		display: block; margin: 0 auto; width: 10%;
+	}
 </style>
 </head>
 <!-- END HEAD -->
@@ -192,14 +196,77 @@ License: You must have a valid license purchased only from themeforest(the above
 			<?php
 				echo form_open_multipart('gallery', ['class' => 'form', 'id' => 'upload']);
 				echo '<fieldset class="form-group" >';
-				echo form_upload(['name' => 'userfile']);
+				echo form_upload(['name' => 'userfile', 'id' => 'file']);
 				echo form_submit(['name' => 'upload'], "Upload");
 				echo form_submit(['name' => 'delete'], "Cancella");
 				echo '</fieldset>';
 				echo form_close();
 			?>
 			</div>
+			<div class="row">
+			<div class="col-md-12">
+			<img id='loading' src='/loading.jpg' style='visibility: hidden;'>
+			</div>
+			</div>
+			<script>
+			//utility functions to hide/show loading gif
+			function showLoading()	{
+				document.getElementById("loading").style = "visibility: visible";
+			}
+			function hideLoading()	{
+				document.getElementById("loading").style = "visibility: hidden";
+			}
+			</script>
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+			<script type="text/javascript">
+			jQuery(document).ready(function () {
+				$("input[type=submit]").click(function (e) {
+					e.stopPropagation();
+					e.preventDefault();
+					showLoading();
+					//get the file 
+					var file = $("#file").prop('files')[0];
+					var form = $("#upload");
+					var data = new FormData();
+					//append the file to FormData
+					data.append($(this).attr('name'), $(this).val());
+					var checkedImages = $('input[name="images[]"]:checked').map(function() {
+						data.append('images[]', this.value);
+					}).get();
+					
+					data.append('userfile', file);
+					$.ajax({
+				        
+	 			        type: 'POST',
+	 			        url: "<?php echo base_url(); ?>gallery/upload",
+	 			        data: data,
+	 			        cache: false,
+	 			        dataType: 'text',
+	 			        processData: false, // Don't process the files
+	 			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	 			        success: function(data, textStatus, jqXHR)
+	 			        {
+		 			        hideLoading();
+	 			            alert(data);
+	 			            location.reload(true);
+	 			            
+	 			        },
+	 			        error: function(jqXHR, textStatus, errorThrown)
+	 			        {
+	 			        	hideLoading();
+	 			            // Handle errors here
+	 			            alert(data);
+	 			            console.log('ERRORS: ' + textStatus);
+	 			            // STOP LOADING SPINNER
+	 			        }
+	 			    });
+
+					
+				});     
+			    
+			});
 			
+			</script>
 
 			<!-- END PAGE HEADER-->
 		 	<!-- END ACCORDION PORTLET-->

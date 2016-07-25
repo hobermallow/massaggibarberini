@@ -34,5 +34,32 @@ class gallery extends CI_Controller {
 		$this->load->view('gallery', $view);
 	}
 
+	public function upload() {
+		if ($this->input->post("upload")) {
+			if($this->gallery_data->do_upload()) {
+// 			echo "Upload eseguito";
+// 			echo var_dump($_POST);
+// 			echo var_dump($_FILES);
+// 			exit;
+				echo "Upload eseguito con successo";
+			}
+			else {
+				echo "Errore nell'upload";
+			}
+		}
+		else if ($this->input->post("delete")) {
+// 			echo var_dump($_POST);
+// 			echo var_dump($_FILES);
+// 			exit;
+			if(null != $this->input->post("images") && count($this->input->post("images"))) {
+				if($this->gallery_data->delete($this->input->post("images"))) {
+					echo "Cancellazione eseguita";
+				}
+				else {
+					echo "Errore nella cancellazione";
+				}
+			}
+		}
+	}
 
 }
