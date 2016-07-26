@@ -159,7 +159,14 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
                     <!-- BEGIN PAGE CONTENT-->
-
+					<div class = "page-header">
+   
+   						<h1>
+      						Punti Fedeltà
+   						</h1>
+   						<small>Seleziona il cliente:</small>
+   
+					</div>
 
 
                     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.0/themes/smoothness/jquery-ui.css">
@@ -181,7 +188,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <div class="col-md-2" >
                                 <div class="form-group">
-                                    <label>Categoria pazienti:</label>
+                                    <label>Categoria clienti:</label>
                                     <select name="categoria_pazienti" class="form-control">
 
                                         <option value="0" <?php if (!isset($filtro_categoria_pazienti)) echo "selected"; ?> > Tutte</option>
@@ -194,11 +201,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </div>
                             <div class="col-md-2" >
-                                <label>Nome paziente:</label>
+                                <label>Nome cliente:</label>
                                 <input type="text" class="form-control" name="nome" <?php if (isset($filtro_nome)) echo "value=" . $filtro_nome . ""; ?> >
                             </div>
                             <div class="col-md-2" >
-                                <label>Cognome paziente:</label>
+                                <label>Cognome cliente:</label>
                                 <input type="text" class="form-control" name="cognome" <?php if (isset($filtro_cognome)) echo "value=" . $filtro_cognome . ""; ?> >
                             </div>
 
@@ -238,7 +245,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-users"></i>Tabella Pazienti
+                                    <i class="fa fa-users"></i>Tabella Clienti
                                 </div>
 
                             </div>

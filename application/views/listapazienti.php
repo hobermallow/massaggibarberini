@@ -153,7 +153,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Lista dei pazienti</h2>
+                    <h2 class="page-title" >Lista Clienti</h2>
                     <!-- END PAGE HEADER-->
 
                     <div class="clearfix">
@@ -190,7 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <div class="col-md-2" >
                                 <div class="form-group">
-                                    <label>Categoria pazienti:</label>
+                                    <label>Categoria clienti:</label>
                                     <select name="categoria_pazienti" class="form-control">
 
                                         <option value="0" <?php if (!isset($filtro_categoria_pazienti)) echo "selected"; ?> > Tutte</option>
@@ -203,11 +203,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
                             </div>
                             <div class="col-md-2" >
-                                <label>Nome paziente:</label>
+                                <label>Nome cliente:</label>
                                 <input type="text" class="form-control" name="nome" <?php if (isset($filtro_nome)) echo "value=" . $filtro_nome . ""; ?> >
                             </div>
                             <div class="col-md-2" >
-                                <label>Cognome paziente:</label>
+                                <label>Cognome cliente:</label>
                                 <input type="text" class="form-control" name="cognome" <?php if (isset($filtro_cognome)) echo "value=" . $filtro_cognome . ""; ?> >
                             </div>
 
@@ -253,7 +253,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-users"></i>Tabella Pazienti
+                                    <i class="fa fa-users"></i>Tabella Clienti
                                 </div>
 
                             </div>
@@ -335,9 +335,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <?php echo $row->email; ?>
                                                     </td>
                                                     <td class="numeric" style="text-align: center;" >
-                                                        <a href="<?php echo base_url(); ?><?php echo "listapazienti/drive/" . $row->id; ?>" title="Cartella Clinica" class="btn blue">
-                                                            <i class="fa icon-cloud-upload"></i>
-                                                        </a>
+                                                    <!--     <a href="<?php echo base_url(); ?><?php echo "listapazienti/drive/" . $row->id; ?>" title="Cartella Clinica" class="btn blue"> -->
+<!--                                                             <i class="fa icon-cloud-upload"></i> -->
+<!--                                                         </a> -->
                                                         <a href="<?php echo base_url(); ?><?php echo "listapazienti/edit/" . $row->id; ?>" title="Modifica" class="btn red">
                                                             <i class="fa fa-edit"></i>
                                                         </a>

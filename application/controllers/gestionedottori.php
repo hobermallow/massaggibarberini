@@ -335,7 +335,7 @@ class gestionedottori extends CI_Controller {
       $view["dottori"] = $this->dottori->get_all_dottori();
       //array dei giorni da aggiornare
       $view['errore'] = !($this->dottori->aggiorna_orario($id_dottore, $this->input->post()));
-      $this->load->view('add_prestazione_dottore', $view);
+      $this->load->view('aggiornaorari', $view);
 
     }
 

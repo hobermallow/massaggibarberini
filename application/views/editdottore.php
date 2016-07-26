@@ -157,7 +157,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Modifica del dottore</h2>
+                    <h2 class="page-title" >Modifica dell'operatore</h2>
                     <!--<h2 class="page-title" style="font-size: 16px; color: red;" >(nome, cognome e codice fiscale sono campi obbligatori)</h2>-->
                     <!-- END PAGE HEADER-->
 
@@ -192,7 +192,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div> -->
 
                                 <div class="input-icon margin-top-10">
-                                    <label>Dettagli aggiuntivi per il dottore/orari settimanali:</label>
+                                    <label>Dettagli aggiuntivi per l'operatore/orari settimanali:</label>
                                     <i class="fa fa-user"></i>
                                     <textarea name="dettagli" class="form-control" rows="4" ><?php echo $dottore_edit[0]->dettagli; ?></textarea>
                                 </div>
@@ -205,7 +205,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row">
                       <div class="col-lg-8">
                     <div class="input-icon margin-top-10">
-                      <label>Orari settimanali per il dottore:</label>
+                      <label>Orari settimanali per l'operatore:</label>
                       <br>
                       <form class="" action="/gestionedottori/aggiornaorario/<?php echo $dottore_edit[0]->id; ?>" method="post">
                         <!-- lunedi -->

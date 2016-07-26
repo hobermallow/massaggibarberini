@@ -160,7 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-            <h2 class="page-title" >Registra una nuova visita</h2>
+            <h2 class="page-title" >Registra un nuovo appuntamento</h2>
             <h2 class="page-title" style="font-size: 14px; color: red;" >( tutti i campi sono obbligatori )</h2>
 			<!-- END PAGE HEADER-->
 
@@ -184,9 +184,9 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row" >
             	<div class="input-icon margin-top-10">
                 <div class="note note-success">
-				<h4 class="block">Visita registrata!</h4>
+				<h4 class="block">Appuntamento registrato!</h4>
 				<p>
-				Visita correttamente registrata.
+				Appuntamento correttamente registrato.
 				</p>
 			</div>
                 </div>
@@ -222,17 +222,17 @@ $( "#paziente" ).autocomplete({
             <div class="col-lg-6">
             	<?php if( isset($nome_paziente) == false ): ?>
                 <div class="input-icon margin-top-10">
-                <label>Paziente <span style="font-size: 10px;" >(autocompletamento)</span>:</label>
+                <label>Cliente <span style="font-size: 10px;" >(autocompletamento)</span>:</label>
                     <i class="fa fa-user"></i>
-                    <input id="paziente" type="text" class="form-control" name="paziente" placeholder="cerca tra i pazienti...">
+                    <input id="paziente" type="text" class="form-control" name="paziente" placeholder="cerca tra i clienti...">
                 </div>
                 <?php endif; ?>
 
                 <?php if( isset($nome_paziente) ==true ): ?>
                 	<div class="input-icon margin-top-10">
-                    <label>Paziente Selezionato:</label>
+                    <label>Cliente Selezionato:</label>
                     <i class="fa fa-user"></i>
-                    <input id="paziente" type="text" class="form-control" name="paziente" value="<?php echo $nome_paziente; ?>" placeholder="cerca tra i pazienti..." disabled>
+                    <input id="paziente" type="text" class="form-control" name="paziente" value="<?php echo $nome_paziente; ?>" placeholder="cerca tra i clienti..." disabled>
                     </div>
                 <?php endif; ?>
 
@@ -241,7 +241,7 @@ $( "#paziente" ).autocomplete({
             <div class="col-lg-3">
 
                 <div class="input-icon margin-top-10">
-                <label>Data visita:</label>
+                <label>Data appuntamento:</label>
                     <i class="fa fa-calendar"></i>
                     <input id="input_data_visita" class="form-control form-control-inline input-medium date-picker" name="data_visita" size="16" type="text" value=""/>
                 </div>
@@ -252,7 +252,7 @@ $( "#paziente" ).autocomplete({
             <div class="col-lg-3">
 
                 <div class="input-icon margin-top-10">
-                <label>Ora visita:</label>
+                <label>Orario appuntamento:</label>
                 <i class="fa icon-clock"></i>
                     <input id="input_ora_visita" name="ora_visita" type="text" class="form-control timepicker timepicker-24">
                 </div>
@@ -264,7 +264,7 @@ $( "#paziente" ).autocomplete({
 
             <div class="row" >
             	<div class="col-lg-4">
-                <label>Seleziona dottore al quale assegnare la visita</label>
+                <label>Seleziona operatore al quale assegnare la visita</label>
                 <select id="input_id_dottore" name="dottore" class="form-control">
                 	<option value="0" >Nessuno</option>
                 <?php foreach( $dottori->result() as $dottore ): ?>
@@ -275,7 +275,7 @@ $( "#paziente" ).autocomplete({
 
             	<div class="col-lg-8">
                 <label>Descrizione visita:</label>
-                	<textarea name="descrizione_visita" class="form-control" rows="4" placeholder="inserisci la descrizione della visita..." ></textarea>
+                	<textarea name="descrizione_visita" class="form-control" rows="4" placeholder="inserisci la descrizione dell'appuntamento..." ></textarea>
                 </div>
             </div>
             <br><br>
@@ -312,7 +312,7 @@ $( "#paziente" ).autocomplete({
             	<?php if( isset($id_paziente) ): ?>
             	<input type="hidden" name="id_paziente" value="<?php echo $id_paziente; ?>" />
                 <?php endif; ?>
-            	<button type="submit" class="btn green">Registra visita</button>
+            	<button type="submit" class="btn green">Registra appuntamento</button>
                 <br><br>
                 <img id="loading_gif" style="display: none; width: 70px;" src="/assets/loading.gif" />
           	</div>
@@ -351,7 +351,7 @@ $( "#paziente" ).autocomplete({
     <div class="row" >
 
     	<div class="col-xs-12" >
-        	<h4>Attenzione! Si sta tentando di registrare una visita nello stesso orario nel quale ne è presente un'altra.<br> Desidera continuare ugualmente?</h4>
+        	<h4>Attenzione! Si sta tentando di registrare un'appuntamento nello stesso orario nel quale ne è presente un'altro.<br> Desidera continuare ugualmente?</h4>
         </div>
 
     </div>

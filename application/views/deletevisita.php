@@ -157,7 +157,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Informazioni sulla visita</h2>
+                    <h2 class="page-title" >Informazioni sull'appuntamento:</h2>
                     <!--<h2 class="page-title" style="font-size: 16px; color: red;" >(nome, cognome e codice fiscale sono campi obbligatori)</h2>-->
                     <!-- END PAGE HEADER-->
 
@@ -174,7 +174,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row" >
 
                         <div class="col-lg-12">
-                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Visita:</h2>
+                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Appuntamento:</h2>
                         </div>
 
                         <!--colonna1-->
@@ -182,7 +182,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="portlet box green">
                                 <div class="portlet-title">
                                     <div class="caption">
-                                        <i class="fa fa-heart"></i>Descrizione Visita
+                                        <i class="fa fa-heart"></i>Descrizione Appuntamento
                                     </div>
 
                                 </div>
@@ -195,12 +195,12 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--riga2-->
                         <div class="col-lg-6">
                             <div class="input-icon margin-top-10">
-                                <h2 class="page-title" style="font-size: 24px;" >Data visita: <?php echo $visita_corrente[0]->data_visita; ?></h2>
+                                <h2 class="page-title" style="font-size: 24px;" >Data appuntamento: <?php echo $visita_corrente[0]->data_visita; ?></h2>
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="input-icon margin-top-10">
-                                <h2 class="page-title" style="font-size: 24px;" >Orario visita: <?php echo substr($visita_corrente[0]->orario_visita, 0, 5); ?></h2>
+                                <h2 class="page-title" style="font-size: 24px;" >Orario appuntamento: <?php echo substr($visita_corrente[0]->orario_visita, 0, 5); ?></h2>
                             </div>
                         </div>
 
@@ -209,7 +209,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row" >
 
                         <div class="col-lg-12">
-                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Paziente:</h2>
+                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Cliente:</h2>
                         </div>
 
                         <div class="col-lg-6">
@@ -264,7 +264,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <div class="row" >
                         <div class="col-lg-6">
-                            <a href="<?php echo base_url(); ?>deletevisita/confermadelete/<?php echo $visita_corrente[0]->id_visita; ?>" ><button type="submit" name="submit" value="submit" class="btn green">Elimina visita</button></a>
+                            <a href="<?php echo base_url(); ?>deletevisita/confermadelete/<?php echo $visita_corrente[0]->id_visita; ?>" ><button type="submit" name="submit" value="submit" class="btn green">Elimina appuntamento</button></a>
 
                             <a href="<?php echo base_url(); ?>listapazienti" class="btn red" >Annulla</a>
                         </div>

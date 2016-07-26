@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 								 <?php echo $dottori_registrati; ?>
 							</div>
 							<div class="desc">
-								 Dottori Registrati
+								 Operatori Registrati
 							</div>
 						</div>
                         <!--
@@ -244,7 +244,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <div class="row" style="text-align: center;" >
             	<div class="col-md-3" style=" float: none; display: inline-block;" >
-                	<h2 style="color: #578EBE;" ><b>Riepilogo Visite Odierne</b></h2>
+                	<h2 style="color: #578EBE;" ><b>Riepilogo Appuntamenti Odierni</b></h2>
                 </div>
             </div>
 

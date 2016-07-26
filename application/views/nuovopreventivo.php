@@ -146,7 +146,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="col-sm-4">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h2 class="page-title" style="margin:0 0 15px 0;font-size:16px;">Paziente</h2>
+                                        <h2 class="page-title" style="margin:0 0 15px 0;font-size:16px;">Cliente</h2>
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="input-icon">
@@ -360,7 +360,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 $("#form-preventivo").submit(function (e) {
                     e.preventDefault();
                     if (addedVisits.length == 0) {
-                        Metronic.alert({closeInSeconds: 5, type: "danger", message: "Devi inserire almeno un tipo di intervento per calcolare il preventivo", container: ".page-content", place: "before"});
+                        Metronic.alert({closeInSeconds: 5, type: "danger", message: "Devi inserire almeno un tipo di prestazione per calcolare il preventivo", container: ".page-content", place: "before"});
                         return;
                     }
                     var totale = getTotale();
@@ -480,8 +480,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     //addedProducts = [];
                     var htmlRow = "<div class='row detail-row' data-id='" + addedVisits.length + "' style='border-bottom:1px solid #000;'>" +
-                            "<div class='col-sm-3'>Paziente: " + $("#paziente").find(":selected").text() + "</div>" +
-                            "<div class='col-sm-3'>Tipo intervento: " + visita.descrizione + "</div>" +
+                            "<div class='col-sm-3'>Client: " + $("#paziente").find(":selected").text() + "</div>" +
+                            "<div class='col-sm-3'>Prestazione: " + visita.descrizione + "</div>" +
                             //"<div class='col-sm-3'>Prodotti: " + prodText + "</div>" +
                             "<div class='col-sm-1'><span class='btn btn-xs purple pull-right remove-visita'><i class='fa fa-times'></i></span></div>" +
                             "</div></div>";

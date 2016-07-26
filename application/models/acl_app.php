@@ -17,6 +17,21 @@ class acl_app extends CI_Model  {
     $this->gallery_path_url = base_url('images');
     $this->array_image_mime = ['image/gif', 'image/jpeg', 'image/png'];
   }
+  
+  public function get_posts() {
+  	$id_studio = Domini::get_id_studio();
+  	//recupero i posts
+  	$this->db->where(['id_studio' => $id_studio]);
+  	$query = $this->db->get('post');
+  	$posts = [];
+  	foreach ($query->result() as $post) {
+  		$posts[] = [
+  				'titolo' => $post->titolo,
+  				'url' => base_url("posts".DIRECTORY_SEPARATOR.$post->nome_file)
+  		];
+  	}
+  	return $posts;
+  }
 
   public function get_visite_by_api_key($api_key) {
     //ricavo l'id dello studio
@@ -78,7 +93,9 @@ class acl_app extends CI_Model  {
     $this->db->where(['id_studio' => $id_studio]);
     $query = $this->db->get('associazioni_studi_domini');
     $mail_prenotazioni = $query->row()->mail_prenotazioni;
-    mail($mail_prenotazioni, "Nuova Prenotazione", "Nuova prenotazione a nome di: ".$nome_paziente." ".$cognome_paziente." ");
+    if($mail_prenotazioni != "") {
+    	mail($mail_prenotazioni, "Nuova Prenotazione", "Nuova prenotazione a nome di: ".$nome_paziente." ".$cognome_paziente." ");
+    }
     return $boolean && $boolean2;
   }
 

@@ -162,11 +162,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- /.modal -->
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
-                    <div class="col-lg-3" style="float: right; text-align: right;" >
-                        <button class="btn green" onClick="stampa_info()" >Stampa Info Visita</button>
-                    </div>
+                   <!--  <div class="col-lg-3" style="float: right; text-align: right;" >
+                        <button class="btn green" onClick="stampa_info()" >Stampa Info Appuntamento</button>
+                    </div> -->
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Informazioni sulla visita</h2>
+                    <h2 class="page-title" >Informazioni Appuntamento</h2>
                     <!--<h2 class="page-title" style="font-size: 16px; color: red;" >(nome, cognome e codice fiscale sono campi obbligatori)</h2>-->
                     <!-- END PAGE HEADER-->
                     <?php $paziente_corrente = $paziente->result(); ?>
@@ -174,14 +174,14 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row" >
 
                         <div class="col-lg-12">
-                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Visita:</h2>
+                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Appuntamento:</h2>
                         </div>
 
                         <!--questo blocco sarà visibile solo per la funzionalità di stampa-->
                         <div id="window_stampa_info" style="display: none;" class="col-lg-6" >
 
                             <div class="input-icon margin-top-10">
-                                <h2 class="page-title" style="font-size: 18px;" >Informazioni sulla visita:</h2>
+                                <h2 class="page-title" style="font-size: 18px;" >Informazioni sull'appuntamento:</h2>
                             </div>
 
                             <div class="input-icon margin-top-10">
@@ -201,21 +201,21 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
 
                             <div class="input-icon margin-top-10" style="width: 65%;" >
-                                <h2 class="page-title" style="font-size: 18px;" >Descrizione visita:</h2>
+                                <h2 class="page-title" style="font-size: 18px;" >Descrizione Prestazione:</h2>
                                 <h4 style="border: 1px solid black; border-radius: 5px; padding: 10px;" ><?php echo nl2br($visita_corrente[0]->descrizione); ?></h4>
                             </div>
 
                             <div class="input-icon margin-top-10" style="width: 65%;" >
-                                <h2 class="page-title" style="font-size: 18px;" >Dettaglio/Riepilogo visita:</h2>
+                                <h2 class="page-title" style="font-size: 18px;" >Dettaglio/Riepilogo Appuntamento:</h2>
                                 <h4 style="border: 1px solid black; border-radius: 5px; padding: 10px;" ><?php echo nl2br($visita_corrente[0]->dettaglio); ?></h4>
                             </div>
 
-                            <div class="input-icon margin-top-10" style="width: 65%;" >
+                           <!--  <div class="input-icon margin-top-10" style="width: 65%;" > 
                                 <h2 class="page-title" style="font-size: 18px;" >Prodotti:</h2>
                                 <?php foreach ($prodotti as $prodotto): ?>
                                     <h4 style="border: 1px solid black; border-radius: 5px; padding: 10px;" ><?php echo nl2br($prodotto->nome); ?>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Quantità: <?php echo $prodotto->quantita ?></h4>
                                 <?php endforeach; ?>
-                            </div>
+                            </div> -->
 
 
                         </div>
@@ -225,9 +225,9 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--colonna1-->
 
                             <div class="col-lg-12">
-                                <label>Dottore:</label>
+                                <label>Operatore:</label>
                                 <select name="id_dottore" class="form-control">
-                                    <option></option>
+                                    <option value="">Seleziona Operatore</option>
                                     <?php
                                     foreach ($dottori->result() as $dottore) {
                                         $selected = "";
@@ -243,7 +243,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="col-lg-12">
                                 <label>Tipo prestazione:</label>
                                 <select name="id_prestazione" class="form-control">
-                                    <option></option>
+                                    <option value="">Selezione Prestazione</option>
                                     <?php
                                     foreach ($prestazioni->result() as $prestazione) {
                                         $selected = "";
@@ -257,18 +257,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </select>
                             </div>
                             <div class="col-lg-12">
-                                <label>Descrizione visita:</label>
+                                <label>Descrizione appuntamento:</label>
                                 <textarea name="descrizione_visita" class="form-control" rows="3" placeholder="inserisci la descrizione della visita..." ><?php echo $visita_corrente[0]->descrizione; ?></textarea>
                             </div>
 
                             <div class="col-lg-12">
-                                <label>Dettaglio/Riepilogo visita:</label>
+                                <label>Dettaglio/Riepilogo appuntamento:</label>
                                 <textarea name="dettaglio_visita" class="form-control" rows="3" placeholder="inserisci il dettaglio/riepilogo della visita..." ><?php echo $visita_corrente[0]->dettaglio; ?></textarea>
                             </div>
                             <!--riga2-->
                             <div class="col-lg-6">
                                 <div class="input-icon margin-top-10">
-                                    <label>Data visita:</label>
+                                    <label>Data appuntamento:</label>
                                     <br>
                                     <label>Attuale: <?php
                                         if ($visita_corrente[0]->data_visita) {
@@ -283,7 +283,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                             <div class="col-lg-6">
                                 <div class="input-icon margin-top-10">
-                                    <label>Ora visita:</label>
+                                    <label>Orario Appuntamento:</label>
                                     <br>
                                     <label>Attuale: <?php
                                         if ($visita_corrente[0]->orario_visita) {
@@ -304,7 +304,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <div class="row" >
                         <div class="col-lg-10" >
-                            <span style="color: red;" >(descrizione, data visita e orario visita sono campi obbligatori)</span>
+                            <span style="color: red;" >(descrizione, data visita e orario appuntamento sono campi obbligatori)</span>
                         </div>
                     </div>
 
@@ -339,7 +339,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row" >
 
                         <div class="col-lg-12">
-                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Paziente:</h2>
+                            <h2 style="color: #4B8DF8; font-weight: bold;" >Informazioni Cliente:</h2>
                         </div>
 
                         <?php if (isset($paziente_corrente[0])) { //il paziente è stato trovato nel database     ?>

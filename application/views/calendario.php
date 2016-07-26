@@ -180,7 +180,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="col-md-6">
                             <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                             <h3 class="page-title">
-                                Calendario <small>studio medico</small>
+                                Calendario 
                             </h3>
 
                             <!-- END PAGE TITLE & BREADCRUMB-->
@@ -191,7 +191,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="row">
 
                         <div class="col-md-12">
-                            <h2 class="page-title" ><span style="font-weight: bold; color: #4B8DF8;" >Dottore:</span> <?php echo $dottore_curr[0]->nome; ?></h2>
+                            <h2 class="page-title" ><span style="font-weight: bold; color: #4B8DF8;" >Operatore:</span> <?php echo $dottore_curr[0]->nome; ?></h2>
                         </div>
 
                         <div class="col-md-12">
@@ -222,9 +222,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     <script>
                                 $(function() {
                                 var availableTags = [
-<?php foreach ($pazienti->result() as $paziente): ?>
+								<?php foreach ($pazienti->result() as $paziente): ?>
                                     "<?php echo '<' . $paziente->id . '>'; echo " "; echo $paziente->nome; echo " "; echo $paziente->cognome; ?>",
-<?php endforeach; ?>
+								<?php endforeach; ?>
                                 ];
                                         $("#paziente").autocomplete({
                                 source: availableTags,
@@ -242,18 +242,18 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="row" >
 
                                 <div class="input-icon margin-top-10">
-                                    <label>Paziente <span style="font-size: 10px;" >(autocompletamento)</span>:</label>
+                                    <label>Cliente <span style="font-size: 10px;" >(autocompletamento)</span>:</label>
                                     <i class="fa fa-user"></i>
                                     <input id="paziente" type="text" class="form-control" name="paziente" placeholder="cerca tra i pazienti...">
                                 </div>
 
                                 <div class="input-icon margin-top-10">
-                                    <label>Ora visita:</label>
+                                    <label>Orario Appuntamento:</label>
                                     <i class="fa icon-clock"></i>
                                     <input id="input_ora_visita" name="ora_visita" type="text" class="form-control timepicker timepicker-24">
                                 </div>
                                 <div class="input-icon margin-top-10">
-                                <label>Data visita:</label>
+                                <label>Data Appuntamento:</label>
                                     <i class="fa fa-calendar"></i>
 
                                 <input id="data_visita" type="text" class="form-control form-control-inline input-medium date-picker" name="data_visita" value="" />
@@ -269,7 +269,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </div>
 
                                 <div class="col-lg-10">
-                                    <label>Descrizione visita:</label>
+                                    <label>Descrizione Appuntamento:</label>
                                     <textarea name="descrizione_visita" class="form-control" rows="4" placeholder="inserisci la descrizione della visita..." ></textarea>
                                 </div>
 
@@ -279,7 +279,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <input id="dottore" type="hidden" name="dottore" value="<?php echo $dottore_curr[0]->id; ?>" />
                             <br>
-                            <button type="submit" class="btn green">Registra visita</button>
+                            <button type="submit" class="btn green">Registra Appuntamento</button>
                             <br>
                             <img id="loading_gif" style="display: none; width: 70px;" src="/assets/loading.gif" />
                         </form>
@@ -297,7 +297,7 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="row" >
 
                     <div class="col-xs-12" >
-                        <h4>Attenzione! Si sta tentando di registrare una visita nello stesso orario nel quale ne è presente un'altra.<br> Desidera continuare ugualmente?</h4>
+                        <h4>Attenzione! Si sta tentando di registrare un'appuntamento nello stesso orario nel quale ne è presente un'altro.<br> Desidera continuare ugualmente?</h4>
                     </div>
 
                 </div>

@@ -188,6 +188,33 @@ License: You must have a valid license purchased only from themeforest(the above
             transform: scale(1);
   }
 }
+#progress {
+	margin: auto;
+	position: relative;
+	width: 240px;
+}
+
+#progress p
+{
+	display: block;
+	width: 240px;
+	padding: 2px 5px;
+	margin: 2px 0;
+	
+	border: 1px inset #446;
+	border-radius: 5px;
+	background-image: url("/progress.png");
+}
+
+#progress p.success
+{
+	background: #0c0 none 0 0 no-repeat;
+}
+
+#progress p.failed
+{
+	background: #c00 none 0 0 no-repeat;
+}
 </style>
 </head>
 <!-- END HEAD -->
@@ -321,6 +348,7 @@ License: You must have a valid license purchased only from themeforest(the above
 				echo form_close();
 			?>
 			</div>
+			<div class="container">
 			<div class="row">
 			<div class="col-md-12">
 			<div class="sk-circle" style="visibility: hidden;" id="loading">
@@ -336,64 +364,25 @@ License: You must have a valid license purchased only from themeforest(the above
   <div class="sk-circle10 sk-child"></div>
   <div class="sk-circle11 sk-child"></div>
   <div class="sk-circle12 sk-child"></div>
-</div>
+			</div>
+			</div>
+			</div>
+			</div>
+			<div class="container">
+			<div class="row">
+			<div class="col-md-12">
+			<div id="progress">
+			</div>
+			</div>
 			</div>
 			</div>
 			<script>
 			//utility functions to hide/show loading gif
-			function showLoading()	{
-				document.getElementById("loading").style = "visibility: visible";
-			}
-			function hideLoading()	{
-				document.getElementById("loading").style = "visibility: hidden";
-			}
+			
 			</script>
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<!-- 			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> -->
 			<script type="text/javascript">
-			jQuery(document).ready(function () {
-				$("input[type=submit]").click(function (e) {
-					e.stopPropagation();
-					e.preventDefault();
-					showLoading();
-					//get the file 
-					var file = $("#file").prop('files')[0];
-					var form = $("#upload");
-					var data = new FormData();
-					//append the file to FormData
-					data.append($(this).attr('name'), $(this).val());
-					var checkedImages = $('input[name="images[]"]:checked').map(function() {
-						data.append('images[]', this.value);
-					}).get();
-					
-					data.append('userfile', file);
-					$.ajax({
-				        
-	 			        type: 'POST',
-	 			        url: "<?php echo base_url(); ?>gallery/upload",
-	 			        data: data,
-	 			        cache: false,
-	 			        dataType: 'text',
-	 			        processData: false, // Don't process the files
-	 			        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
-	 			        success: function(data, textStatus, jqXHR)
-	 			        {
-		 			        hideLoading();
-	 			            location.reload(true);
-	 			            
-	 			        },
-	 			        error: function(jqXHR, textStatus, errorThrown)
-	 			        {
-	 			        	hideLoading();
-	 			            // Handle errors here
-	 			            console.log('ERRORS: ' + textStatus);
-	 			            // STOP LOADING SPINNER
-	 			        }
-	 			    });
-
-					
-				});     
-			    
-			});
+			
 			
 			</script>
 
@@ -481,6 +470,82 @@ jQuery(document).ready(function() {
    Index.initMiniCharts();
    Index.initIntro();
    Tasks.initDashboardWidget();
+
+   function showLoading() {
+	   var loading = document.getElementById ( "loading" ) ;
+	   loading.style.visibility = "visible";
+	}
+
+	function hideLoading() {
+		var loading = document.getElementById ( "loading" ) ;
+		   loading.style.visibility = "hidden";
+	}
+
+ //create progress bar
+	var o = document.getElementById("progress");
+	var bar = o.appendChild(document.createElement("p"));
+	bar.appendChild(document.createTextNode("upload "));
+	$("input[type=submit]").click(function (e) {
+		e.stopPropagation();
+		e.preventDefault();
+		showLoading();
+		//creo la barra di progresso
+		//get the file 
+		var file = $("#file").prop('files')[0];
+		var form = $("#upload");
+		var data = new FormData();
+		//append the file to FormData
+		data.append($(this).attr('name'), $(this).val());
+		var checkedImages = $('input[name="images[]"]:checked').map(function() {
+			data.append('images[]', this.value);
+		}).get();
+		
+		data.append('userfile', file);
+		$.ajax({
+	        
+	        type: 'POST',
+	        url: "<?php echo base_url(); ?>gallery/upload",
+	        data: data,
+	        cache: false,
+	        dataType: 'text',
+	        processData: false, // Don't process the files
+	        contentType: false, // Set content type to false as jQuery will tell the server its a query string request
+	        success: function(data, textStatus, jqXHR)
+	        {
+		        alert(data);
+	            location.reload(true);
+	           document.getElementById('progress').getElementsByTagName('p')[0].classname = "success";
+	           hideLoading()
+	        },
+	        xhr: function(){
+	            // get the native XmlHttpRequest object
+	            var xhr = $.ajaxSettings.xhr() ;
+	            // set the onprogress event handler
+	            xhr.upload.onprogress = function (progress) {
+			            // calculate upload progress
+			            var pc = parseInt(100 -((progress.loaded / progress.total) * 100));
+			            // log upload progress to console
+			           document.getElementById('progress').getElementsByTagName('p')[0].style.backgroundPosition = pc + "% 0px";
+			          } ;
+	            // set the onload event handler
+	            xhr.upload.onload = function(){ console.log('DONE!') } ;
+	            // return the customized object
+	            return xhr ;
+	        },
+	        error: function(jqXHR, textStatus, errorThrown)
+	        {
+	            // Handle errors here
+	            alert(data);
+	            console.log('ERRORS: ' + textStatus);
+	           document.getElementById('progress').getElementsByTagName('p')[0].classname = "failed";
+	            // STOP LOADING SPINNER
+	            hideLoading();
+	        }
+	    });
+
+		
+	});     
+
 });
 </script>
 <!-- END JAVASCRIPTS -->

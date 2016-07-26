@@ -181,9 +181,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <div class="row" >
                           	<div class="input-icon margin-top-10">
                               <div class="note note-success">
-              				              <h4 class="block">Orari aggiornati!</h4>
+              				              <h4 class="block">Prestazioni aggiornate!</h4>
               				                  <p>
-              				                        Orari del dottore aggiornati correttamente.
+              				                        Prestazioni dell'operatore aggiornate correttamente.
               				                  </p>
               			          </div>
                               </div>
@@ -195,7 +195,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-danger">
                 				              <h4 class="block">Errore!</h4>
                 				                  <p>
-                				                        Errore nell'aggiornamento degli orari.
+                				                        Errore nell'aggiornamento delle prestazioni.
                 				                  </p>
                 			          </div>
                               </div>
@@ -204,6 +204,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         <?php endif; ?>
 
                         <!-- Inizio select delle categorie -->
+                        <div class="container">
+		 	<div class="row">
+		 	<div class="col-md-3">
+		 	<a href="<?php echo base_url(); ?>gestionedottori" class="btn btn-danger" ><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>   Lista Operatori</a>
+		 	</div>
+		 	</div>
+		 	</div>
 
 
 

@@ -146,9 +146,7 @@ class dashboard extends CI_Controller {
 			else redirect(base_url() . "login/info?c=error");
 		}
 		//FINE CONTROLLO DEL TOKEN GOOGLE
-
-
-
+		
 		//$view["recent_tasks"] = $this->tasks_data->get_recent_tasks();
 
 		//controllo se si sta cercando di effettuare un login...
@@ -179,6 +177,29 @@ class dashboard extends CI_Controller {
 				redirect($login_url . "login/info?c=error");
 			}
 
+		}
+		else {
+			//verifica della sessione
+			$this->load->model("acl");
+			$session_rserial = $this->session->userdata('rserial');
+			$view["username"] = $this->session->userdata("username");
+			if ($this->acl->VerificaSessione($session_rserial) == false) {
+				$this->load->helper('url');
+				$login_url = base_url();
+				redirect($login_url . "login/info?c=error");
+			}
+			
+			$oggi = date("Y-m-d");
+			$giorno_settimana = date("l");
+			$view["appuntamenti_del_giorno"] = $this->pazienti->get_visite_del_giorno( $oggi );
+			$view["appuntamenti_settimana"] = $this->pazienti->get_visite_della_settimana( $oggi, $giorno_settimana );
+			$view["dottori_registrati"] = $this->dottori->get_tot_dottori();
+			
+			$view["dottori"] = $this->dottori->get_all_dottori();
+			
+			$view["visite_per_dottori"] = $this->dottori->get_visite_odierne_by_query_dottori( $view["dottori"] );
+			$this->load->view('dashboard', $view);
+			$view_printata = true;
 		}
 
 		if( $view_printata == false )

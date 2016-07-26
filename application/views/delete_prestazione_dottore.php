@@ -183,7 +183,7 @@ License: You must have a valid license purchased only from themeforest(the above
                               <div class="note note-success">
               				              <h4 class="block">Prestazione cancellata correttamente!</h4>
               				                  <p>
-              				                        Prestazioni del dottore aggiornate correttamente.
+              				                        Prestazioni dell'operatore aggiornate correttamente.
               				                  </p>
               			          </div>
                               </div>
@@ -205,7 +205,13 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <!-- Inizio select delle categorie -->
 
-
+						<div class="container">
+		 	<div class="row">
+		 	<div class="col-md-3">
+		 	<a href="<?php echo base_url(); ?>gestionedottori" class="btn btn-danger" ><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>   Lista Operatori</a>
+		 	</div>
+		 	</div>
+		 	</div>
 
                 </div>
             </div>

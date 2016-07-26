@@ -69,11 +69,10 @@ class registravisita extends CI_Controller {
 		$view["dottori"] = $this->dottori->get_all_dottori();
 
 		//se si e' inviato post di registrazione
-		if( $this->input->post("paziente") && $this->input->post("data_visita") && $this->input->post("ora_visita") && $this->input->post("dottore") && $this->input->post("prestazione") )
+		if( $this->input->post("paziente") && $this->input->post("data_visita") && $this->input->post("ora_visita")  )
 		{
 			//allora il form è stato inviato...
 			$id_paziente = (int)$this->get_id_paziente_by_string( $this->input->post("paziente") );
-
 			//converto la data in formato compatibile con mysql
 			$data_visita = $this->input->post("data_visita");
 			if( $data_visita != false && $data_visita != "" )
@@ -92,7 +91,7 @@ class registravisita extends CI_Controller {
 			$id_dottore = intval($this->input->post("dottore"));
 			$id_prestazione = intval($this->input->post("prestazione"));
 
-			if( $id_paziente == "" || $ora_visita == "" || $ora_visita == false || $id_dottore == 0 || $id_prestazione == 0 )
+			if( $id_paziente == "" || $ora_visita == "" || $ora_visita == false  )
 			{
 				//form con completato correttamente...
 				$view["error"] = true;
@@ -100,6 +99,13 @@ class registravisita extends CI_Controller {
 			}
 			else
 			{
+				if($id_dottore == 0) {
+					$id_dottore = "NULL";
+				}
+				
+				if($id_prestazione == 0) {
+					$id_prestazione = "NULL";
+				}
 				//tutto è corretto
 				//ottengo l'id del paziente relativo in base al suo codice fiscale
 
@@ -110,6 +116,9 @@ class registravisita extends CI_Controller {
 
 
 				$this->load->helper('url');
+				if($id_dottore == "NULL") {
+					redirect(base_url() . "visite/sospese");
+				}
 				redirect(base_url() . "calendario/focus/".$id_dottore."/".$id_visita);
 			}
 

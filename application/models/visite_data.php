@@ -61,8 +61,8 @@ class visite_data extends CI_Model {
 
     function get_visite_sospese_mio() {
       $this->db->join('relationship_visite_studi', 'relationship_visite_studi.id_persona = visite.id');
-      $this->db->join('dottori', 'dottori.id = visite.id_dottore');
-      $this->db->join('prestazioni', 'prestazioni.id = visite.id_prestazione');
+      $this->db->join('dottori', 'dottori.id = visite.id_dottore', 'left');
+      $this->db->join('prestazioni', 'prestazioni.id = visite.id_prestazione', 'left');
       $this->db->join('pazienti', 'pazienti.id = visite.id_paziente');
       $this->db->where(['id_studio' => $this->session->userdata('id_studio'), 'visita_confermata' => 0]);
       $this->db->select('pazienti.nome as nome_paziente, pazienti.cognome as cognome_paziente, dottori.nome as nome_dottore, prestazioni.descrizione as nome_prestazione, visite.data_visita as data_visita, visite.orario_visita as orario_visita, visite.id as id_visita');

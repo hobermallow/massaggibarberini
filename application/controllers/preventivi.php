@@ -104,7 +104,7 @@ class preventivi extends CI_Controller {
         }
     }
 
-    public function togglePagato() {
+    public function togglePagato($id) {
         $session_rserial = $this->session->userdata('rserial');
         $view["username"] = $this->session->userdata("username");
         if ($this->acl->VerificaSessione($session_rserial) == false) {
@@ -113,7 +113,7 @@ class preventivi extends CI_Controller {
             redirect($login_url . "login/info?c=error");
         }
         $this->load->model("preventivi_data");
-        $this->preventivi_data->toggle_stato($this->input->post());
+        $this->preventivi_data->toggle_stato($id);
         redirect($_SERVER['HTTP_REFERER']);
     }
 

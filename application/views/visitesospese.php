@@ -153,7 +153,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Visite in sospeso</h2>
+                    <h2 class="page-title" >Appuntamenti in sospeso</h2>
                     <!-- END PAGE HEADER-->
 
                     <div class="clearfix">
@@ -162,7 +162,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-heart"></i>Tabella Visite
+                                <i class="fa fa-heart"></i>Tabella Appuntamenti
                             </div>
 
                         </div>
@@ -171,22 +171,22 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <thead class="flip-content">
                                     <tr>
                                         <th>
-                                            Dottore
+                                            Operatore
                                         </th>
                                         <th>
-                                            Nome Paziente
+                                            Nome Cliente
                                         </th>
                                         <th>
-                                            Cognome Paziente
+                                            Cognome Cliente
                                         </th>
                                         <th>
-                                            Tipo prestazione
+                                            Prestazione
                                         </th>
                                         <th>
-                                            Data visita
+                                            Data Appuntamento
                                         </th>
                                         <th class="numeric">
-                                            Orario visita
+                                            Orario Appuntamento
                                         </th>
                                         <th class="numeric">
                                             Azioni

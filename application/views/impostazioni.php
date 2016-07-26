@@ -190,22 +190,22 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <form action="<?php echo base_url(); ?>impostazioni/updateimpostazioni" method="post" >
 
-
+							
                             <!--colonna 1-->
                             <div class="col-md-6" >
-                                Sistema di alert via Email per tutti i pazienti: <input name="alert_email" type="checkbox" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_email == "on") echo "checked"; ?>>
+                                 <input name="alert_email" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_email == "on") echo "checked"; ?>>
 
-                            </div>
+                            </div> 
 
 
 
                             <!--colonna 2-->
                             <div class="col-md-6" >
-                                Sistema di alert via SMS per tutti i pazienti: <input name="alert_sms" type="checkbox" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_sms == "on") echo "checked"; ?> >
+                                <input name="alert_sms" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_sms == "on") echo "checked"; ?> >
                             </div>
 
-
-                    </div>
+							
+                    
 
 
                     <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>

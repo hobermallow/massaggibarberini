@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			
 			<!-- BEGIN PAGE HEADER-->
-			<h2 class="page-title" >Modifica categoria pazienti</h2>
+			<h2 class="page-title" >Modifica categoria clienti</h2>
 			<!-- END PAGE HEADER-->
             
             
@@ -166,7 +166,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="input-icon margin-top-10">
                     <h2 class="page-title" style="font-size: 16px;" >Nome categoria:</h2>
                         <i class="fa fa-user"></i>
-                        <input type="text" class="form-control" maxlength="190" name="nome_categoria" value="<?php echo $categoria[0]->nome_categoria; ?>" placeholder="nome della categoria pazienti" required >
+                        <input type="text" class="form-control" maxlength="190" name="nome_categoria" value="<?php echo $categoria[0]->nome_categoria; ?>" placeholder="nome della categoria clienti" required >
                     </div>
                     
                     
@@ -182,7 +182,7 @@ License: You must have a valid license purchased only from themeforest(the above
             
 			<div class="row" >
                 <div class="col-lg-6">
-                    <button type="submit" name="submit" value="submit" class="btn blue">Modifica categoria pazienti</button>
+                    <button type="submit" name="submit" value="submit" class="btn blue">Modifica categoria clienti</button>
                     </form>
                 </div>
             </div>

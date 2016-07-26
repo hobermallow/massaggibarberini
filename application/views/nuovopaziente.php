@@ -160,7 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
 
-            <h2 class="page-title" >Registra un nuovo paziente</h2>
+            <h2 class="page-title" >Registra Nuovo Cliente</h2>
             <!--<h2 class="page-title" style="font-size: 14px; color: red;" >( nome, cognome e codice fiscale sono obbligatori )</h2>-->
 			<!-- END PAGE HEADER-->
 
@@ -189,9 +189,9 @@ License: You must have a valid license purchased only from themeforest(the above
             <div class="row" >
             	<div class="input-icon margin-top-10">
                 <div class="note note-success">
-				<h4 class="block">Paziente registrato!</h4>
+				<h4 class="block">Cliente registrato!</h4>
 				<p>
-				Paziente correttamente registrato.
+				Cliente correttamente registrato.
 				</p>
 			</div>
                 </div>
@@ -270,8 +270,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
             <div class="col-lg-12" >
                 <div class="input-icon margin-top-10">
-                    <label>Dettaglio paziente:</label>
-                        <textarea name="dettaglio_paziente" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il paziente"></textarea>
+                    <label>Dettaglio cliente:</label>
+                        <textarea name="dettaglio_paziente" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il cliente"></textarea>
                 </div>
          	</div>
 

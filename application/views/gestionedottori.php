@@ -160,7 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <!-- END STYLE CUSTOMIZER -->
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Gestione Dottori</h2>
+                    <h2 class="page-title" >Gestione Operatori</h2>
                     <h2 class="page-title" style="font-size: 16px; color: red;" >(il nome è un campo obbligatorio)</h2>
                     <!-- END PAGE HEADER-->
 
@@ -173,7 +173,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-danger">
                                     <h4 class="block">Errore!</h4>
                                     <p>
-                                        Errore durante l'aggiunta di un dottore, riprovare più tardi o contattare un'amminsitratore di sistema.
+                                        Errore durante l'aggiunta di un operatore, riprovare più tardi o contattare un'amminsitratore di sistema.
                                     </p>
                                 </div>
                             </div>
@@ -186,7 +186,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-success">
                                     <h4 class="block">Successo!</h4>
                                     <p>
-                                        Hai correttamente registrato un dottore.
+                                        Hai correttamente registrato un operatore.
                                     </p>
                                 </div>
                             </div>
@@ -199,7 +199,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-success">
                                     <h4 class="block">Successo!</h4>
                                     <p>
-                                        Hai correttamente rimosso un dottore dal sistema.
+                                        Hai correttamente rimosso un operatore dal sistema.
                                     </p>
                                 </div>
                             </div>
@@ -234,12 +234,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <div class="col-lg-6">
                                 <div class="input-icon margin-top-10">
-                                    <label>Dettagli aggiuntivi per gli orari del dottore:</label>
+                                    <label>Dettagli aggiuntivi per gli orari dell'operatore:</label>
                                     <i class="fa fa-calendar"></i>
                                     <textarea name="orari_settimanali" class="form-control" rows="4" placeholder="inserisci gli orari settimanali del dottore" ></textarea>
                                 </div>
                                 <div class="input-icon margin-top-10">
-                                    <label>Dettagli aggiuntivi per il dottore:</label>
+                                    <label>Dettagli aggiuntivi per l'operatore:</label>
                                     <i class="fa fa-user"></i>
                                     <textarea name="dettagli" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il dottore" ></textarea>
                                 </div>
@@ -252,7 +252,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="row">
                           <div class="col-lg-8">
                         <div class="input-icon margin-top-10">
-                          <label>Orari settimanali per il dottore:</label>
+                          <label>Orari settimanali per l'operatore:</label>
                           <br>
                             <!-- lunedi -->
                             <label>Lunedi: </label><input type="checkbox" name="giorno[]" value="1">
@@ -999,7 +999,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <div class="row" >
                             <div class="col-lg-6">
-                                <button type="submit" name="submit" value="submit" class="btn blue">Registra Dottore</button>
+                                <button type="submit" name="submit" value="submit" class="btn blue">Registra Operatore</button>
                                 </form>
                             </div>
                         </div>
@@ -1007,7 +1007,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-heart"></i>Dottori registrati
+                                    <i class="fa fa-heart"></i>Operatori registrati
                                 </div>
 
                             </div>
@@ -1025,11 +1025,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 Email
                                             </th>
                                             <th>
-                                                Dettagli del dottore
+                                                Dettagli dell'operatore
                                             </th>
-                                            <th>
-                                                Orari settimanali
-                                            </th>
+<!--                                             <th> -->
+<!--                                                 Orari settimanali -->
+<!--                                             </th> -->
                                             <th class="numeric">
                                                 Azioni
                                             </th>
@@ -1051,9 +1051,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 <td>
                                                     <?php echo nl2br($dottore->dettagli); ?>
                                                 </td>
-                                                <td>
-                                                    <?php echo nl2br($dottore->orari_settimanali); ?>
-                                                </td>
+<!--                                                 <td> -->
+                                                  <!--    <?php echo nl2br($dottore->orari_settimanali); ?> -->
+<!--                                                 </td> -->
 
                                                 <td class="numeric" style="text-align: center;" >
                                                     <a href="<?php echo base_url(); ?>gestionedottori/edit/<?php echo $dottore->id; ?>" title="Modifica" class="btn red" >

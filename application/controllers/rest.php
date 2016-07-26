@@ -271,4 +271,36 @@ class rest extends CI_Controller {
   		echo json_encode($response);
   	}
   }
+  
+  public function posts() {
+  	$response = array();
+  	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  		$this->output->set_header('Content-Type: application/json');
+  		//controllo l'api_key
+  		$api_key = $this->input->post('api_key');
+  		//se l'api_key esiste
+  		if($this->acl_app->control_api_key($api_key) && $api_key != NULL) {
+  			//inizializzo array dei risultati
+  			$this->load->model('acl_app');
+  			$posts = $this->acl_app->get_posts();
+//   			foreach ($posts as $post) {
+//   				$response[] = ['titolo' => $post['titolo'], 'url' => $post['url'] ];
+//   			}
+// 			echo var_dump("hfjkdsf");
+  			echo json_encode($posts);
+  
+  		}
+  
+  		//se l'api_key non esiste
+  		else {
+  			$response['error'] = TRUE;
+  			echo json_encode($response);
+  		}
+  	}
+  	else {
+  		$response['error'] = TRUE;
+  		echo json_encode($response);
+  	}
+  
+}
 }

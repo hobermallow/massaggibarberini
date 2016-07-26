@@ -109,12 +109,14 @@ class dottori extends CI_Model {
         //di seguito, elimino la relazione fra il medico e lo studio
         $bool2 = $this->db->delete('relationship_dottori_studi', ['id_studio' => $this->session->userdata('id_studio'), 'id_persona' => $id_dottore]);
         // controllo se il medico sia legato ad altri studi
+        $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = relationship_prestazioni_dottori.id_prestazione');
+        $bool4 = $this->db->delete('relationship_prestazioni_dottori', ['id_studio' => $this->session->userdata('id_studio'), 'id_dottore' => $id_dottore]);
         $bool3 = true;
         $query = $this->db->get_where('relationship_dottori_studi', ['id_persona' => $id_dottore]);
         if($query->num_rows() < 1) {
           $bool3 = $this->db->delete('dottori', ['id' => $id_dottore]);
         }
-        return $bool1 && $bool2 && $bool3;
+        return $bool1 && $bool2 && $bool3 && $bool4;
     }
 
     function modifica_dottore($id, $nome, $dettagli, $telefono, $email, $orari_settimanali) {
@@ -167,8 +169,12 @@ class dottori extends CI_Model {
 
     public function aggiorna_orario($id_dottore, $post) {
       $bool = TRUE;
+      if(!(isset($post['giorno']))) {
+      	return false;
+      }
+      	$giorni = $post['giorno'];
       //giorni da aggiornare
-      $giorni = $post['giorno'];
+      
       foreach ($giorni as $giorno) {
         $inizio = $giorno."-inizio";
         $fine = $giorno."-fine";

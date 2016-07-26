@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			<!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 			
 			<!-- BEGIN PAGE HEADER-->
-			<h2 class="page-title" >Lista dei pazienti</h2>
+			<h2 class="page-title" >Lista Categorie Clienti</h2>
 			<!-- END PAGE HEADER-->
             
             
@@ -160,7 +160,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="note note-success">
                         <h4 class="block">Successo!</h4>
                         <p>
-                        Hai correttamente aggiunto un categoria pazienti.
+                        Hai correttamente aggiunto un categoria clienti.
                         </p>
                     </div>
                 </div>
@@ -190,7 +190,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="input-icon margin-top-10">
                     <h2 class="page-title" style="font-size: 16px;" >Nome categoria:</h2>
                         <i class="fa fa-user"></i>
-                        <input type="text" class="form-control" maxlength="190" name="nome_categoria" placeholder="nome della categoria pazienti" required >
+                        <input type="text" class="form-control" maxlength="190" name="nome_categoria" placeholder="nome della categoria clienti" required >
                     </div>
                     
                     
@@ -206,7 +206,7 @@ License: You must have a valid license purchased only from themeforest(the above
             
 			<div class="row" >
                 <div class="col-lg-6">
-                    <button type="submit" name="submit" value="submit" class="btn blue">Aggiungi categoria pazienti</button>
+                    <button type="submit" name="submit" value="submit" class="btn blue" >Aggiungi categoria clienti</button>
                     </form>
                 </div>
             </div>
@@ -248,7 +248,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="portlet box green">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="fa fa-users"></i>Categorie Pazienti
+								<i class="fa fa-users"></i>Categorie Clienti
 							</div>
 
 						</div>
@@ -260,7 +260,7 @@ License: You must have a valid license purchased only from themeforest(the above
 									 Nome categoria
 								</th>
                                 <th>
-									 Pazienti in questa categoria
+									 Clienti in questa categoria
 								</th>
                                 <th>
 									 Data registrazione categoria

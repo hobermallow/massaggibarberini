@@ -687,6 +687,8 @@ class Pazienti extends CI_Model {
         if ($descrizione == false || $descrizione == "")
             $descrizione = "";
         $descrizione = $this->db->escape($descrizione);
+        
+        
 
 
         $this->db->query("INSERT INTO visite (id_paziente, id_dottore, nome_paziente, data_visita, orario_visita, descrizione, id_prestazione) VALUES ( " . $id_paziente . ", " . $id_dottore . ", " . $nome_paziente . ", '" . $data_visita . "', '" . $orario_visita . "', " . $descrizione . ", ".$id_prestazione." ) ");
@@ -740,7 +742,7 @@ class Pazienti extends CI_Model {
     function get_pages_visite($visite_per_pagina, $id_paziente) {
         $totale_pagine = -1;
 
-        $query = $this->db->query("SELECT id FROM visite WHERE id_paziente=" . $id_paziente . " ");
+        $query = $this->db->query("SELECT id FROM visite JOIN relationship_visite_studi ON relationship_visite_studi.id_persona = visite.id WHERE id_paziente=" . $id_paziente . " AND id_studio = ".$this->session->userdata('id_studio'));
 
 
         $totale_rows = $query->num_rows();
@@ -759,12 +761,12 @@ class Pazienti extends CI_Model {
             $query = $this->db->query("SELECT visite.*,DATE_FORMAT(data_visita, '%d-%m-%Y') as data_visita, prestazioni.descrizione as nome_prestazione, dottori.nome as nome_dottore FROM visite
 			LEFT JOIN dottori ON visite.id_dottore=dottori.id
                         LEFT JOIN pazienti ON pazienti.id=visite.id_paziente
-                        JOIN prestazioni on prestazioni.id = visite.id_prestazione WHERE id_paziente=" . $id_paziente . " ORDER BY " . $colonna_ordinamento . " DESC LIMIT " . $visite_per_pagina . " ");
+                        LEFT JOIN prestazioni on prestazioni.id = visite.id_prestazione WHERE id_paziente=" . $id_paziente . " ORDER BY " . $colonna_ordinamento . " DESC LIMIT " . $visite_per_pagina . " ");
         else
             $query = $this->db->query("SELECT visite.*,DATE_FORMAT(data_visita, '%d-%m-%Y') as data_visita, prestazioni.descrizione as nome_prestazione, dottori.nome as nome_dottore FROM visite
 			LEFT JOIN dottori ON visite.id_dottore=dottori.id
                         LEFT JOIN pazienti ON pazienti.id=visite.id_paziente
-                        JOIN prestazioni on prestazioni.id = visite.id_prestazione WHERE id_paziente=" . $id_paziente . " ORDER BY " . $colonna_ordinamento . " DESC LIMIT " . (($page - 1) * $visite_per_pagina) . "," . $visite_per_pagina . " ");
+                        LEFT JOIN prestazioni on prestazioni.id = visite.id_prestazione WHERE id_paziente=" . $id_paziente . " ORDER BY " . $colonna_ordinamento . " DESC LIMIT " . (($page - 1) * $visite_per_pagina) . "," . $visite_per_pagina . " ");
 
         return $query;
     }
@@ -781,7 +783,7 @@ class Pazienti extends CI_Model {
         $descrizione_visita = $this->db->escape($descrizione_visita);
         $dettaglio_visita = $this->db->escape($dettaglio_visita);
         $id_dottore = $post['id_dottore'] && $post['id_dottore'] != '' ? (integer)$post['id_dottore'] : "NULL";
-        $id_prestazione = $post['id_prestazione'];
+        $id_prestazione = $post['id_prestazione'] && $post['id_prestazione'] != '' ? (integer)$post['id_prestazione'] : "NULL";
         //print_r($descrizione_visita); die();
         if ($data_visita == "") {
             //faccio update senza aggiornare la data_visita
@@ -793,7 +795,7 @@ class Pazienti extends CI_Model {
         }
 
         if ($data_visita != "" && $orario_visita != "") {
-            return $this->db->query("UPDATE visite SET id_prestazione = $id_prestazione, id_dottore = " . $id_dottore . ",data_visita='" . $data_visita . "', orario_visita='" . $orario_visita . "', descrizione=" . $descrizione_visita . ", dettaglio=" . $dettaglio_visita . " WHERE id=" . $id_visita . " ");
+            return $this->db->query("UPDATE visite SET id_prestazione = ".$id_prestazione.", id_dottore = " . $id_dottore . ",data_visita='" . $data_visita . "', orario_visita='" . $orario_visita . "', descrizione=" . $descrizione_visita . ", dettaglio=" . $dettaglio_visita . " WHERE id=" . $id_visita . " ");
         }
         return false;
     }

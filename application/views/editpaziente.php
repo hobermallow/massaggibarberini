@@ -207,7 +207,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <!-- END STYLE CUSTOMIZER -->
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Modifica un paziente</h2>
+                    <h2 class="page-title" >Modifica Cliente</h2>
                     <!--<h2 class="page-title" style="font-size: 16px; color: red;" >(nome, cognome e codice fiscale sono campi obbligatori)</h2>-->
                     <!-- END PAGE HEADER-->
 
@@ -220,7 +220,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-danger">
                                     <h4 class="block">Errore!</h4>
                                     <p>
-                                        Errore durante la modifica del paziente, controllare che tutti i campi obbligatori siano stati compilati e riprovare.
+                                        Errore durante la modifica del cliente, controllare che tutti i campi obbligatori siano stati compilati e riprovare.
                                     </p>
                                 </div>
                             </div>
@@ -233,7 +233,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="note note-success">
                                     <h4 class="block">Successo!</h4>
                                     <p>
-                                        Hai modificato il paziente correttamente.
+                                        Hai modificato il cliente correttamente.
                                     </p>
                                 </div>
                             </div>
@@ -325,12 +325,12 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                 <div class="input-icon margin-top-10">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" name="alert_email" value="alert_email" <?php if ($user[0]->alert_email == 1) echo "checked"; ?>>Alert via Email</label>
+                                        <input type="hidden" id="inlineCheckbox1" name="alert_email" value="alert_email" <?php if ($user[0]->alert_email == 1) echo "checked"; ?>></label>
                                 </div>
 
                                 <div class="input-icon margin-top-10">
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" id="inlineCheckbox1" name="alert_sms" value="alert_sms" <?php if ($user[0]->alert_sms == 1) echo "checked"; ?> >Alert via SMS</label>
+                                        <input type="hidden" id="inlineCheckbox1" name="alert_sms" value="alert_sms" <?php if ($user[0]->alert_sms == 1) echo "checked"; ?> ></label>
                                 </div>
 
 
@@ -345,8 +345,8 @@ License: You must have a valid license purchased only from themeforest(the above
 
                             <div class="col-lg-12" >
                                 <div class="input-icon margin-top-10">
-                                    <label>Dettaglio paziente:</label>
-                                    <textarea name="dettaglio_paziente" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il paziente"><?php echo $user[0]->dettaglio_paziente; ?></textarea>
+                                    <label>Dettaglio cliente:</label>
+                                    <textarea name="dettaglio_paziente" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il cliente"><?php echo $user[0]->dettaglio_paziente; ?></textarea>
                                 </div>
                             </div>
 
@@ -419,12 +419,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 </td>
                                                 <td class="numeric" style="text-align: center;" >
                                                     <?php if ($prev->stato == 1) { ?>
-                                                        <a href="<?php echo base_url(); ?><?php echo "fatture/generaFatturaECarica/" . $prev->id_preventivo; ?>" class="btn green">
-                                                            <i class="icon-cloud-upload"></i> Carica fattura
-                                                        </a>
-                                                        <a target="blank" href="<?php echo base_url(); ?><?php echo "fatture/generaFattura/" . $prev->id_preventivo; ?>" class="btn green">
-                                                            <i class="fa fa-print"></i> Stampa fattura
-                                                        </a>
+                                                        <!--   <a href="<?php echo base_url(); ?><?php echo "fatture/generaFatturaECarica/" . $prev->id_preventivo; ?>" class="btn green"> -->
+<!--                                                             <i class="icon-cloud-upload"></i> Carica fattura -->
+<!--                                                         </a> -->
+                                                      <!--   <a target="blank" href="<?php echo base_url(); ?><?php echo "fatture/generaFattura/" . $prev->id_preventivo; ?>" class="btn green"> -->
+<!--                                                             <i class="fa fa-print"></i> Stampa fattura -->
+<!--                                                         </a> -->
                                                     <?php } ?>
                                                     <a id="<?php echo $prev->stato == 0 ? "pagato-button" : "non-pagato" ?>" data-totale="<?php echo $prev->totale; ?>" data-parziale="<?php echo $prev->parziale ?>" data-id="<?php echo $prev->id_preventivo; ?>" href="<?php echo base_url(); ?><?php echo "preventivi/togglePagato/" . $prev->id_preventivo; ?>" class="btn blue">
                                                         Segna come <?php echo $prev->stato == 0 ? "Pagato" : "Non Pagato" ?>
@@ -444,7 +444,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet box green">
                             <div class="portlet-title">
                                 <div class="caption">
-                                    <i class="fa fa-heart"></i>Tabella Visite
+                                    <i class="fa fa-heart"></i>Tabella Appuntamenti
                                 </div>
 
                             </div>
@@ -453,19 +453,19 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <thead class="flip-content">
                                         <tr>
                                             <th>
-                                                Dottore
+                                                Operatore
                                             </th>
                                             <th>
                                                 Tipo prestazione
                                             </th>
                                             <th class="numeric">
-                                                Descrizione visita
+                                                Descrizione prestazioni
                                             </th>
                                             <th>
-                                                Dettaglio visita
+                                                Dettaglio prestazione
                                             </th>
                                             <th>
-                                                Data visita
+                                                Data appuntamento
                                             </th>
                                             <th class="numeric">
                                                 Orario visita
