@@ -192,23 +192,23 @@ License: You must have a valid license purchased only from themeforest(the above
 
 							
                             <!--colonna 1-->
-                            <div class="col-md-6" >
-                                 <input name="alert_email" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_email == "on") echo "checked"; ?>>
+<!--                             <div class="col-md-6" > -->
+                                 <!--  <input name="alert_email" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_email == "on") echo "checked"; ?>> -->
 
-                            </div> 
+<!--                             </div>  -->
 
 
 
                             <!--colonna 2-->
-                            <div class="col-md-6" >
-                                <input name="alert_sms" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_sms == "on") echo "checked"; ?> >
-                            </div>
+<!--                             <div class="col-md-6" > -->
+                                <!-- <input name="alert_sms" type="hidden" class="make-switch" data-on-color="info" data-off-color="danger" <?php if ($alert_sms == "on") echo "checked"; ?> > -->
+<!--                             </div> -->
 
 							
                     
 
 
-                    <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
+<!--                     <button type="submit" name="submit" value="submit" class="btn green">Modifica</button> -->
 
 
                     <br><br>

@@ -8,7 +8,7 @@
     </li>
     <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
 
-    <br>
+    
 
     <li class="start ">
         <a href="<?php echo base_url(); ?>dashboard">
@@ -18,7 +18,7 @@
     </li>
 
 <!--     <li class="start "> -->
-<!--         <a href="<?php echo base_url(); ?>costi"> -->
+         <!--  <a href="<?php echo base_url(); ?>costi"> --> 
 <!--             <i class="icon-globe"></i> -->
 <!--             <span class="title">Costi e ricavi</span> -->
 <!--         </a> -->
@@ -26,8 +26,8 @@
 
     <li class="start ">
         <a href="<?php echo base_url(); ?>gestionedottori/prestazioni">
-            <i class="icon-graduation"></i>
-            <span class="title">Prestazioni</span>
+            <i class="glyphicon glyphicon-list-alt"></i>
+            <span class="title">Servizi</span>
         </a>
     </li>
 
@@ -87,6 +87,18 @@
             <i class="glyphicon glyphicon-qrcode"></i>
             <span class="title">Punti</span>
         </a>
+        <ul class="sub-menu">
+            <li>
+                <a href="<?php echo base_url(); ?>punti">
+                    <i class="icon-users"></i>
+                    Punteggi Clienti</a>
+            </li>
+            <li>
+                <a href="<?php echo base_url(); ?>punti/categorie">
+                    <i class="icon-users"></i>
+                    Modifica Categorie Punti</a>
+            </li>
+        </ul>
     </li>
 
 <!--     <li class="last "> -->
@@ -132,7 +144,7 @@
 
     <li class="last ">
         <a href="<?php echo base_url(); ?>visite/sospese">
-            <i class="icon-credit-card"></i>
+            <i class="glyphicon glyphicon-bell"></i>
             <span class="title">Appuntamenti In Sospeso</span>
         </a>
     </li>
@@ -193,12 +205,12 @@
 <!--         </a> -->
 <!--     </li> -->
 
-<!--     <li class="last "> -->
-        <!--  <a href="<?php echo base_url(); ?>statistiche"> -->
-<!--             <i class="icon-graph"></i> -->
-<!--             <span class="title">Statistiche</span> -->
-<!--         </a> -->
-<!--     </li> -->
+    <li class="last ">
+        <a href="<?php echo base_url(); ?>statistiche">
+            <i class="icon-graph"></i>
+            <span class="title">Statistiche</span>
+        </a>
+    </li>
 
     <li class="last ">
         <a href="<?php echo base_url(); ?>impostazioni">

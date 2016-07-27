@@ -181,6 +181,13 @@ License: You must have a valid license purchased only from themeforest(the above
             <?php endif; ?>
             
             
+			<div class="container">
+		 	<div class="row">
+		 	<div class="col-md-3">
+		 	<a href="<?php echo base_url(); ?>visite/sospese" class="btn btn-danger" ><span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>   Lista Visite in Sospeso</a>
+		 	</div>
+		 	</div>
+		 	</div>
 			
             
             

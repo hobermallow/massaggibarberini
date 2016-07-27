@@ -191,44 +191,44 @@ var data_patologie = {
     ]
 };
 
-var ctx_bar_chart_patologie = $("#bar_chart_patologie").get(0).getContext("2d");
+// var ctx_bar_chart_patologie = $("#bar_chart_patologie").get(0).getContext("2d");
 
-var bar_chart_patologie = new Chart( ctx_bar_chart_patologie ).Bar(data_patologie, {
-    barShowStroke: false
-});
+// var bar_chart_patologie = new Chart( ctx_bar_chart_patologie ).Bar(data_patologie, {
+//     barShowStroke: false
+// });
 
 
 
-var data_farmaci = {
-    labels: [
+// var data_farmaci = {
+//     labels: [
 	
-		<?php foreach( $statistica_farmaci as $stat_farmaco ): ?>
-			"<?php echo $stat_farmaco["nome_farmaco"]; ?>",
-		<?php endforeach; ?>
-		],
-    datasets: [
-        {
-            label: "Farmaci",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(220,220,220,0.8)",
-            highlightFill: "rgba(220,220,220,0.75)",
-            highlightStroke: "rgba(220,220,220,1)",
-            data: [
+		//<?php foreach( $statistica_farmaci as $stat_farmaco ): ?>
+			//"<?php echo $stat_farmaco["nome_farmaco"]; ?>",
+		//<?php endforeach; ?>
+		//],
+//     datasets: [
+//         {
+//             label: "Farmaci",
+//             fillColor: "rgba(151,187,205,0.5)",
+//             strokeColor: "rgba(220,220,220,0.8)",
+//             highlightFill: "rgba(220,220,220,0.75)",
+//             highlightStroke: "rgba(220,220,220,1)",
+//             data: [
 				
-				<?php foreach( $statistica_farmaci as $stat_farmaco ): ?>
-					<?php echo $stat_farmaco["riscontri"]; ?>,
-				<?php endforeach; ?>
+			//	<?php foreach( $statistica_farmaci as $stat_farmaco ): ?>
+				//	<?php echo $stat_farmaco["riscontri"]; ?>,
+				//<?php endforeach; ?>
 				
-			]
-        },
-    ]
-};
+// 			]
+//         },
+//     ]
+// };
 
-var ctx_bar_chart_farmaci = $("#bar_chart_farmaci").get(0).getContext("2d");
+// var ctx_bar_chart_farmaci = $("#bar_chart_farmaci").get(0).getContext("2d");
 
-var bar_chart_farmaci = new Chart( ctx_bar_chart_farmaci ).Bar(data_farmaci, {
-    barShowStroke: false
-});
+// var bar_chart_farmaci = new Chart( ctx_bar_chart_farmaci ).Bar(data_farmaci, {
+//     barShowStroke: false
+// });
 
 
 
@@ -276,8 +276,8 @@ $( window ).resize(function() {
 	
 	//imposto le width corrette ai canvas...
 	$("#grafico_visite_mensili").width(correct_width);
-	$("#bar_chart_patologie").width(correct_width);
-	$("#bar_chart_farmaci").width(correct_width);
+// 	$("#bar_chart_patologie").width(correct_width);
+// 	$("#bar_chart_farmaci").width(correct_width);
 	
 });
 
@@ -308,7 +308,7 @@ $( window ).resize(function() {
 					<div id="capture_width" class="portlet box green">
 						<div class="portlet-title">
 							<div class="caption">
-								<i class="icon-briefcase"></i>Visite mensili
+								<i class="icon-briefcase"></i>Appuntamenti mensili
 							</div>
 						</div>
 						<div class="portlet-body">
@@ -317,28 +317,28 @@ $( window ).resize(function() {
 					</div>
 					<!-- END INTERACTIVE CHART PORTLET-->
 					<!-- BEGIN BASIC CHART PORTLET-->
-					<div class="portlet box blue">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="icon-heart"></i>Statistica Patologie Riscontrate
-							</div>
-						</div>
-						<div class="portlet-body">
-							<canvas id="bar_chart_patologie" style="width: 100%; height: 200px;" ></canvas>
-						</div>
-					</div>
+<!-- 					<div class="portlet box blue"> -->
+<!-- 						<div class="portlet-title"> -->
+<!-- 							<div class="caption"> -->
+<!-- 								<i class="icon-heart"></i>Statistica Servizi -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="portlet-body"> -->
+							<!--  <canvas id="bar_chart_patologie" style="width: 100%; height: 200px;" ></canvas> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<!-- END BASIC CHART PORTLET-->
 					<!-- BEGIN BASIC CHART PORTLET-->
-					<div class="portlet box purple">
-						<div class="portlet-title">
-							<div class="caption">
-								<i class="icon-chemistry"></i>Statistica Farmaci Prescritti
-							</div>
-						</div>
-						<div class="portlet-body">
-							<canvas id="bar_chart_farmaci" style="width: 100%; height: 200px;" ></canvas>
-						</div>
-					</div>
+<!-- 					<div class="portlet box purple"> -->
+<!-- 						<div class="portlet-title"> -->
+<!-- 							<div class="caption"> -->
+<!-- 								<i class="icon-chemistry"></i>Statistica Farmaci Prescritti -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 						<div class="portlet-body"> -->
+					<!-- 		<canvas id="bar_chart_farmaci" style="width: 100%; height: 200px;" ></canvas> --> 
+<!-- 						</div> -->
+<!-- 					</div> -->
 					<!-- END BASIC CHART PORTLET-->
 				</div>
 			</div>

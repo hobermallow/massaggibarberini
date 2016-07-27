@@ -201,7 +201,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
 
                             <div class="input-icon margin-top-10" style="width: 65%;" >
-                                <h2 class="page-title" style="font-size: 18px;" >Descrizione Prestazione:</h2>
+                                <h2 class="page-title" style="font-size: 18px;" >Descrizione Servizio:</h2>
                                 <h4 style="border: 1px solid black; border-radius: 5px; padding: 10px;" ><?php echo nl2br($visita_corrente[0]->descrizione); ?></h4>
                             </div>
 
@@ -241,9 +241,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </select>
                             </div>
                             <div class="col-lg-12">
-                                <label>Tipo prestazione:</label>
+                                <label>Tipo Servizio:</label>
                                 <select name="id_prestazione" class="form-control">
-                                    <option value="">Selezione Prestazione</option>
+                                    <option value="">Selezione Servizio</option>
                                     <?php
                                     foreach ($prestazioni->result() as $prestazione) {
                                         $selected = "";

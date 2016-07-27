@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Lista prestazioni</h2>
+                    <h2 class="page-title" >Lista Servizi</h2>
                     <!-- END PAGE HEADER-->
 
 
@@ -180,14 +180,14 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     <?php endif; ?>
 
-                    <h2 class="page-title" style="margin-bottom: 10px; margin-top: 10px; font-size: 18px;">Nuova prestazione</h2>
+                    <h2 class="page-title" style="margin-bottom: 10px; margin-top: 10px; font-size: 18px;">Nuovo Servizio</h2>
                     <form action="<?php echo base_url();echo "gestionedottori/editprestazione/" ?>" method="POST" style="margin-bottom: 10px;">
                         <div class="row"> 
                             <div class="col-sm-4">
                                 <input maxlength="100" required name="descrizione" placeholder="Descrizione" class="form-control"/>
                             </div>
                             <div class="col-sm-4">
-                                <input type="number" required name="costo_prestazione" placeholder="Costo Prestazione" class="form-control"/>
+                                <input type="number" required name="costo_prestazione" placeholder="Costo Servizio" class="form-control"/>
                             </div>
                             <div class="col-sm-4">
                                 <button type="submit" class="btn green">Aggiungi</button>
@@ -201,7 +201,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-heart"></i>Tabella Prestazioni
+                                <i class="fa fa-heart"></i>Tabella Servizi
                             </div>
 
                         </div>
@@ -210,10 +210,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <thead class="flip-content">
                                     <tr>
                                         <th class="numeric">
-                                            Descrizione prestazione
+                                            Descrizione Servizio
                                         </th>
                                         <th>
-                                            Costo Prestazione
+                                            Costo Servizio
                                         </th>
                                         <th class="numeric">
                                             Azioni

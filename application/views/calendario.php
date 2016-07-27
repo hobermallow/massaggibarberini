@@ -259,7 +259,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <input id="data_visita" type="text" class="form-control form-control-inline input-medium date-picker" name="data_visita" value="" />
                               </div>
                               <div class="input-icon margin-top-10">
-                                <label>Seleziona la prestazione: </label>
+                                <label>Seleziona il servizio: </label>
                                 <select name="prestazione" class="form-control">
                                 	<option value="0" >Seleziona prestazione</option>
                                 <?php foreach( $prestazioni->result() as $prestazione ): ?>

@@ -135,7 +135,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="col-sm-4">
                                 <div class="row">
                                     <div class="col-sm-12">
-                                        <h2 class="page-title" style="font-size:16px;">Prestazione</h2>
+                                        <h2 class="page-title" style="font-size:16px;">Servizio</h2>
                                     </div>
                                     <div class="col-sm-12">
                                         <select name="prestazioni" id="prestazioni" class="form-control">

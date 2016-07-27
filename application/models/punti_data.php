@@ -91,6 +91,43 @@ class punti_data extends CI_Model  {
     //ritorno array delle righe
     return $query->result();
   }
+  
+  public function insert_categoria($nome_categoria, $punteggio_massimo) {
+  	//inserisco la categoria
+  	$bool = $this->db->insert('categorie_punti', ['categoria' => $nome_categoria, 'max_punti' => $punteggio_massimo]);
+  	$id_categoria = $this->db->insert_id();
+  	//relationship
+  	$id_studio = $this->session->userdata('id_studio');
+  	$bool = $bool && $this->db->insert('relationship_categorie_punti_studi', ['id_categoria' => $id_categoria, 'id_studio' => $id_studio]);
+  	return $bool;
+  }
+  
+  public function delete_categoria($id_categoria) {
+  	//in primis, cancello tutti i punti legati alla categoria
+  	//ricavo  gli id dei punteggi legati alla categoria
+  	$this->db->select('id_punti');
+  	$query = $this->db->get_where('relationship_categorie_punti', ['id_categoria' => $id_categoria]);
+  	$punti = [];
+  	$punti[] = '';
+  	foreach ($query->result() as $punto) {
+  		$punti[] = $punto->id_punti;
+  	}
+  	//cancello la relationship fra categorie e punti
+  	$this->db->where(['id_categoria' => $id_categoria]);
+  	$bool = $this->db->delete('relationship_categorie_punti');
+  	//cancello i punti legati alla categoria
+  	$this->db->where_in('id', $punti);
+  	$bool = $bool && $this->db->delete('punti_fedelta');
+  	//cancello la relazione fra la categoria e lo studio
+  	$id_studio = $this->session->userdata('id_studio');
+  	$this->db->where(['id_studio' => $id_studio, 'id_categoria' => $id_categoria]);
+  	$bool = $bool && $this->db->delete('relationship_categorie_punti_studi');
+  	//cancello la categoria
+  	$this->db->where(['id' => $id_categoria]);
+  	$bool = $bool && $this->db->delete('categorie_punti');
+  	return $bool;
+  	
+  }
 }
 
 

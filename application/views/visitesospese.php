@@ -227,10 +227,10 @@ License: You must have a valid license purchased only from themeforest(the above
                                                 ?>
                                             </td>
                                             <td class="numeric" style="text-align: center;" >
-                                                <a href="<?php echo base_url(); ?><?php echo "visite/confermavisita/" . $row->id_visita; ?>" title="Modifica" class="btn red">
-                                                    <i class="fa fa-edit"></i>
+                                                <a href="<?php echo base_url(); ?><?php echo "visite/confermavisita/" . $row->id_visita; ?>" title="Accetta" class="btn green" onclick="if(!confirm('Confermare?')) { return false; } else { return true; }">
+                                                    <i class="glyphicon glyphicon-ok"></i>
                                                 </a>
-                                                <a href="<?php echo base_url(); ?><?php echo "deletevisita/delete/" . $row->id_visita; ?>" title="Elimina" class="btn purple">
+                                                <a href="<?php echo base_url(); ?><?php echo "deletevisita/confermadelete/" . $row->id_visita; ?>" title="Elimina" class="btn red msgbox-confirm" onclick="if(!confirm('Confermare?')) { return false; } else { return true; }">
                                                     <i class="fa fa-times"></i>
                                                 </a>
                                             </td>

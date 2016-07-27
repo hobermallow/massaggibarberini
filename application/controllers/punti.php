@@ -298,6 +298,101 @@ class Punti extends CI_Controller {
 
     echo json_encode($response);
   }
+  
+  public function categorie() {
+  	//verifica della sessione
+  	$this->load->model("acl");
+  	$session_rserial = $this->session->userdata('rserial');
+  	$view["username"] = $this->session->userdata("username");
+  	if ($this->acl->VerificaSessione($session_rserial) == false) {
+  		$this->load->helper('url');
+  		$login_url = base_url();
+  		redirect($login_url . "login/info?c=error");
+  	}
+  	
+  	
+  	$this->load->model("pazienti");
+  	$this->load->model("dottori");
+  	$this->load->model('punti_data');
+  	
+  	
+  	$view["pagine_totali"] = $this->pazienti->get_pages_pazienti(20);
+  	
+  	$view["dottori"] = $this->dottori->get_all_dottori();
+  	$view["all_categorie_pazienti"] = $this->categorie_pazienti_data->get_all_categorie_pazienti();
+  	
+  	//carico le categorie di punteggio
+  	$view["categorie_punti"] = $this->punti_data->get_categorie_punti();
+  	$this->load->view('categorie_punti', $view);
+  }
+  
+  public function add_categoria() {
+  	//verifica della sessione
+  	$this->load->model("acl");
+  	$session_rserial = $this->session->userdata('rserial');
+  	$view["username"] = $this->session->userdata("username");
+  	if ($this->acl->VerificaSessione($session_rserial) == false) {
+  		$this->load->helper('url');
+  		$login_url = base_url();
+  		redirect($login_url . "login/info?c=error");
+  	}
+  	 
+  	 
+  	$this->load->model("pazienti");
+  	$this->load->model("dottori");
+  	$this->load->model('punti_data');
+  	 
+  	 
+  	$view["pagine_totali"] = $this->pazienti->get_pages_pazienti(20);
+  	 
+  	$view["dottori"] = $this->dottori->get_all_dottori();
+  	$view["all_categorie_pazienti"] = $this->categorie_pazienti_data->get_all_categorie_pazienti();
+  	
+  	//se in post
+  	if($this->input->post("add_categoria")) {
+  		//inserisco la categoria
+  		$nome_categoria = $this->input->post('nome_categoria');
+  		$punteggio_massimo = $this->input->post('punteggio_massimo');
+  		$view['errore_add'] = $this->punti_data->insert_categoria($nome_categoria, $punteggio_massimo);
+  		//carico le categorie di punteggio
+  		$view["categorie_punti"] = $this->punti_data->get_categorie_punti();
+  		$this->load->view('categorie_punti', $view);
+  	}
+  	else {
+  		$this->load->helper('url');
+  		$login_url = base_url();
+  		redirect($login_url . "login/info?c=error");
+  	}
+  }
+  
+  public function delete_categoria($id_categoria) {
+  	//verifica della sessione
+  	$this->load->model("acl");
+  	$session_rserial = $this->session->userdata('rserial');
+  	$view["username"] = $this->session->userdata("username");
+  	if ($this->acl->VerificaSessione($session_rserial) == false) {
+  		$this->load->helper('url');
+  		$login_url = base_url();
+  		redirect($login_url . "login/info?c=error");
+  	}
+  	
+  	
+  	$this->load->model("pazienti");
+  	$this->load->model("dottori");
+  	$this->load->model('punti_data');
+  	
+  	
+  	$view["pagine_totali"] = $this->pazienti->get_pages_pazienti(20);
+  	
+  	$view["dottori"] = $this->dottori->get_all_dottori();
+  	$view["all_categorie_pazienti"] = $this->categorie_pazienti_data->get_all_categorie_pazienti();
+  	 
+ 	//inserisco la categoria
+  	$view['errore_delete'] = $this->punti_data->delete_categoria($id_categoria);
+  	//carico le categorie di punteggio
+  	$view["categorie_punti"] = $this->punti_data->get_categorie_punti();
+  	$this->load->view('categorie_punti', $view);
+  }
 }
 
 

@@ -100,6 +100,9 @@ class post_data extends CI_Model {
 		$old_file = $post->row()->nome_file;
 		//cancello il file
 		$bool = unlink($this->file_path.DIRECTORY_SEPARATOR.$old_file);
+		if(!($bool)) {
+			return false;
+		}
 		//cancello dal db
 		$this->db->where(['id_post' => $id_post, 'id_studio' => $this->session->userdata('id_studio')]);
 		$bool = $bool && $this->db->delete('post');

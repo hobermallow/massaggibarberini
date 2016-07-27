@@ -264,7 +264,7 @@ $( "#paziente" ).autocomplete({
 
             <div class="row" >
             	<div class="col-lg-4">
-                <label>Seleziona operatore al quale assegnare la visita</label>
+                <label>Seleziona operatore al quale assegnare l'appuntamento</label>
                 <select id="input_id_dottore" name="dottore" class="form-control">
                 	<option value="0" >Nessuno</option>
                 <?php foreach( $dottori->result() as $dottore ): ?>
@@ -282,9 +282,9 @@ $( "#paziente" ).autocomplete({
 
 						<div class="row" >
             	<div class="col-lg-4">
-                <label>Seleziona la prestazione: </label>
+                <label>Seleziona il servizio: </label>
                 <select name="prestazione" class="form-control">
-                	<option value="0" >Seleziona prestazione</option>
+                	<option value="0" >Seleziona Servizio</option>
                 <?php foreach( $prestazioni->result() as $prestazione ): ?>
                     <option value="<?php echo $prestazione->id; ?>" ><?php echo $prestazione->descrizione; ?></option>
                 <?php endforeach; ?>

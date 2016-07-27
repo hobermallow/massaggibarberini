@@ -200,17 +200,37 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
                     </form>
-
+					<br>
                     <!-- INIZIO GESTIONE ORARI -->
                     <div class="row">
                       <div class="col-lg-8">
                     <div class="input-icon margin-top-10">
-                      <label>Orari settimanali per l'operatore:</label>
+                    
+                      <h2 class="page-title">Orari settimanali per l'operatore:</h2>
                       <br>
                       <form class="" action="/gestionedottori/aggiornaorario/<?php echo $dottore_edit[0]->id; ?>" method="post">
+                       <table class="table table-striped">
+                       <thead>
+                       <tr>
+                       <th>
+                       Giorno
+                       </th>
+                       <th>
+                       Selezione
+                       </th>
+                       <th>
+                       Orario Inizio
+                       </th>
+                       <th>
+                       Orario Fine
+                       </th>
+                       </tr>
+                       </thead>
+                       <tbody>
+                       <tr>
                         <!-- lunedi -->
-                        <label>Lunedi: </label><input type="checkbox" name="giorno[]" value="1">
-                        <label>Inizio:</label>
+                        <td><label>Lunedi: </label></td><td><input type="checkbox" name="giorno[]" value="1"></td>
+                        <td><label>Inizio:</label>
                         <select name="1-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -260,7 +280,8 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="22:30:00">22:30</option>
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
-                        </select>
+                        </select></td>
+                        <td>
                         <!--rest of options omitted for brevity-->
                         <label>Fine:</label>
                         <select name="1-fine">
@@ -313,10 +334,13 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
+                        </td>
+                        </tr>
+                        
+                        <tr>
                         <!-- lunedi -->
-                        <label>Martedi: </label><input type="checkbox" name="giorno[]" value="2">
-                        <label>Inizio:</label>
+                      <td><label>Martedi: </label></td><td><input type="checkbox" name="giorno[]" value="2"></td>
+                        <td><label>Inizio:</label>
                         <select name="2-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -367,8 +391,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="2-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -419,9 +444,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
-                        <label>Mercoledi: </label><input type="checkbox" name="giorno[]" value="3">
-                        <label>Inizio:</label>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td><label>Mercoledi: </label></td><td><input type="checkbox" name="giorno[]" value="3"></td>
+                        <td><label>Inizio:</label>
                         <select name="3-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -472,8 +499,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="3-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -524,9 +552,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
-                        <label>Giovedi: </label><input type="checkbox" name="giorno[]" value="4">
-                        <label>Inizio:</label>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td><label>Giovedi: </label></td><td><input type="checkbox" name="giorno[]" value="4"></td>
+                        <td><label>Inizio:</label>
                         <select name="4-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -577,8 +607,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="4-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -629,9 +660,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
-                        <label>Venerdi: </label><input type="checkbox" name="giorno[]" value="5">
-                        <label>Inizio:</label>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td><label>Venerdi: </label></td><td><input type="checkbox" name="giorno[]" value="5"></td>
+                        <td><label>Inizio:</label>
                         <select name="5-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -682,8 +715,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="5-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -734,9 +768,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
-                        <label>Sabato: </label><input type="checkbox" name="giorno[]" value="6">
-                        <label>Inizio:</label>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td><label>Sabato: </label></td><td><input type="checkbox" name="giorno[]" value="6"></td>
+                        <td><label>Inizio:</label>
                         <select name="6-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -787,8 +823,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="6-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -839,9 +876,11 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
-                        <br>
-                        <label>Domenica: </label><input type="checkbox" name="giorno[]" value="0">
-                        <label>Inizio:</label>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td><label>Domenica: </label></td><td><input type="checkbox" name="giorno[]" value="0"></td>
+                        <td><label>Inizio:</label>
                         <select name="0-inizio">
                           <option value="00:00:00">00:00</option>
                           <option value="00:30:00">00:30</option>
@@ -892,8 +931,9 @@ License: You must have a valid license purchased only from themeforest(the above
                           <option value="23:00:00">23:00</option>
                           <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
                         <!--rest of options omitted for brevity-->
-                        <label>Fine:</label>
+                        <td><label>Fine:</label>
                         <select name="0-fine">
                         <option value="00:00:00">00:00</option>
                         <option value="00:30:00">00:30</option>
@@ -944,6 +984,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <option value="23:00:00">23:00</option>
                         <option value="23:30:00">23:30</option>
                         </select>
+                        </td>
+                        </tr>
+                        </tbody>
+                        </table>
                         <br>
                         <input type="submit" name="name" value="Aggiorna Orari" class="btn green" >
                       </form>
@@ -1004,86 +1048,18 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                     <br>
-                    <h3 class="page-title">
-                        Nuova fattura
-                    </h3>
-
-                    <form class="row" method="POST" enctype="multipart/form-data" action="<?php echo base_url(); ?>gestionedottori/caricaFattura">
-                        <input type="hidden" name="id_dottore" value="<?php echo $dottore_edit[0]->id; ?>"/>
-                        <div>
-                            <div class="col-xs-4">
-                                <input type="file" accept="application/pdf" name="filename"/>
-                            </div>
-                            <div class="col-xs-4">
-                                <input type="number" name="totale" required class="form-control" placeholder="Totale"/>
-                            </div>
-                            <div class="col-xs-4">
-                                <button type='submit' class="btn green">Conferma</button>
-                            </div>
-                        </div>
-                    </form>
+                    
                     <br/>
-                    <div class="portlet box green">
-                        <div class="portlet-title">
-                            <div class="caption">
-                                <i class="fa fa-heart"></i>Tabella fatture
-                            </div>
-                        </div>
-                        <div class="portlet-body flip-scroll">
-                            <table class="table table-bordered table-striped table-condensed flip-content">
-                                <thead class="flip-content">
-                                    <tr>
-                                        <th>
-                                            Data
-                                        </th>
-                                        <th>
-                                            Fattura
-                                        </th>
-                                        <th>
-                                            Totale
-                                        </th>
-                                        <th class="numeric">
-                                            Azioni
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $precId = 0;
-                                    foreach ($fatture as $fattura):
-                                        ?>
-                                        <tr>
-                                            <td>
-                                                <?php echo $fattura->data; ?>
-                                            </td>
-                                            <td>
-                                                <a target="blank" href="<?php echo base_url(); ?>/fatture_dottori/<?php echo $fattura->id_dottore ?>/<?php echo $fattura->filename ?>">Visualizza</a>
-                                            </td>
-                                            <td>
-                                                <?php echo $fattura->totale; ?> &euro;
-                                            </td>
-                                            <td class="numeric" style="text-align: center;" >
-                                                <a href="<?php echo base_url(); ?><?php echo "gestionedottori/deleteFattura/" . $fattura->id_fattura; ?>" onclick="return confirm('Sei sicuro di voler eliminare questa fattura?')" title="Elimina" class="btn purple">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+
                     <br>
                     <!-- Inizio tabella prestazioni dottore -->
                     <h3 class="page-title">
-                        Prestazioni
+                        Servizi
                     </h3>
                     <!-- aggiunta prestazione -->
                     <form class="" action="/gestionedottori/addprestazionedottore/<?php echo $dottore_edit[0]->id; ?>" method="post">
                       <select class="" name="prestazione">
-                        <option value="" checked>Seleziona prestazione</option>
+                        <option value="" checked >Seleziona servizio</option>
                         <?php foreach ($prestazioni_totali->result() as $prestazione): ?>
                           <option value="<?php echo $prestazione->id; ?>"><?php echo $prestazione->descrizione; ?></option>
                         <?php endforeach; ?>
@@ -1093,7 +1069,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-heart"></i>Tabella prestazioni
+                                <i class="fa fa-heart"></i>Tabella servizi
                             </div>
                         </div>
                         <div class="portlet-body flip-scroll">
@@ -1101,7 +1077,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <thead class="flip-content">
                                     <tr>
                                         <th>
-                                            Prestazione
+                                            Servizio
                                         </th>
                                         <th>
                                             Costo
