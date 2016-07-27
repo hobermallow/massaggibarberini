@@ -250,6 +250,7 @@ class acl_app extends CI_Model  {
 //     	$data['telefono'] = $post['telefono'];
 //     	$data['indirizzo'] = $post['indirizzo'];
     	$data['data_nascita'] = $post['data_nascita'];
+    	$data['firebase_id'] = $post['firebase_id'];
     	foreach ($data as $item) {
     		//se uno degli elementi e' NULL
     		if (!isset($item)) {

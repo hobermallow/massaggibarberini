@@ -70,6 +70,43 @@ class visite_data extends CI_Model {
     }
 
     public function conferma_visita($id_visita) {
+      //recupero l'id del paziente
+      $id_paziente = $this->db->get_where('visite', ['id' => $id_visita]);
+      $id_paziente = $id_paziente->row()->id_paziente;
+      //recupero l'eventuale api key e firebase_id
+      $query = $this->db->get_where('pazienti', ['id' => $id_paziente]);
+      $api_key = $query->row()->api_key;
+      $firebase_id = $query->row()->firebase_id;
+      //se no sono nulle
+      if($api_key != null && $firebase_id != null) {
+      	//recupero la visita	
+      	$query = $this->db->get_where('visite', ['id' => $id_visita]);
+      	$data_visita = $query->row()->data_visita;
+      	$orario_visita = $query->row()->orario_visita;
+      	$prestazione = $query->row()->descrizione;
+      	//PUSH NOTIFICATION
+      	//inizializzo curl
+      	$curl = curl_init("https://fcm.googleapis.com/fcm/send");
+      	//setto le opzioni
+      	
+      	$header = [
+      			'Content-Type: application/json',
+      			'Authorization: key=AIzaSyBuf9BvPSNJnszoP7Bj4HliK4ju62F1amE'
+      	];
+      	curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
+      	//setto il contenuto del messaggio
+      	$data = [ "notification" => [
+      		"title" => "Prenotazione Confermata",
+      		"text" => "Prenotazione per $prestazione confermata\nGiorno: $data_visita\nOra: $orario_visita"
+      	],
+      	"to" => "$firebase_id"
+      	];
+      	curl_setopt( $curl, CURLOPT_POSTFIELDS, json_encode( $data ) );
+      	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+      	curl_exec($curl);
+      	$string = curl_close($curl);
+      }
+      
       $this->db->set('visita_confermata', 1, FALSE);
       $this->db->where(['id' => $id_visita]);
       return $this->db->update('visite');
