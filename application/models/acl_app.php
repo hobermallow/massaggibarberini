@@ -98,6 +98,27 @@ class acl_app extends CI_Model  {
     }
     return $boolean && $boolean2;
   }
+  
+  public function cancella_visita($id_paziente, $data_visita, $orario_visita) {
+  	//ricavo l'id dello studio
+  	$id_studio = Domini::get_id_studio();
+  	//ricavo l'id della visita
+  	$this->db->where(['id_paziente' => $id_paziente, 'data_visita' => $data_visita, 'orario_visita' => $orario_visita]);
+  	$query = $this->db->get('visite');
+  	//se la visita non esiste
+  	if($query->num_rows() <= 0) {
+  		return false;
+  	}
+	//altrimenti
+	$id_visita = $query->row()->id;
+	//cancello l'entry nella relationship
+	$this->db->where(['id_studio' => $id_studio, 'id_persona' => $id_visita]);
+	$bool = $this->db->delete('relationship_visite_studi');
+	//cancello la visita
+	$this->db->where(['id' => $id_visita]);
+	$bool = $bool && $this->db->delete('visite');
+	return $bool;
+  }
 
   public function get_visite_del_giorno_by_dottore($id_dottore, $day) {
     $id_studio = Domini::get_id_studio();

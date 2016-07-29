@@ -30,7 +30,7 @@ class gallery extends CI_Controller {
 				$this->gallery_data->delete($this->input->post("images"));
 			}
 		}
-		$view["immagini"] = $this->gallery_data->get_images();
+		$view["immagini"] = $this->gallery_data->get_media();
 		$this->load->view('gallery', $view);
 	}
 

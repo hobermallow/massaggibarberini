@@ -67,6 +67,9 @@ class post extends CI_Controller {
 			$view['testo'] = $post['testo'];
 			$view['id_post'] = $post['id_post'];
 		}
+		//carico le immagini da inserire nei post
+		$this->load->model('gallery_data');
+		$view['images'] = $this->gallery_data->get_images();
 		$this->load->view('editor', $view);
 	}
 	

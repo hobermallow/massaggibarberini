@@ -303,4 +303,52 @@ class rest extends CI_Controller {
   	}
   
 }
+
+public function cancella() {
+	//inizializzo risultati
+	$response = array();
+	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+		$this->output->set_header('Content-Type: application/json');
+		//controllo l'api_key
+		$api_key = $this->input->post('api_key');
+		//se l'api_key esiste
+		if($this->acl_app->control_api_key($api_key) && $api_key != NULL) {
+	
+			//aggiungo l'orario del dottore
+			//ricavo la data
+			$date = $this->input->post('data');
+			//ricavo l'orario
+			$orario = $this->input->post('ora');
+			//ricavo la tipologia
+			$prestazione = $this->input->post('prestazione');
+			//ricavo l'id del paziente
+			$id_paziente = $this->acl_app->get_id_paziente_by_api_key($api_key);
+			//eseguo l'insert
+			$boolean = $this->acl_app->cancella_visita($id_paziente, $date, $orario);
+			
+			if($boolean == TRUE) {
+				$response['error'] = FALSE;
+				echo json_encode($response);
+			}
+			else {
+				$response['error'] = TRUE;
+				echo json_encode($response);
+			}
+	
+		}
+	
+		//se l'api_key non esiste
+		else {
+			$response['error'] = TRUE;
+			echo json_encode($response);
+		}
+	}
+	
+	//se la chimata e' in GET
+	else {
+		$response['error'] = TRUE;
+		echo json_encode($response);
+	}
+	
+}
 }

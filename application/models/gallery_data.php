@@ -16,7 +16,7 @@ class gallery_data extends CI_Model {
 		$this->array_image_mime = ['image/gif', 'image/jpeg', 'image/png'];
 	}
 	
-	public function get_images() {
+	public function get_media() {
 		$id_studio = Domini::get_id_studio();
 		//creo il path
 		$gallery_path = realpath($this->gallery_path.$id_studio);
@@ -52,6 +52,35 @@ class gallery_data extends CI_Model {
 		return $images;
 		
 		
+	}
+	
+	public function get_images() {
+		$id_studio = Domini::get_id_studio();
+		//creo il path
+		$gallery_path = realpath($this->gallery_path.$id_studio);
+		//creo la cartella in caso non esista
+		if(!file_exists($gallery_path)) {
+			//creo la cartella
+			mkdir($gallery_path);
+		}
+		//recupero i file nella cartella delle immagini
+		$files = scandir($gallery_path);
+		//elimino gli elementi che non sono immagini
+		$files = array_diff($files, ['thumbs', '.', '..']);
+		//per ogni immagine, passo url dell'immagine e del thumb
+		$images = array();
+		foreach ($files as $file) {
+			//se il file e' un immagine
+			if(in_array($this->getMimeType($gallery_path.DIRECTORY_SEPARATOR.$file), $this->array_image_mime))	{
+				$thumb = $this->gallery_path_url .$id_studio. DIRECTORY_SEPARATOR . "/thumbs/" . $file;
+			}
+			$images[] = [
+					'image_url' => $this->gallery_path_url .$id_studio. DIRECTORY_SEPARATOR . $file,
+					'image_thumb' => $thumb,
+					'image_name' => $file
+			];
+		}
+		return $images;
 	}
 
 	public function do_upload() {
