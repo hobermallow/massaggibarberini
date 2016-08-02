@@ -135,7 +135,17 @@ class dottori extends CI_Model {
         $id = 0;
         if (isset($data['id']) && $data['id'] > 0) {
             $this->db->where('id', $data['id']);
-            $result = $this->db->update('prestazioni', $data);
+            $descrizione = $data['descrizione'];
+            $durata_prestazione = $data['durata_prestazione'];
+            $costo_prestazione = $data['costo_prestazione'];
+            $result = $this->db->update('prestazioni', ['descrizione' => $descrizione, 'costo_prestazione' => $costo_prestazione, 'durata_prestazione' =>$durata_prestazione]);
+            //update delle relationship
+            $this->db->where(['id_prestazione' => $data['id']]);
+            $this->db->delete('relationship_categorie_prestazioni');
+            //ricreo
+            foreach ($data['categorie_prestazioni'] as $id_categoria) {
+            	$this->db->insert('relationship_categorie_prestazioni', ['id_prestazione' => $data['id'], 'id_categoria' => $id_categoria]);
+            }
             $id = $data['id'];
         } else {
             $result = $this->db->insert('prestazioni', $data);
@@ -199,6 +209,64 @@ class dottori extends CI_Model {
         $orari[] = $this->db->get('orari_dottori')->row();
       }
       return $orari;
+    }
+    
+    public function get_categorie_prestazioni() {
+    	$id_studio = $this->session->userdata('id_studio');
+    	$query = $this->db->get_where('categorie_prestazioni', ['id_studio' => $id_studio]);
+    	return $query;
+    }
+    
+    public function set_categoria_prestazioni($post) {
+    	//recupre l'id dello studio
+    	$id_studio = $this->session->userdata('id_studio');
+    	//recupre il nome della categoria
+    	$categoria = $post['categoria_prestazioni'];
+    	//inserisco la categoria
+    	$bool = $this->db->insert('categorie_prestazioni', ['id_studio' => $id_studio, 'categoria' => $categoria]);
+    	//recupero l'id della categoria appena inserita
+    	$id_categoria = $this->db->insert_id();
+    	//se inserimento a buon fine
+    	if($bool) {
+    		return $id_categoria;
+    	}
+    	else {
+    		return $bool;
+    	}
+    }
+    
+    public function delete_categoria_prestazioni($id_categoria) {
+    	//cancello le relatioship fra categoria e prestazioni
+    	$this->db->where(['id_categoria' => $id_categoria]);
+    	$bool = $this->db->delete('relationship_categorie_prestazioni');
+    	//elimino la categoria
+    	$this->db->where(['id' => $id_categoria]);
+    	$bool = $bool && $this->db->delete('categorie_prestazioni');
+    	return $bool;
+    }
+    
+    public function get_categoria_prestazioni_by_id($id_categoria) {
+    	$query = $this->db->get_where('categorie_prestazioni', ['id' => $id_categoria]);
+    	return $query->row();
+    }
+    
+    public function update_categoria_prestazioni($post) {
+    	$categoria = $post['descrizione'];
+    	$id_categoria = $post['id'];
+    	$this->db->where(['id' => $id_categoria]);
+    	$bool = $this->db->update('categorie_prestazioni', ['categoria' => $categoria]);
+    	return $bool;
+    }
+    
+    public function get_categorie_by_id_prestazione($id_prestazione) {
+    	$this->db->where(['id_prestazione' => $id_prestazione]);
+    	$this->db->select('relationship_categorie_prestazioni.id_categoria as id');
+    	$query = $this->db->get('relationship_categorie_prestazioni');
+    	$array = [];
+    	foreach ($query->result() as $row) {
+    		$array[] = (int)($row->id);
+    	}
+    	return $array;
     }
 
 }

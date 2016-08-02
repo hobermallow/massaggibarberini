@@ -7,6 +7,30 @@ class rest extends CI_Controller {
     $this->load->model('acl_app');
   }
   
+  public function firebase_api()	{
+  	$response = array();
+  	$this->output->set_header('Content-Type: application/json');
+  	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  		$api_key = $this->input->post('api_key');
+  		$bool = $this->acl_app->control_api_key($api_key) && $api_key != null;
+  		//se l'api key esiste
+  		if($bool) {
+  			$firebase_api = $this->input->post('firebase_api');
+  			$bool1 = $this->acl_app->update_firebase_api($api_key, $firebase_api);
+  			$response['error'] = !($bool1);
+  			echo json_encode($response);
+  		}
+  		else {
+  			$response['error'] = true;
+  			echo json_encode($response);
+  		}
+  	}
+  	else {
+  		$response['error'] = TRUE;
+  		echo json_encode($response);
+  	}
+  }
+  
   public function registrazione() {
   	$response = array();
   	$this->output->set_header('Content-Type: application/json');
@@ -17,6 +41,13 @@ class rest extends CI_Controller {
   			$api_key = $this->acl_app->login_app($this->input->post('email'), $this->input->post('password'));
   			$response['api_key'] = $api_key;
   			$response['error'] = false;
+  			//oggetto json con api_key in output
+  			$cat = [];
+  			$categorie = $this->acl_app->get_categorie_prestazioni();
+  			foreach ($categorie->result() as $categoria) {
+  				$cat[] = $categoria->categoria;
+  			}
+  			$response['categorie'] = $cat;
   			echo json_encode($response);
   		}
   		else {
@@ -40,6 +71,12 @@ class rest extends CI_Controller {
 
       if(is_string($api_key)) {
         //oggetto json con api_key in output
+        $cat = [];
+        $categorie = $this->acl_app->get_categorie_prestazioni();
+        foreach ($categorie->result() as $categoria) {
+        	$cat[] = $categoria->categoria;
+        }
+        $response['categorie'] = $cat;
         $response['error'] = FALSE;
         $response['api_key'] = $api_key;
 
@@ -63,11 +100,12 @@ class rest extends CI_Controller {
       $this->output->set_header('Content-Type: application/json');
       //controllo l'api_key
       $api_key = $this->input->post('api_key');
+      //recupero la categoria
+      $categoria = $this->input->post('categoria');
       //se l'api_key esiste
-      if($this->acl_app->control_api_key($api_key) && $api_key != NULL) {
+      if($this->acl_app->control_api_key($api_key) && $api_key != NULL && $categoria != NULL) {
         //inizializzo array dei risultati
-
-        $prestazioni = $this->acl_app->get_prestazioni_studio();
+        $prestazioni = $this->acl_app->get_prestazioni_studio($categoria);
         foreach ($prestazioni as $prestazione) {
           $response[] = ['prestazione' => $prestazione->descrizione, 'costo' => $prestazione->costo_prestazione, 'durata' => $prestazione->durata_prestazione ];
         }
@@ -145,8 +183,14 @@ class rest extends CI_Controller {
           $dayofweek = date('w', strtotime($date));
           //ricavo l'orario del giorno del dottore
           $orari = $this->acl_app->get_orario_dottore_by_day($id_dottore, $dayofweek);
-          $response['orario_inizio'] = $orari->orario_inizio;
-          $response['orario_fine'] = $orari->orario_fine;
+          if($orari != NULL) {
+          	$response['orario_inizio'] = $orari->orario_inizio;
+          	$response['orario_fine'] = $orari->orario_fine;
+          }
+          else {
+          	$response['orario_inizio'] = "none";
+          	$response['orario_fine'] = "none";
+          }
           //ricavo le visite del giorno legate al dottore
           $visite = $this->acl_app->get_visite_del_giorno_by_dottore($id_dottore, $date);
           //aggiungo le visite del giorno alla risposta
@@ -228,7 +272,7 @@ class rest extends CI_Controller {
       if($this->acl_app->control_api_key($api_key) && $api_key != NULL) {
         $visite = $this->acl_app->get_visite_by_api_key($api_key);
         foreach ($visite->result() as $visita) {
-          $response[] = ['data' => $visita->data, 'ora' => $visita->ora, 'operatore' => $visita->dottore, 'prestazione' => $visita->descrizione];
+          $response[] = ['data' => $visita->data, 'ora' => $visita->ora, 'operatore' => $visita->dottore, 'prestazione' => $visita->descrizione, "confermata" => $visita->visita_confermata == 1 ? TRUE : FALSE];
         }
         echo json_encode($response);
       }

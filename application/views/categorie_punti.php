@@ -290,8 +290,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                         <?php echo $categoria->max_punti; ?>
                                                     </td>
                                                     <td class="numeric" style="text-align: center;" >
-                                                        <a href="<?php echo base_url(); ?><?php echo "punti/delete_categoria/" . $categoria->id; ?>" title="Elimina" class="btn purple">
-                                                            <i class="fa fa-edit"></i>
+                                                        <a href="<?php echo base_url(); ?><?php echo "punti/delete_categoria/" . $categoria->id; ?>" title="Elimina" class="btn red">
+                                                            <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>
                                                 </tr>

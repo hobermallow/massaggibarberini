@@ -217,18 +217,18 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="input-icon margin-top-10">
                                     <label>Nome:</label>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" class="form-control" required name="nome" placeholder="inserisci nome e cognome del dottore da registrare" >
+                                    <input type="text" class="form-control" required name="nome" placeholder="inserisci nome e cognome dell'operatore da registrare" >
                                 </div>
 
                                 <div class="input-icon margin-top-10">
                                     <label>Telefono:</label>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" class="form-control" required name="telefono" placeholder="inserisci il telefono del dottore" >
+                                    <input type="text" class="form-control" required name="telefono" placeholder="inserisci il telefono dell'operatore" >
                                 </div>
                                 <div class="input-icon margin-top-10">
                                     <label>Email:</label>
                                     <i class="fa fa-user"></i>
-                                    <input type="text" class="form-control" required name="email" placeholder="inserisci l'email del dottore" >
+                                    <input type="text" class="form-control" required name="email" placeholder="inserisci l'email dell'operatore" >
                                 </div>
                             </div>
 
@@ -236,12 +236,12 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <div class="input-icon margin-top-10">
                                     <label>Dettagli aggiuntivi per gli orari dell'operatore:</label>
                                     <i class="fa fa-calendar"></i>
-                                    <textarea name="orari_settimanali" class="form-control" rows="4" placeholder="inserisci gli orari settimanali del dottore" ></textarea>
+                                    <textarea name="orari_settimanali" class="form-control" rows="4" placeholder="inserisci dettagli aggiuntivi per gli orari settimanali dell'operatore" ></textarea>
                                 </div>
                                 <div class="input-icon margin-top-10">
                                     <label>Dettagli aggiuntivi per l'operatore:</label>
                                     <i class="fa fa-user"></i>
-                                    <textarea name="dettagli" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per il dottore" ></textarea>
+                                    <textarea name="dettagli" class="form-control" rows="4" placeholder="inserisci i dettagli aggiuntivi per l'operatore" ></textarea>
                                 </div>
                             </div>
                         </div>

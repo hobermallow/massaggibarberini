@@ -216,6 +216,8 @@ License: You must have a valid license purchased only from themeforest(the above
 	background: #c00 none 0 0 no-repeat;
 }
 </style>
+<!-- custom css for thumbail -->
+ <link href="/assets/global/css/thumbnail-gallery.css" rel="stylesheet">
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -320,14 +322,21 @@ License: You must have a valid license purchased only from themeforest(the above
 
 			<!-- END STYLE CUSTOMIZER -->
 			<!-- BEGIN PAGE HEADER-->
-			<div class="row">
-			<div id="gallery" >
+			 <div class="container">
 			
+			<div class="row">
+			
+            <div class="col-lg-12">
+                <h1 class="page-header">Gallery</h1>
+            </div>
+
+			
+			<div >
 			<?php if(isset($immagini) && count($immagini)) :?>
 			<?php foreach ($immagini as $image):?>
-			<div class="thumb">
-				<a href="<?php echo $image["image_url"]?>">
-				<img  src="<?php echo $image["image_thumb"]?>">
+			<div class="thumb col-lg-3 col-md-4 col-xs-6">
+				<a href="<?php echo $image["image_url"]?>" class="thumbnail">
+				<img class="img-responsive"  src="<?php echo $image["image_thumb"]?>">
 				</a>
 				<input form="upload" type="checkbox" name="images[]" value="<?php echo $image['image_name']?>">
 			</div>
@@ -397,6 +406,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!-- BEGIN QUICK SIDEBAR -->
 
 <!-- END QUICK SIDEBAR -->
+</div>
 </div>
 <!-- END CONTAINER -->
 <!-- BEGIN FOOTER -->

@@ -18,6 +18,12 @@ class acl_app extends CI_Model  {
     $this->array_image_mime = ['image/gif', 'image/jpeg', 'image/png'];
   }
   
+  public function update_firebase_api($api_key, $firebase_api)	{
+  	//update del firebase apu
+  	$this->db->where(['api_key' => $api_key]);
+  	$boo1 = $this->db->update('pazienti', ['firebase_id' => $firebase_api]);
+  	return $boo1;
+  }  
   public function get_posts() {
   	$id_studio = Domini::get_id_studio();
   	//recupero i posts
@@ -47,18 +53,25 @@ class acl_app extends CI_Model  {
     $this->db->join('relationship_visite_studi', 'relationship_visite_studi.id_persona = v.id');
     $this->db->where(['id_studio' => $id_studio]);
     //seleziono i campi
-    $this->db->select('d.nome as dottore, p.descrizione as descrizione, v.orario_visita as ora, v.data_visita as data');
+    $this->db->select('d.nome as dottore, p.descrizione as descrizione, v.orario_visita as ora, v.data_visita as data, v.visita_confermata as visita_confermata');
     //eseguo la query
     $result = $this->db->get('visite as v');
     return $result;
   }
 
-  public function get_prestazioni_studio()  {
+  public function get_prestazioni_studio($categoria)  {
+  	//ricavo l'id della categoria
+  	$id_categoria = $this->db->get_where('categorie_prestazioni', ['categoria' => $categoria]);
+  	if($id_categoria->num_rows() < 1) {
+  		return [];
+  	}
+  	$id_categoria = $id_categoria->row()->id;
     //ricavo l'id dello studio
     $id_studio = Domini::get_id_studio();
     //join con relationship_prestazioni_studi
     $this->db->join('relationship_prestazioni_studi', 'relationship_prestazioni_studi.id_persona = prestazioni.id');
-    $query = $this->db->get_where('prestazioni', ['id_studio' => $id_studio]);
+    $this->db->join('relationship_categorie_prestazioni', 'relationship_categorie_prestazioni.id_prestazione = prestazioni.id');
+    $query = $this->db->get_where('prestazioni', ['id_studio' => $id_studio, 'id_categoria' => $id_categoria]);
     return $query->result();
   }
 
@@ -345,6 +358,12 @@ class acl_app extends CI_Model  {
     	return $images;
     
     
+    }
+    
+    public function get_categorie_prestazioni() {
+    	$id_studio = Domini::get_id_studio();
+    	$query = $this->db->get_where('categorie_prestazioni', ['id_studio' => $id_studio]);
+    	return $query;
     }
     
     private function getMimeType($filename)	{

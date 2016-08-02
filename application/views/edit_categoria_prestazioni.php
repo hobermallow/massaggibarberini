@@ -152,38 +152,15 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- BEGIN PAGE HEADER-->
                     <h2 class="page-title" >Modifica prestazione</h2>
                     <!-- END PAGE HEADER-->
-                    <form action="<?php echo base_url() . 'gestionedottori/editprestazione'; ?>" method="post" >
+                    <form action="<?php echo base_url() . 'gestionedottori/editcategoriaprestazioni/'.$categoria_prestazioni->id; ?>" method="post" >
                         <div class="row" >
                             <div class="col-sm-4">
                                 <div class="form-group">
-                                    <input type="hidden" name="id" value="<?php echo $prestazione->id; ?>" />
+                                    <input type="hidden" name="id" value="<?php echo $categoria_prestazioni->id; ?>" />
                                     <label>Descrizione</label>
-                                    <input type="text" class="form-control" value="<?php echo $prestazione->descrizione; ?>" name="descrizione" required/>
+                                    <input type="text" class="form-control" value="<?php echo $categoria_prestazioni->categoria; ?>" name="descrizione" required/>
                                 </div>
                             </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Costo Prestazione</label>
-                                    <input type="number" class="form-control" value="<?php echo $prestazione->costo_prestazione; ?>" name="costo_prestazione" required/>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Durata Prestazione</label>
-                                    <input type="number" class="form-control" value="<?php echo $prestazione->durata_prestazione; ?>" name="durata_prestazione" required/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                        	<div class="form-group">
-                        	<div class="col-sm-8 margin-top-20">
-                        		<label>Categorie Servizi:</label> <br>
-                        		<?php foreach ($categorie_prestazioni->result() as $categoria_prestazioni ):?>
-                        			<input type="checkbox" name="categorie_prestazioni[]" value="<?php echo $categoria_prestazioni->id; ?>" <?php if(in_array((int)$categoria_prestazioni->id, $categorie_della_prestazione)) { echo "checked" ;}?> > <?php echo $categoria_prestazioni->categoria;?> <br>
-                        			
-                        		<?php endforeach;?>
-                        	</div>
-                        	</div>
                         </div>
                         <div class="row">
                             <div class="col-sm-8 margin-top-20">

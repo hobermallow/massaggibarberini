@@ -234,7 +234,7 @@ class gestionedottori extends CI_Controller {
 
     public function editprestazione($id_prestazione = 0) {
         $this->load->model("dottori");
-
+		
         //verifica della sessione
         $this->load->model("acl");
         $session_rserial = $this->session->userdata('rserial');
@@ -255,6 +255,8 @@ class gestionedottori extends CI_Controller {
         }
         if ($id_prestazione > 0) {
             $view["dottori"] = $this->dottori->get_all_dottori();
+            $view['categorie_prestazioni'] = $this->dottori->get_categorie_prestazioni();
+            $view['categorie_della_prestazione'] = $this->dottori->get_categorie_by_id_prestazione($id_prestazione);
             $view["prestazione"] = $this->dottori->get_prestazione_by_id($id_prestazione)->result()[0]; {
                 $this->load->view("edit_prestazione", $view);
             }
@@ -337,6 +339,80 @@ class gestionedottori extends CI_Controller {
       $view['errore'] = !($this->dottori->aggiorna_orario($id_dottore, $this->input->post()));
       $this->load->view('aggiornaorari', $view);
 
+    }
+    
+    public function categorieprestazioni() {
+    	$this->load->model("acl");
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	$this->load->model("dottori");
+    	$view["dottori"] = $this->dottori->get_all_dottori();
+    	//carico le categorie dei servizi
+    	$view['categorie_prestazioni'] = $this->dottori->get_categorie_prestazioni();
+    	$this->load->view('categorieprestazioni', $view);
+    }
+    
+    public function deletecategoriaprestazioni($id_categoria) {
+    	$this->load->model("acl");
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	$this->load->model("dottori");
+    	$view["dottori"] = $this->dottori->get_all_dottori();
+    	
+    	$view['delete'] = $this->dottori->delete_categoria_prestazioni($id_categoria);
+    	//carico le categorie dei servizi
+    	$view['categorie_prestazioni'] = $this->dottori->get_categorie_prestazioni();
+    	$this->load->view('categorieprestazioni', $view);
+    	
+    }
+    
+    public function editcategoriaprestazioni ($id_categoria = 0) {
+    	$this->load->model("acl");
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	$this->load->model("dottori");
+    	$view["dottori"] = $this->dottori->get_all_dottori();
+    	
+    	if ($this->input->post()) {
+    		if($id_categoria == 0) {
+    			//aggiungo la nuova categoria
+    			$id_categoria = $this->dottori->set_categoria_prestazioni($this->input->post());
+    			if (is_bool($id_categoria)) {
+					$view['errore'] = true;
+    			}
+    			else {
+    				$view['errore'] = false;
+    			}
+    		}
+    		else {
+    			$view['update'] = $this->dottori->update_categoria_prestazioni($this->input->post());
+    		}
+    		
+    		//carico le categorie dei servizi
+    		$view['categorie_prestazioni'] = $this->dottori->get_categorie_prestazioni();
+    		$this->load->view('categorieprestazioni', $view);
+    	}
+    	else if ($id_categoria > 0) {
+    		$view["categoria_prestazioni"] = $this->dottori->get_categoria_prestazioni_by_id($id_categoria);
+    		$this->load->view('edit_categoria_prestazioni', $view);
+    	}
+    	
+    	
     }
 
 }

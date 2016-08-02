@@ -150,49 +150,151 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Modifica prestazione</h2>
+                    <h2 class="page-title" >Lista Categorie Servizi</h2>
                     <!-- END PAGE HEADER-->
-                    <form action="<?php echo base_url() . 'gestionedottori/editprestazione'; ?>" method="post" >
+
+
+                    <?php if (isset($errore) && !($errore)): ?>
                         <div class="row" >
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <input type="hidden" name="id" value="<?php echo $prestazione->id; ?>" />
-                                    <label>Descrizione</label>
-                                    <input type="text" class="form-control" value="<?php echo $prestazione->descrizione; ?>" name="descrizione" required/>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Costo Prestazione</label>
-                                    <input type="number" class="form-control" value="<?php echo $prestazione->costo_prestazione; ?>" name="costo_prestazione" required/>
-                                </div>
-                            </div>
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label>Durata Prestazione</label>
-                                    <input type="number" class="form-control" value="<?php echo $prestazione->durata_prestazione; ?>" name="durata_prestazione" required/>
+                            <div class="col-lg-12">
+                                <div class="note note-success">
+                                    <h4 class="block">Successo!</h4>
+                                    <p>
+                                        <?php echo "Categoria inserita con successo"; ?>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                        	<div class="form-group">
-                        	<div class="col-sm-8 margin-top-20">
-                        		<label>Categorie Servizi:</label> <br>
-                        		<?php foreach ($categorie_prestazioni->result() as $categoria_prestazioni ):?>
-                        			<input type="checkbox" name="categorie_prestazioni[]" value="<?php echo $categoria_prestazioni->id; ?>" <?php if(in_array((int)$categoria_prestazioni->id, $categorie_della_prestazione)) { echo "checked" ;}?> > <?php echo $categoria_prestazioni->categoria;?> <br>
-                        			
-                        		<?php endforeach;?>
-                        	</div>
-                        	</div>
+                    <?php endif; ?>
+
+                    <?php if (isset($error) && $error == true): ?>
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="note note-danger">
+                                    <h4 class="block">Errore!</h4>
+                                    <p>
+                                        Errore nell'inserimento della categoria.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="row">
-                            <div class="col-sm-8 margin-top-20">
-                                <button type="submit" class="btn blue">Modifica</button>
+                    <?php endif; ?>
+                    
+                    <?php if (isset($delete) && $delete): ?>
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="note note-success">
+                                    <h4 class="block">Successo!</h4>
+                                    <p>
+                                        <?php echo "Categoria eliminata con successo"; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($delete) && $delete == false): ?>
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="note note-danger">
+                                    <h4 class="block">Errore!</h4>
+                                    <p>
+                                        Errore nella cancellazione della categoria.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+					
+					<?php if (isset($update) && $update): ?>
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="note note-success">
+                                    <h4 class="block">Successo!</h4>
+                                    <p>
+                                        <?php echo "Categoria modificata con successo"; ?>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($update) && $update == false): ?>
+                        <div class="row" >
+                            <div class="col-lg-12">
+                                <div class="note note-danger">
+                                    <h4 class="block">Errore!</h4>
+                                    <p>
+                                        Errore nella modifica della categoria.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+					                    
+
+                    <h2 class="page-title" style="margin-bottom: 10px; margin-top: 10px; font-size: 18px;">Nuova Categoria</h2>
+                    <form action="<?php echo base_url();echo "gestionedottori/editcategoriaprestazioni/" ?>" method="POST" style="margin-bottom: 10px;">
+                        <div class="row"> 
+                            <div class="col-sm-4">
+                                <input maxlength="100" required name="categoria_prestazioni" placeholder="Categoria" class="form-control"/>
+                            </div>
+                            <div class="col-sm-4">
+                                <button type="submit" class="btn green">Aggiungi</button>
                             </div>
                         </div>
                     </form>
+
+                    <div class="clearfix">
+                    </div>
+
+                    <div class="portlet box green">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="fa fa-heart"></i>Tabella Categorie Servizi
+                            </div>
+
+                        </div>
+                        <div class="portlet-body flip-scroll">
+                            <table class="table table-bordered table-striped table-condensed flip-content">
+                                <thead class="flip-content">
+                                    <tr>
+                                        <th class="numeric">
+                                            Categoria
+                                        </th>
+                                        <th class="numeric">
+                                            Azioni
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($categorie_prestazioni->result() as $categoria): ?>
+                                        <tr>
+                                            <td>
+                                                <?php echo $categoria->categoria; ?>
+                                            </td>
+                                            <td class="numeric" style="text-align: center;" >
+                                                <a href="<?php echo base_url();echo "gestionedottori/editcategoriaprestazioni/" . $categoria->id; ?>" title="Modifica" class="btn red">
+                                                    <i class="fa fa-edit"></i>
+                                                </a>
+                                                <a href="<?php echo base_url();echo "gestionedottori/deletecategoriaprestazioni/" . $categoria->id; ?>" onclick="return confirm('Sei sicuro di voler eliminare questa prestazione?')" title="Elimina" class="btn purple">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
                 </div>
             </div>
+            <!-- END CONTENT -->
+            <!-- BEGIN QUICK SIDEBAR -->
+
+
+            <!-- END QUICK SIDEBAR -->
         </div>
         <!-- END CONTAINER -->
         <!-- BEGIN FOOTER -->
@@ -253,20 +355,20 @@ License: You must have a valid license purchased only from themeforest(the above
         <script src="/assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL SCRIPTS -->
         <script>
-            jQuery(document).ready(function () {
-                Metronic.init(); // init metronic core componets
-                Layout.init(); // init layout
-                QuickSidebar.init() // init quick sidebar
-                Index.init();
-                Index.initDashboardDaterange();
-                Index.initJQVMAP(); // init index page's custom scripts
-                Index.initCalendar(); // init index page's custom scripts
-                Index.initCharts(); // init index page's custom scripts
-                Index.initChat();
-                Index.initMiniCharts();
-                Index.initIntro();
-                Tasks.initDashboardWidget();
-            });
+                                                    jQuery(document).ready(function () {
+                                                        Metronic.init(); // init metronic core componets
+                                                        Layout.init(); // init layout
+                                                        QuickSidebar.init() // init quick sidebar
+                                                        Index.init();
+                                                        Index.initDashboardDaterange();
+                                                        Index.initJQVMAP(); // init index page's custom scripts
+                                                        Index.initCalendar(); // init index page's custom scripts
+                                                        Index.initCharts(); // init index page's custom scripts
+                                                        Index.initChat();
+                                                        Index.initMiniCharts();
+                                                        Index.initIntro();
+                                                        Tasks.initDashboardWidget();
+                                                    });
         </script>
         <!-- END JAVASCRIPTS -->
     </body>

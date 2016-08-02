@@ -185,11 +185,11 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
 
                             <div class="col-lg-6">
-                                <!-- <div class="input-icon margin-top-10">
-                                    <label>Orari settimanali per il dottore:</label>
+                                 <div class="input-icon margin-top-10">
+                                    <label>Dettagli aggiuntivi per gli orari settimanali:</label>
                                     <i class="fa fa-calendar"></i>
                                     <textarea name="orari_settimanali" class="form-control" rows="4" ><?php echo $dottore_edit[0]->orari_settimanali; ?></textarea>
-                                </div> -->
+                                </div> 
 
                                 <div class="input-icon margin-top-10">
                                     <label>Dettagli aggiuntivi per l'operatore/orari settimanali:</label>
@@ -1058,14 +1058,21 @@ License: You must have a valid license purchased only from themeforest(the above
                     </h3>
                     <!-- aggiunta prestazione -->
                     <form class="" action="/gestionedottori/addprestazionedottore/<?php echo $dottore_edit[0]->id; ?>" method="post">
-                      <select class="" name="prestazione">
-                        <option value="" checked >Seleziona servizio</option>
+                    <div class="col-md-3">
+                    <fieldset class="form-group">
+                      <select class="form-control" name="prestazione">
+                        <option value="" selected="selected" >Seleziona servizio</option>
                         <?php foreach ($prestazioni_totali->result() as $prestazione): ?>
                           <option value="<?php echo $prestazione->id; ?>"><?php echo $prestazione->descrizione; ?></option>
                         <?php endforeach; ?>
                       </select>
-                      <input type="submit" name="Aggiungi" value="Aggiungi">
+                      </fieldset>
+                      <fieldset class="form-group">
+                      <input type="submit" name="Aggiungi" value="Aggiungi" class="form-control btn btn-success">
+                      </fieldset>
+                      </div>
                     </form>
+                    
                     <div class="portlet box green">
                         <div class="portlet-title">
                             <div class="caption">

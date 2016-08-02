@@ -29,6 +29,20 @@
             <i class="glyphicon glyphicon-list-alt"></i>
             <span class="title">Servizi</span>
         </a>
+        <ul class="sub-menu">
+        	<li>
+        		<a href="<?php echo base_url(); ?>gestionedottori/prestazioni">
+            	<i class="glyphicon glyphicon-list-alt"></i>
+            	<span class="title">Servizi</span>
+        		</a>	
+        	</li>
+        	<li>
+        		<a href="<?php echo base_url(); ?>gestionedottori/categorieprestazioni">
+            	<i class="glyphicon glyphicon-list-alt"></i>
+            	<span class="title">Categorie Servizi</span>
+        		</a>
+        	</li>
+        </ul>
     </li>
 
     <li class="start ">
