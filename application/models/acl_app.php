@@ -8,14 +8,17 @@ class acl_app extends CI_Model  {
 	var $gallery_path;
 	var $gallery_path_url;
 	var $array_image_mime;
+	var $file_path;
 
   function __construct()  {
     $this->load->helper('phpass');
     $this->load->helper('date');
     $this->load->helper('domini');
+    $this->load->helper('file');
     $this->gallery_path  = APPPATH."/../".'images';
     $this->gallery_path_url = base_url('images');
     $this->array_image_mime = ['image/gif', 'image/jpeg', 'image/png'];
+    $this->file_path  = realpath(APPPATH."/../".'posts');
   }
   
   public function update_firebase_api($api_key, $firebase_api)	{
@@ -31,9 +34,11 @@ class acl_app extends CI_Model  {
   	$query = $this->db->get('post');
   	$posts = [];
   	foreach ($query->result() as $post) {
+  		//recupero il contenuto del file
+  		$html = read_file($this->file_path.DIRECTORY_SEPARATOR.$post->nome_file);
   		$posts[] = [
   				'titolo' => $post->titolo,
-  				'url' => base_url("posts".DIRECTORY_SEPARATOR.$post->nome_file)
+  				'contenuto' => $html
   		];
   	}
   	return $posts;

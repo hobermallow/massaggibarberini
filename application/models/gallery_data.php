@@ -54,6 +54,8 @@ class gallery_data extends CI_Model {
 		
 	}
 	
+	
+	//NOTA passa gli url, non i riferimenti relativi al server...
 	public function get_images() {
 		$id_studio = Domini::get_id_studio();
 		//creo il path
