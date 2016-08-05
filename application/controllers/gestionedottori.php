@@ -199,16 +199,16 @@ class gestionedottori extends CI_Controller {
 
         $this->load->model("dottori");
         if($this->input->post() && $_FILES['filename']){
-            var_dump("ok");
+//             var_dump("ok");
             $data = $this->input->post();
             $target_dir = "./fatture_dottori/" . $data['id_dottore'] . "/";
             if (!file_exists($target_dir)) {
                 mkdir($target_dir, 0777, true);
             }
             $target_file = $target_dir . basename($_FILES["filename"]["name"]);
-            var_dump($target_file);
+//             var_dump($target_file);
             if (move_uploaded_file($_FILES["filename"]["tmp_name"], $target_file)) {
-                return $this->dottori->carica_fattura($_FILES["filename"]["name"], $data);
+                $this->dottori->carica_fattura($_FILES["filename"]["name"], $data);
             }
         }
 
@@ -356,6 +356,23 @@ class gestionedottori extends CI_Controller {
     	$view['categorie_prestazioni'] = $this->dottori->get_categorie_prestazioni();
     	$this->load->view('categorieprestazioni', $view);
     }
+    
+    public function deleteFattura($id_fattura) {
+    	$this->load->model("acl");
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	$this->load->model("dottori");
+    	$view["dottori"] = $this->dottori->get_all_dottori();
+    	//cancello al fattura
+    	$this->dottori->delete_fattura($id_fattura);
+    	redirect($_SERVER['HTTP_REFERER']);
+    }
+    
     
     public function deletecategoriaprestazioni($id_categoria) {
     	$this->load->model("acl");

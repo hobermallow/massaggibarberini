@@ -418,6 +418,7 @@ License: You must have a valid license purchased only from themeforest(the above
             <!-- END QUICK SIDEBAR -->
         </div>
         <!-- END CONTAINER -->
+        </div>
         <!-- BEGIN FOOTER -->
         <div class="page-footer">
             <div class="page-footer-inner">

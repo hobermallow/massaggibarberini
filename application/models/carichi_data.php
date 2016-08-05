@@ -28,7 +28,7 @@ class carichi_data extends CI_Model {
     }
 
     function count_non_pagate($id_fornitore) {
-        return $this->db->query("SELECT count(*) as total from carichi join relationship_carichi_studi on relationship_carichi_studi.id_persona=carichi.id where stato = 0 and id_fornitore = $id_fornitore and id_studio = $this->session->userdata('id_studio')")->result()[0]->total;
+        return $this->db->query("SELECT count(*) as total from carichi join relationship_carichi_studi on relationship_carichi_studi.id_persona=carichi.id where stato = 0 and id_fornitore = $id_fornitore and id_studio = ".$this->session->userdata('id_studio')."")->result()[0]->total;
     }
 
     function get_all_carichi() {
@@ -38,7 +38,7 @@ class carichi_data extends CI_Model {
 
     function get_carichi_prodotto($idProdotto) {
         return $this->db->query("SELECT c.prezzo_acquisto, c.quantita, c.stato, c.fattura, c.id, f.ragione_sociale,p.nome as nome_prodotto, DATE_FORMAT(c.data, '%d/%m/%Y') as data from carichi as c LEFT JOIN fornitori as f "
-                        . "ON c.id_fornitore = f.id LEFT JOIN prodotti as p ON c.id_prodotto = p.id join relationship_carichi_studi on relationship_carichi_studi.id_persona=c.id where id_prodotto = $idProdotto and id_studio = $this->session->userdata('id_studio')");
+                        . "ON c.id_fornitore = f.id LEFT JOIN prodotti as p ON c.id_prodotto = p.id join relationship_carichi_studi on relationship_carichi_studi.id_persona=c.id where id_prodotto = $idProdotto and id_studio = ".$this->session->userdata('id_studio')."");
     }
 
     function get_carico($id) {

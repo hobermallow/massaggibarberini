@@ -148,7 +148,7 @@ class carichi extends CI_Controller {
                 mkdir("fatture/" . $data['id'] . "/", 0777, true);
             }
             if (move_uploaded_file($_FILES['fattura']['tmp_name'], "fatture/" . $data['id'] . "/" . $_FILES['fattura']['name'])) {
-                $this->carichi_data->set_fattura($_FILES['fattura']['name'], $data['id']);
+            	$this->carichi_data->set_fattura($_FILES['fattura']['name'], $data['id']);
             }
         }
         redirect($_SERVER['HTTP_REFERER']);

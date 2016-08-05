@@ -15,12 +15,33 @@ class dottori extends CI_Model {
     function get_fatture_dottore($id_dottore) {
         return $this->db->query("SELECT f.id_fattura as id_fattura, f.filename as filename, f.id_dottore as id_dottore, f.totale as totale, f.data as data, DATE_FORMAT(data, '%d-%m-%Y') as data from fatture as f join relationship_fatture_studi on relationship_fatture_studi.id_fattura = f.id_fattura where id_dottore = $id_dottore and id_studio = ".$this->session->userdata('id_studio')."");
     }
-
+    
+    function delete_fattura($id_fattura) {
+    	//cancello la fattura dalla relationship_fatture_studi
+    	$this->db->where(['id_fattura' => $id_fattura]);
+    	$this->db->delete('relationship_fatture_studi');
+    	//ricavo l'id del dottore
+    	$this->db->where(['id_fattura' => $id_fattura]);
+    	$query = $this->db->get('fatture');
+    	$fattura = $query->row();
+    	$id_dottore = $fattura->id_dottore;
+    	//percorso del file
+    	$dir = "./fatture_dottori/".$id_dottore."/".$fattura->filename;
+    	if(file_exists($dir)) {
+    		//cancello il file se esiste
+    		unlink($dir);
+    	}
+    	//cancello la fattura
+    	$this->db->where(['id_fattura' => $id_fattura]);
+    	$this->db->delete('fatture');
+    	
+    }
+ 
     function carica_fattura($filename, $data) {
         $date = new DateTime();
         $this->db->query("INSERT into fatture (id_dottore, filename, totale, data) VALUES (" . $data['id_dottore'] . ", '$filename', '" . $data['totale'] . "', '" . $date->format("Y-m-d") . "')");
         // lego la fattura allo studio
-        $id_fattura = $this->db->inser_id();
+        $id_fattura = $this->db->insert_id();
         $this->db->insert('relationship_fatture_studi', ['id_fattura' => $id_fattura, 'id_studio' => $this->session->userdata('id_studio')]);
     }
 
