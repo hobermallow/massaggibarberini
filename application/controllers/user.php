@@ -6,6 +6,15 @@ if (!defined('BASEPATH'))
 class user extends CI_Controller {
 
     public function index() {
+    	
+    	//verifica della sessione
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
 
         $this->load->model("pazienti");
         $this->load->model("carichi_data");
@@ -35,6 +44,16 @@ class user extends CI_Controller {
         $this->load->view("user", $view);
     }
     public function view($id = -1, $pagina = 0) {
+    	
+    	//verifica della sessione
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	
         $id_edit = (int) $id;
         if ($id_edit == -1) {
             redirect(base_url() . "user");

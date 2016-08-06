@@ -233,6 +233,10 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="portlet-title">
                             <div class="caption">
                                 <i class="fa fa-users"></i>Incassi
+                                <div class="row">
+                        
+                    </div>
+                                
                             </div>
                         </div>
                         <div class="portlet-body flip-scroll">
@@ -240,10 +244,13 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <thead class="flip-content">
                                     <tr>
                                         <th>
-                                            Paziente
+                                            Cliente
                                         </th>
                                         <th>
-                                            Data preventivo
+                                            Operatore
+                                        </th>
+                                        <th>
+                                            Data 
                                         </th>
                                         <th>
                                             Totale
@@ -251,24 +258,21 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php
-                                    $somma = 0;
-                                    foreach ($pagato as $pag) {
-                                        $somma += $pag->totale;
-                                        ?>
+                                	<?php $totale = 0;?>
+                                    <?php foreach ($incassi->result() as $incasso): ?>
                                         <tr>
-                                            <td> <?php echo $pag->nome_paziente . " " . $pag->cognome_paziente; ?></td>
-                                            <td> <?php echo $pag->data_preventivo; ?></td>
-                                            <td> <?php echo $pag->totale; ?> €</td>
+                                            <td><?php echo $incasso->paziente; ?></td>
+                                            <td><?php echo $incasso->dottore; ?></td>
+                                            <td><?php echo $incasso->data; ?></td>
+                                            <td><?php echo $incasso->costo; $totale+=$incasso->costo ?> €</td>
+                                            
                                         <tr/>
-                                        <?php
-                                    }
-                                    ?>
+                                    <?php endforeach; ?>
                                     <tr>
-                                        <td colspan="3" class="text-right"><strong>Totale</strong></td>
+                                        <td colspan="1" class="text-right"><strong>Totale</strong></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="3" class="text-right"><?php echo number_format($somma, 2); ?> €</td>
+                                        <td colspan="1" class="text-right"><?php echo $totale; ?> €</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -284,7 +288,6 @@ License: You must have a valid license purchased only from themeforest(the above
 
 
         <!-- END QUICK SIDEBAR -->
-    </div>
     <!-- END CONTAINER -->
     <!-- BEGIN FOOTER -->
     <div class="page-footer">
@@ -367,6 +370,7 @@ License: You must have a valid license purchased only from themeforest(the above
             $("#defaultrange").on("apply.daterangepicker", function (evt, picker) {
                 window.location.href = "/costi/index/" + picker.startDate.format('YYYY-MM-DD') + "/" + picker.endDate.format('YYYY-MM-DD');
             });
+
         });
     </script>
     <!-- END JAVASCRIPTS -->

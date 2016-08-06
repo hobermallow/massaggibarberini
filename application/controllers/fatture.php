@@ -25,6 +25,32 @@ class fatture extends CI_Controller {
 
         $this->load->view("listacarichi", $view);
     }
+    
+    public function generaFatturaVisita($idVisita) {
+    	$session_rserial = $this->session->userdata('rserial');
+    	$view["username"] = $this->session->userdata("username");
+    	if ($this->acl->VerificaSessione($session_rserial) == false) {
+    		$this->load->helper('url');
+    		$login_url = base_url();
+    		redirect($login_url . "login/info?c=error");
+    	}
+    	ob_clean();
+    	$this->load->helper('pdf_helper');
+    	$this->load->model("impostazioni_data");
+    	$this->load->model("visite_data");
+    	$view["datiFatturazione"] = $this->impostazioni_data->get_dati_fatturazione()->row();
+    	$view["datiVisita"] = $this->visite_data->get_visita_fattura($idVisita)->row();
+    	init_library_pdf();
+    	$view['type'] = 'FI';
+    	//creo la cartella in cui inserire la fattura
+    	$year = explode("-", $view['datiVisita']->data_visita)[0];
+    	$month = explode("-", $view['datiVisita']->data_visita)[1];
+    	if(!file_exists(FCPATH."fatture-emesse/".$year."/".$month)) {
+    		mkdir(FCPATH."fatture-emesse/".$year."/".$month, 0777, TRUE);
+    	}
+    	$view["path"] = FCPATH."fatture-emesse/".$year."/".$month."/";
+    	$this->load->view('fatturavisita', $view);
+    }
 
     public function generaFattura($idPreventivo) {
         $session_rserial = $this->session->userdata('rserial');

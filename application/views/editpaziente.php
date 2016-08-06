@@ -516,6 +516,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     <a href="<?php echo base_url(); ?><?php echo "deletevisita/delete/" . $row->id; ?>" title="Elimina" class="btn purple">
                                                         <i class="fa fa-times"></i>
                                                     </a>
+                                                    <a href="<?php echo base_url(); ?><?php echo "fatture/generaFatturaVisita/" . $row->id; ?>" title="Genera Fattura" class="btn blue">
+                                                        <i class="fa fa-print"></i>
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>

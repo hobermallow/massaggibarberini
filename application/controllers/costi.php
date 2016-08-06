@@ -28,6 +28,7 @@ class costi extends CI_Controller {
         $this->load->model("carichi_data");
         $this->load->model("preventivi_data");
         $this->load->model("dottori");
+        $this->load->model("incassi_data");
 
         $view["error"] = false;
         $view["insert_completed"] = false;
@@ -39,6 +40,8 @@ class costi extends CI_Controller {
         $view["costi"] = $this->statistiche_data->get_costi_by_date($startDate->format("Y-m-d"), $endDate->format("Y-m-d"));
         $view["pagato"] = $this->preventivi_data->get_all_preventivi_by_date($startDate->format("Y-m-d"), $endDate->format("Y-m-d"), 1)->result();
         //$view["non_pagato"] = $this->statistiche_data->get_totale_non_pagato();
+        $incassi = $this->incassi_data->get_page_incassi($startDate->format("Y-m-d"), $endDate->format("Y-m-d"));
+        $view["incassi"] = $incassi;
 
         $this->load->view("costi", $view);
     }

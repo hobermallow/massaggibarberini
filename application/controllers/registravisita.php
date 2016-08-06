@@ -83,7 +83,8 @@ class registravisita extends CI_Controller {
 			else
 			{
 				$view["error"] = true;
-				break;
+// 				redirect($_SERVER['HTTP_REFERER']);
+// 				break;
 			}
 
 			$ora_visita = $this->input->post("ora_visita");
@@ -95,7 +96,8 @@ class registravisita extends CI_Controller {
 			{
 				//form con completato correttamente...
 				$view["error"] = true;
-				break;
+// 				redirect($_SERVER['HTTP_REFERER']);
+// 				break;
 			}
 			else
 			{

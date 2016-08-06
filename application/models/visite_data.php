@@ -10,6 +10,15 @@ class visite_data extends CI_Model {
         parent::__construct();
         $this->load->database('default');
     }
+    
+    function get_visita_fattura($idVisita) {
+    	$this->db->select('nome_paziente, pazienti.indirizzo as indirizzo, pazienti.codice_fiscale as codice_fiscale, pazienti.telefono as telefono, visite.data_visita as data_visita, visite.descrizione as descrizione, prestazioni.descrizione as prestazione, prestazioni.costo_prestazione as prezzo');
+   		$this->db->join('pazienti', 'pazienti.id = visite.id_paziente');
+   		$this->db->join('prestazioni', 'prestazioni.id = visite.id_prestazione');
+   		$this->db->where(['visite.id' => $idVisita]);
+   		$query = $this->db->get('visite');
+   		return $query;
+    }
 
     function get_nome_cognome_paziente_by_id($id_paziente) {
         $query = $this->db->query("SELECT nome, cognome FROM pazienti WHERE id='" . $id_paziente . "' ");
