@@ -11,7 +11,83 @@ class dottori extends CI_Model {
         $this->load->helper('domini');
         $this->load->database('default');
     }
+    
+    function get_image_dottore($id_dottore) {
+    	//id dello studio
+    	$id_studio = $this->session->userdata('id_studio');
+    	//path del file da cercare
+    	$thumb = base_url()."immagini-dottori/".$id_studio."/".$id_dottore."/thumb.jpg";
+    	//prendo il nome dell'immagine dal db
+    	$this->db->where(['id_studio' => $id_studio, 'id_dottore' => $id_dottore]);
+    	$query = $this->db->get('immagini_dottori');
+    	if($query->num_rows() < 1) {
+    		return NULL;
+    	}
+    	$image = $query->row()->nome_file;
+    	$array = ['thumb' => $thumb, 'image' => base_url()."immagini-dottori/".$id_studio."/".$id_dottore."/".$image, 'name' => $image];
+    	//ritorno il percorso del thumb e quello dell'immagine
+    	return $array;
+    }
 
+    function upload_immagine($id_dottore, $post) {
+    	//id dello studio
+    	$id_studio = $this->session->userdata('id_studio');
+    	//creo la cartella per l'immagine del dottore se non esiste
+    	$path = FCPATH."immagini-dottori/".$id_studio."/".$id_dottore;
+    	if(!file_exists($path)) {
+    		mkdir($path, 0777, true);
+    	}
+    	
+    	//se la cartella contiene gia un file, la svuoto
+    	$files = glob($path."/*"); // get all file names
+    	foreach($files as $file){ // iterate files
+    		if(is_file($file))
+    			unlink($file); // delete file
+    	}
+    	
+		//configurazione per l'upload
+    	$config['upload_path'] = $path;
+    	$config['allowed_types'] = 'gif|jpg|png';
+    	$config['max_size']     = '200000';
+
+    	
+    	
+    	$this->load->library('upload', $config);
+    	//carico l'immagine
+    	if(!($this->upload->do_upload('picture'))) {
+    		return false;
+    	}
+    	$image_data = $this->upload->data();
+    	
+    	//creo thumb
+    	if($image_data['is_image']) {
+    		//configurazioni della image_lib
+    		$img_config = array();
+    		$img_config['source_image'] = $image_data['full_path'];
+    		$img_config['maintain_ratio'] = true;
+    		$img_config['new_image'] = $path."/thumb.jpg";
+    		$img_config['width'] = 500;
+    		$img_config['height'] = 500;
+    		
+    		$this->load->library('image_lib', $img_config);
+    		$this->image_lib->resize();
+    	}
+    	
+    	//inserisco il nome dell'immagine in tabella 
+    	$query = $this->db->get_where('immagini_dottori', ['id_studio' => $id_studio, 'id_dottore' => $id_dottore]);
+    	if($query->num_rows() > 0) {
+    		//update
+    		$this->db->where(['id_studio' => $id_studio, 'id_dottore' => $id_dottore]);
+    		$this->db->update('immagini_dottori', ['nome_file' => $image_data['file_name']]);
+    	}
+    	else {
+    		//insert
+    		$this->db->insert('immagini_dottori', ['id_studio' => $id_studio, 'id_dottore' => $id_dottore, 'nome_file' => $image_data['file_name']]);
+    	}
+    	
+    	return true;
+    }
+    
     function get_fatture_dottore($id_dottore) {
         return $this->db->query("SELECT f.id_fattura as id_fattura, f.filename as filename, f.id_dottore as id_dottore, f.totale as totale, f.data as data, DATE_FORMAT(data, '%d-%m-%Y') as data from fatture as f join relationship_fatture_studi on relationship_fatture_studi.id_fattura = f.id_fattura where id_dottore = $id_dottore and id_studio = ".$this->session->userdata('id_studio')."");
     }

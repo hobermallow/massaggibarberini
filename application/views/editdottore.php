@@ -201,6 +201,28 @@ License: You must have a valid license purchased only from themeforest(the above
                         <button type="submit" name="submit" value="submit" class="btn green">Modifica</button>
                     </form>
 					<br>
+					<div class="row">
+						<div class="col-lg-4">
+							<h5 class="page-title">Immagine Operatore</h5>
+							<br>
+							<?php if (isset($image)):?>
+							<a href="<?php echo $image['image'];?>">
+							<img alt="<?php echo $image['name'];?>" src="<?php echo $image['thumb'];?>">
+							</a>
+							<?php else:?>
+							<p>Inserisci un immagine...</p>
+							<?php endif;?>
+							<form enctype="multipart/form-data" action="<?php echo base_url(); ?>gestionedottori/edit/<?php echo $dottore_edit[0]->id; ?>" method="post">
+								<fieldset class="form-group">
+									<input class="form-control" type="file" accept="image/*" name="picture" required="required">
+								</fieldset>
+								<fieldset class="form-group">
+									<input type="submit" name="upload" value="Upload" class="btn btn-warning">
+								</fieldset>
+							</form>
+						</div>
+					
+					</div>
                     <!-- INIZIO GESTIONE ORARI -->
                     <div class="row">
                       <div class="col-lg-8">

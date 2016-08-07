@@ -88,7 +88,7 @@ class gestionedottori extends CI_Controller {
 
         $view["dottore_da_eliminare"] = $this->dottori->get_dottore_by_id($id_dottore);
 
-        //$this->dottori->delete_dottore( $id_dottore );
+        $this->dottori->delete_dottore( $id_dottore );
 
         $view["delete_avvenuto"] = true;
 
@@ -153,6 +153,8 @@ class gestionedottori extends CI_Controller {
             redirect(base_url() . "gestionedottori");
         }
 
+        //carico l'immagine del dottore
+        $view["image"] = $this->dottori->get_image_dottore($id);
 
 
         $view["errore"] = false;
@@ -181,6 +183,13 @@ class gestionedottori extends CI_Controller {
                 $this->load->helper('url');
                 redirect(base_url() . "gestionedottori");
             }
+        }
+        else if($this->input->post("upload") != false) {
+        	//upload dell'immagine
+        	$bool = $this->dottori->upload_immagine($id, $this->input->post());
+        	$this->load->helper('url');
+        	redirect(base_url() . "gestionedottori/edit/".$id);
+        	
         }
         //aggiungo gli orari del dottore
         $view["orari"] = $this->dottori->get_orari_dottore($id);
