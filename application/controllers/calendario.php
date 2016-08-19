@@ -148,5 +148,15 @@ class calendario extends CI_Controller {
 
 
 	}
+	
+	public function prova() {
+		$view["username"] = $this->session->userdata("username");
+		$this->session->set_userdata(['id_studio' => Domini::get_id_studio()]);
+		$this->load->model("pazienti");
+		$this->load->model("dottori");
+		$view["dottori"] = $this->dottori->get_all_dottori();
+		$view["pazienti"] = $this->pazienti->get_tutti_pazienti_full();
+		$this->load->view("calendario_generico", $view);
+	}
 
 }

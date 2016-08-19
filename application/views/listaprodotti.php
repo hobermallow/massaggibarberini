@@ -199,7 +199,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                     <div class="row">
                         <div class="col-sm-8 margin-top-20">
-                            <button type="submit" form="new-prodotto" form name="submit" value="submit" class="btn blue">Aggiungi prodotto</button>
+                            <button type="submit" form="new-prodotto"  name="submit" value="submit" class="btn blue">Aggiungi prodotto</button>
                         </div>
                     </div>
 

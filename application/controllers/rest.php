@@ -7,6 +7,33 @@ class rest extends CI_Controller {
     $this->load->model('acl_app');
   }
   
+  /**
+   * funzione che ritorna il json contenente le info sull'operatore specificato 
+   * @param int $id_operatore
+   */
+  public function operatore($id_operatore) {
+  	$response = array();
+  	$this->output->set_header('Content-Type: application/json');
+  	if($_SERVER['REQUEST_METHOD'] === 'POST') {
+  		$api_key = $this->input->post('api_key');
+  		$bool = $this->acl_app->control_api_key($api_key) && $api_key != null;
+  		//se l'api key esiste
+  		if($bool) {
+  			//recupero le info sull'operatore
+  			$response = $this->acl_app->get_scheda_operatore($id_operatore);
+  			echo json_encode($response);
+  		}
+  		else {
+  			$response['error'] = true;
+  			echo json_encode($response);
+  		}
+  	}
+  	else {
+  		$response['error'] = TRUE;
+  		echo json_encode($response);
+  	}
+  }
+  
   public function firebase_api()	{
   	$response = array();
   	$this->output->set_header('Content-Type: application/json');
@@ -167,7 +194,12 @@ class rest extends CI_Controller {
         //if $dottore = NULL ritorna la lista degli operatori
         if($id_dottore == NULL) {
           $prestazione = $this->input->post('prestazione');
-          $dottori = $this->acl_app->get_all_dottori_by_prestazione($prestazione);
+          if($prestazione == NULL) {
+          	$dottori = $this->acl_app->get_all_dottori();
+          }
+          else {
+          	$dottori = $this->acl_app->get_all_dottori_by_prestazione($prestazione);
+          }
           foreach ($dottori->result() as $dottore) {
             $response[] = ['id_operatore' => $dottore->id, 'nome_operatore' => $dottore->nome ];
           }

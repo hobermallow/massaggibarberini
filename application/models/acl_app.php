@@ -21,6 +21,40 @@ class acl_app extends CI_Model  {
     $this->file_path  = realpath(APPPATH."/../".'posts');
   }
   
+  public function get_scheda_operatore($id_operatore) {
+	$id_studio = Domini::get_id_studio();
+  	$array = [];
+	//so what?
+	$this->db->where(['id' => $id_operatore]);
+	$query = $this->db->get(['dottori']);
+	//recupero il nome dell'operatore
+	if($query->num_rows() > 0) {
+		$operatore = $query->row();
+		$array['nome'] = $operatore->nome;
+	}
+
+	//recupero l'url della foto
+	$query = $this->db->get_where('immagini_dottori', ['id_dottore' => $id_operatore, 'id_studio' => $id_studio]);
+	if($query->num_rows() > 0 ) {
+		$immagine = $query->row();
+		$array['url_foto'] = base_url()."immagini-dottori/".$id_studio."/".$id_operatore."/".$immagine->nome_file;
+	}
+	
+	//recupero le prestazioni dell'operatore
+	$this->db->join('relationship_prestazioni_dottori', 'relationship_prestazioni_dottori.id_prestazione = prestazioni.id');
+	$query = $this->db->get_where('prestazioni', ['id_dottore' => $id_operatore]);
+	if($query->num_rows() > 0) {
+		$array_prestazioni = [];
+		foreach ($query->result() as $prestazione) {
+			$array_prestazioni[] = [ $prestazione->descrizione, $prestazione->costo_prestazione, $prestazione->durata_prestazione ];
+		}
+		$array['servizi'] = $array_prestazioni;
+	}
+	
+	return $array;
+	
+  }
+  
   public function update_firebase_api($api_key, $firebase_api)	{
   	//update del firebase apu
   	$this->db->where(['api_key' => $api_key]);
