@@ -280,6 +280,28 @@ class Pazienti extends CI_Model {
         $this->db->insert('relationship_pazienti_studi', ['id_persona' => $id_paziente, 'id_studio' => $this->session->userdata('id_studio')]);
         return $id_paziente;
     }
+    
+    function add_paziente_with_name_surname($nome, $cognome) {
+    	$nome = $this->db->escape($nome);
+    	$cognome = $this->db->escape($cognome);
+    	$codice_fiscale = $this->db->escape("");
+    	$email = $this->db->escape("");
+    	$telefono = $this->db->escape("");
+    	$indirizzo = $this->db->escape("");
+    	$cap = $this->db->escape("");
+    	$data_nascita = $this->db->escape("0000-00-00");
+    	$indirizzo = $this->db->escape("");
+    	$luogo_nascita = $this->db->escape("");
+    	$dettaglio_paziente = $this->db->escape("");
+    
+    	$gestante = 0;
+    	$infertilita = 0;
+    
+    	$this->db->query("INSERT INTO pazienti (nome, cognome, email, telefono, indirizzo, cap, codice_fiscale, data_nascita, luogo_nascita, dettaglio_paziente) VALUES ( " . $nome . ", " . $cognome . ", " . $email . ", " . $telefono . ", " . $indirizzo . ", " . $cap . ", " . $codice_fiscale . ", " . $data_nascita . ", " . $luogo_nascita . ", " . $dettaglio_paziente . " )  ");
+    	$id_paziente = $this->db->insert_id();
+    	$this->db->insert('relationship_pazienti_studi', ['id_persona' => $id_paziente, 'id_studio' => $this->session->userdata('id_studio')]);
+    	return $id_paziente;
+    }
 
     //aggiunge un paziente al database, nome, cognome e codice fiscale sono campi obbligatori e ne ritorna l'id
     function add_paziente($post) {

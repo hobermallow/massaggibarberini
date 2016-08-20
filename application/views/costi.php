@@ -150,7 +150,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <!-- END SAMPLE PORTLET CONFIGURATION MODAL FORM-->
 
                     <!-- BEGIN PAGE HEADER-->
-                    <h2 class="page-title" >Costi</h2>
+                    <h2 class="page-title" >Costi e Ricavi</h2>
                     <!-- END PAGE HEADER-->
 
                     <div class="clearfix">
@@ -182,7 +182,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box green margin-top-10">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-users"></i>Costi
+                                <i class="fa fa-users"></i>Costi Prodotti
                             </div>
                         </div>
                         <div class="portlet-body flip-scroll">
@@ -232,7 +232,7 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet box green margin-top-20">
                         <div class="portlet-title">
                             <div class="caption">
-                                <i class="fa fa-users"></i>Incassi
+                                <i class="fa fa-users"></i>Incassi Appuntamenti
                                 <div class="row">
                         
                     </div>

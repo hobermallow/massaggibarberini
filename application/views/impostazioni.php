@@ -320,6 +320,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <select name="tipoacc" class="form-control">
                                         <option value="0">Superadmin</option>
                                         <option value="1">Admin</option>
+                                        <option value="2">Operatore</option>
                                     </select>
                                 </div>
 
@@ -379,6 +380,8 @@ License: You must have a valid license purchased only from themeforest(the above
                                                     echo "Superadmin";
                                                 if ($account->tipoacc == 1)
                                                     echo "Admin";
+                                                if ($account->tipoacc == 2)
+                                                  	echo "Operatore";
                                                 ?>
                                             </td>
 

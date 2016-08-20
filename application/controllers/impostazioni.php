@@ -67,13 +67,16 @@ class impostazioni extends CI_Controller {
               die();
              */
 
-            if (((string) $this->input->post("username")) != "" && ((string) $this->input->post("password")) != "" && ( ((int) $this->input->post("tipoacc")) == 0 || ((int) $this->input->post("tipoacc")) == 1 )) {
+            if (((string) $this->input->post("username")) != "" && ((string) $this->input->post("password")) != "" && ( ((int) $this->input->post("tipoacc")) == 0 || ((int) $this->input->post("tipoacc")) == 1 || ((int) $this->input->post("tipoacc")) == 2 )) {
                 //allora possiamo procedere all'inserimento dell'utente
                 $username = (string) $this->input->post("username");
-                $password_md5 = md5((string) $this->input->post("password"));
+                //getting hasher
+                $this->load->helper('phpass');
+                $hasher = new PasswordHash(PHPASS_HASH_STRENGTH, PHPASS_HASH_PORTABLE);
+                $password = $hasher->HashPassword((string) $this->input->post("password"));
                 $tipoacc = (int) $this->input->post("tipoacc");
 
-                $this->acl->add_user($username, $password_md5, $tipoacc);
+                $this->acl->add_user($username, $password, $tipoacc);
 
                 $view["update_riuscito"] = true;
                 $view["error"] = false;

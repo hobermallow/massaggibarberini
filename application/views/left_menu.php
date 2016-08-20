@@ -9,23 +9,47 @@
     <!-- DOC: To remove the search box from the sidebar you just need to completely remove the below "sidebar-search-wrapper" LI element -->
 
     
-
+	<?php if($this->session->userdata('tipoacc') != 2) :?>
     <li class="start ">
         <a href="<?php echo base_url(); ?>dashboard">
             <i class="icon-home"></i>
             <span class="title">Dashboard</span>
         </a>
     </li>
-
-<!--     <li class="start "> -->
-         <!--  <a href="<?php echo base_url(); ?>costi"> --> 
-<!--             <i class="icon-globe"></i> -->
-<!--             <span class="title">Costi e ricavi</span> -->
-<!--         </a> -->
-<!--     </li> -->
+    <?php endif;?>
 
     <li class="start ">
-        <a href="<?php echo base_url(); ?>gestionedottori/prestazioni">
+         <a href="javascript:;">  
+            <i class="icon-globe"></i>
+            <span class="title">Economia</span>
+        </a>
+        <ul class="sub-menu">
+        	<?php if($this->session->userdata('tipoacc') != 2) :?>
+   	        <li>
+        		<a href="<?php echo base_url(); ?>costi">
+        		<i class="glyphicon glyphicon-globe"></i>
+        		<span class="title">Costi e Ricavi</span>
+        		</a>
+        	</li>
+			<?php endif;?>
+        	<li>
+        		<a href="<?php echo base_url(); ?>incassi_aggiuntivi">
+        		<i class="glyphicon glyphicon-plus"></i>
+        		<span class="title">Incassi Aggiuntivi</span>
+        		</a>
+        	</li>
+        	<li>
+        		<a href="<?php echo base_url(); ?>costi_aggiuntivi">
+  				<i class="glyphicon glyphicon-minus"></i>
+        		<span class="title">Costi Aggiuntivi</span>
+        		</a>
+        	</li>
+        </ul>
+    </li>
+	<?php if($this->session->userdata('tipoacc') != 2) :?>
+
+    <li class="start ">
+        <a href="javascript:;">
             <i class="glyphicon glyphicon-list-alt"></i>
             <span class="title">Servizi</span>
         </a>
@@ -66,42 +90,39 @@
             <span class="selected"></span>
         </a>
     </li>
+    
+
+
     <li class="last ">
+        <a href="javascript:;">
+            <i class="icon-users"></i>
+            <span class="title">Clienti</span>
+            <span class="arrow "></span>
+        </a>
+        <ul class="sub-menu">
+        <li class="last ">
         <a href="<?php echo base_url(); ?>categoriepazienti">
             <i class="icon-paper-clip"></i>
             <span class="title">Categorie Clienti</span>
         </a>
     </li>
-
-
-    <li class="last ">
-        <a href="<?php echo base_url(); ?>nuovopaziente">
-            <i class="icon-user"></i>
-            <span class="title">Nuovo Cliente</span>
-        </a>
-    </li>
-
-    <li class="last ">
-        <a href="<?php echo base_url(); ?>listapazienti">
-            <i class="icon-users"></i>
-            <span class="title">Lista Clienti</span>
-            <span class="arrow "></span>
-        </a>
-        <ul class="sub-menu">
             <li>
                 <a href="<?php echo base_url(); ?>listapazienti">
                     <i class="icon-users"></i>
                     Tutti i clienti</a>
             </li>
-        </ul>
-    </li>
-
-    <li class="last ">
-        <a href="<?php echo base_url(); ?>punti">
+            <li class="last ">
+            <a href="<?php echo base_url(); ?>nuovopaziente">
+            <i class="icon-user"></i>
+            <span class="title">Nuovo Cliente</span>
+            </a>
+  		    </li>
+            <li class="last ">
+        	<a href="<?php echo base_url(); ?>punti">
             <i class="glyphicon glyphicon-qrcode"></i>
             <span class="title">Punti</span>
-        </a>
-        <ul class="sub-menu">
+        	</a>
+        	<ul class="sub-menu">
             <li>
                 <a href="<?php echo base_url(); ?>punti">
                     <i class="icon-users"></i>
@@ -112,8 +133,12 @@
                     <i class="icon-users"></i>
                     Modifica Categorie Punti</a>
             </li>
+        	</ul>
+    		</li>
         </ul>
     </li>
+
+    
 
 <!--     <li class="last "> -->
 <!--         <a href="#"> -->
@@ -143,25 +168,50 @@
 <!--     </li> -->
 
     <li class="last ">
+    	<a href="javascript:;">
+		<i class="glyphicon glyphicon-shopping-cart"></i>
+        <span class="title">Preventivi</span>
+        </a>
+        <ul class="sub-menu" >
+		<li class="last">
         <a href="<?php echo base_url(); ?>preventivi">
             <i class="icon-credit-card"></i>
-            <span class="title">Preventivi</span>
+            <span class="title">Lista Preventivi</span>
         </a>
-    </li>
-
-    <li class="last ">
+        </li>
+        <li class="last ">
         <a href="<?php echo base_url(); ?>preventivi/insert">
             <i class="icon-credit-card"></i>
             <span class="title">Nuovo preventivo</span>
         </a>
     </li>
+        </ul>
+    </li>
+
+    
 
     <li class="last ">
+  		  <a href="javascript:;">
+            <i class="glyphicon glyphicon-bell"></i>
+            <span class="title">Appuntamenti</span>
+       	  </a>
+       	  <ul class="sub-menu">
+       	  <li>
         <a href="<?php echo base_url(); ?>visite/sospese">
             <i class="glyphicon glyphicon-bell"></i>
             <span class="title">Appuntamenti In Sospeso</span>
         </a>
+        </li>
+        <li class="last ">
+        <a href="<?php echo base_url(); ?>registravisita">
+            <i class="icon-cloud-upload"></i>
+            <span class="title">Nuovo Appuntamento</span>
+        </a>
     </li>
+        </ul>
+    </li>
+    
+    <?php endif;?>
 
     <li class="last ">
         <a href="javascript:;">
@@ -170,6 +220,12 @@
             <span class="arrow "></span>
         </a>
         <ul class="sub-menu">
+        	<li>
+                    <a href="<?php echo base_url(); ?>calendario/generale">
+                        <i class="icon-graduation"></i>
+                        Calendario Generale
+                    </a>
+            </li>
             <?php foreach ($dottori->result() as $dottore): ?>
                 <li>
                     <a href="<?php echo base_url(); ?>calendario/dottore/<?php echo $dottore->id; ?>">
@@ -205,12 +261,7 @@
         </a>
     </li>-->
 
-    <li class="last ">
-        <a href="<?php echo base_url(); ?>registravisita">
-            <i class="icon-cloud-upload"></i>
-            <span class="title">Nuovo Appuntamento</span>
-        </a>
-    </li>
+    
 
 <!--     <li class="last "> -->
 <!--         <a href="<?php echo base_url(); ?>userdrive"> -->
@@ -218,7 +269,7 @@
 <!--             <span class="title">Il tuo Drive</span> -->
 <!--         </a> -->
 <!--     </li> -->
-
+<?php if($this->session->userdata('tipoacc') != 2) :?>
     <li class="last ">
         <a href="<?php echo base_url(); ?>statistiche">
             <i class="icon-graph"></i>
@@ -234,3 +285,4 @@
     </li>
 
 </ul>
+<?php endif;?>

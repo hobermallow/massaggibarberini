@@ -240,7 +240,8 @@ License: You must have a valid license purchased only from themeforest(the above
 						<input type="submit" name="add" value="Aggiungi" class="btn btn-default">
 						</form>
                         </div>
-
+						<br>
+						<br>
                         <div class="col-md-12">
                             <div class="portlet box green-meadow calendar">
                                 <div class="portlet-title">

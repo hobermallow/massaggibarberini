@@ -152,5 +152,17 @@ class visite_data extends CI_Model {
         $bool = $this->db->delete('relationship_visite_studi', ['id_persona' => $id, 'id_studio' => $this->session->userdata('id_studio')]);
         return $this->db->query("DELETE FROM visite WHERE id=" . (int) $id) && $bool;
     }
+    
+    function get_durata_visita_by_id_prestazione($id_prestazione) {
+    	if($id_prestazione != NULL) {
+    		$this->db->where(['id' => $id_prestazione]);
+    		$query = $this->db->get('prestazioni');
+    		return $query->row()->durata_prestazione;
+    	}
+    	else {
+    		//ritorno durata di default di un'ora
+    		return 60;
+    	}
+    }
 
 }
